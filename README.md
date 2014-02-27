@@ -4,6 +4,7 @@ Stay connected to live sports and shows from PSBN (Peoria Student Broadcast Netw
 
 Upcoming features
 - Video Uploads
+- PSBN Radio
 - Submit scores via Text Message
 
 If you have any problems with the app, simple close the app, remove it from multitasking (double tap the home button, then tap and hold app icon and then tap the minus sign), then relaunch the app.

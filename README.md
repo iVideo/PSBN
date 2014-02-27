@@ -1,2 +1,2 @@
-PSBN iOS App
+PSBN
 ====

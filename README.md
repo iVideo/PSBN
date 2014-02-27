@@ -9,4 +9,4 @@ Upcoming features
 
 If you have any problems with the app, simple close the app, remove it from multitasking (double tap the home button, then tap and hold app icon and then tap the minus sign), then relaunch the app.
 <hr />
-If you download this project be sure to also download the [Parse SDK](https://parse.com/downloads/ios/parse-library/latest)
+If you download this project be sure to also download the [Parse SDK for iOS](https://parse.com/downloads/ios/parse-library/latest) and replace the Parse framework in this project. Xcode doesn't completely upload the Parse framework and leaves out a few files causing the build errors.

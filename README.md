@@ -1,4 +1,4 @@
-PSBN
+PSBN iOS App
 ====
 Stay connected to live sports and shows from PSBN (Peoria Student Broadcast Network) - wherever and whenever you want them. Download the FREE PSBN app to your iPhone, iPad or iPod touch and get 24/7 access to live streaming feeds from PSBN. PSBN is available to fans of high school athletics, performing arts, and educational programing.
 

@@ -8,6 +8,5 @@ Upcoming features
 - Submit scores via Text Message
 
 If you have any problems with the app, simple close the app, remove it from multitasking (double tap the home button, then tap and hold app icon and then tap the minus sign), then relaunch the app.
-====
 
-====
+https://parse.com/downloads/ios/parse-library/latest

@@ -9,6 +9,7 @@
 #import "PSBNAppDelegate.h"
 
 #import "PSBNTheaterList.h"
+#import "PSBNRadio.h"
 #import "PSBNCamera.h"
 #import "PSBNScores.h"
 
@@ -25,6 +26,7 @@
     UIViewController *theaterListController, *radioController, *scoresController;
     UINavigationController *theaterListNavController, *radioNavController, *scoresNavController;
     
+    radioController = [[PSBNRadio alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
     radioNavController = [[UINavigationController alloc] initWithRootViewController:radioController];
     
     theaterListController = [[PSBNTheaterList alloc] init];

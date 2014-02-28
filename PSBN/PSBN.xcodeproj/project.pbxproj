@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
+		1765120418C05FA700657C04 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120318C05FA700657C04 /* CoreLocation.framework */; };
+		1765120618C05FB500657C04 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120518C05FB500657C04 /* MobileCoreServices.framework */; };
+		1765120818C05FC700657C04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120718C05FC700657C04 /* SystemConfiguration.framework */; };
+		1765120B18C0608C00657C04 /* UITabBarPodcasts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */; };
+		1765120C18C0608C00657C04 /* UITabBarPodcasts.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120A18C0608C00657C04 /* UITabBarPodcasts.png */; };
 		17B68EA518BEBA26006A67D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA418BEBA26006A67D3 /* Foundation.framework */; };
 		17B68EA718BEBA26006A67D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */; };
 		17B68EA918BEBA26006A67D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA818BEBA26006A67D3 /* UIKit.framework */; };
@@ -99,6 +105,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		176511FF18C05F8700657C04 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1765120118C05F9500657C04 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1765120318C05FA700657C04 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1765120518C05FB500657C04 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1765120718C05FC700657C04 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarPodcasts@2x.png"; sourceTree = "<group>"; };
+		1765120A18C0608C00657C04 /* UITabBarPodcasts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarPodcasts.png; sourceTree = "<group>"; };
 		17B68EA118BEBA26006A67D3 /* PSBN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSBN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B68EA418BEBA26006A67D3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -195,6 +208,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1765120818C05FC700657C04 /* SystemConfiguration.framework in Frameworks */,
+				1765120618C05FB500657C04 /* MobileCoreServices.framework in Frameworks */,
+				1765120418C05FA700657C04 /* CoreLocation.framework in Frameworks */,
+				1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */,
 				17B68EA718BEBA26006A67D3 /* CoreGraphics.framework in Frameworks */,
 				17B68EA918BEBA26006A67D3 /* UIKit.framework in Frameworks */,
 				17B68EDD18BEBB58006A67D3 /* Parse.framework in Frameworks */,
@@ -237,6 +254,11 @@
 		17B68EA318BEBA26006A67D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1765120718C05FC700657C04 /* SystemConfiguration.framework */,
+				1765120518C05FB500657C04 /* MobileCoreServices.framework */,
+				1765120318C05FA700657C04 /* CoreLocation.framework */,
+				1765120118C05F9500657C04 /* CFNetwork.framework */,
+				176511FF18C05F8700657C04 /* AudioToolbox.framework */,
 				17B68EDC18BEBB57006A67D3 /* Parse.framework */,
 				17B68EA418BEBA26006A67D3 /* Foundation.framework */,
 				17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */,
@@ -357,6 +379,8 @@
 		17B68F5818BEBED7006A67D3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1765120A18C0608C00657C04 /* UITabBarPodcasts.png */,
+				1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */,
 				17B68F5918BEBEF5006A67D3 /* posterMask.png */,
 				17B68F5A18BEBEF5006A67D3 /* posterMask@2x.png */,
 				17B68F5D18BEBF03006A67D3 /* errorLoading_iPhone.png */,
@@ -533,6 +557,7 @@
 				17B68F2F18BEBD52006A67D3 /* Default-Landscape~ipad.png in Resources */,
 				17B68F6F18BEBF28006A67D3 /* cameraIcon_iPhone.png in Resources */,
 				17B68F6718BEBF17006A67D3 /* ScoreboardPlaceholder.png in Resources */,
+				1765120C18C0608C00657C04 /* UITabBarPodcasts.png in Resources */,
 				17B68F6D18BEBF28006A67D3 /* cameraIcon_iPad.png in Resources */,
 				17B68F2018BEBD41006A67D3 /* ios7_Default-568h@2x.png in Resources */,
 				17B68F5418BEBEC9006A67D3 /* DS-DIGI.TTF in Resources */,
@@ -569,6 +594,7 @@
 				17B68F7E18BEBFFF006A67D3 /* red.png in Resources */,
 				17B68F5C18BEBEF5006A67D3 /* posterMask@2x.png in Resources */,
 				17B68F5B18BEBEF5006A67D3 /* posterMask.png in Resources */,
+				1765120B18C0608C00657C04 /* UITabBarPodcasts@2x.png in Resources */,
 				17B68F7618BEBFD0006A67D3 /* navBarShadow_iPad@2x.png in Resources */,
 				17B68F8818BEC05B006A67D3 /* scores.png in Resources */,
 				17B68F4A18BEBE6A006A67D3 /* ios7_app_icon_ipad.png in Resources */,

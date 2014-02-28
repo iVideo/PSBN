@@ -27,9 +27,7 @@
 		17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */; };
 		17B68F0A18BEBC6D006A67D3 /* Scoreboard_Soccer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EEC18BEBC6D006A67D3 /* Scoreboard_Soccer.xib */; };
 		17B68F0E18BEBC6D006A67D3 /* Scoreboard_Wrestling.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EF018BEBC6D006A67D3 /* Scoreboard_Wrestling.xib */; };
-		17B68F0F18BEBC6D006A67D3 /* PSBNTheaterGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EF118BEBC6D006A67D3 /* PSBNTheaterGrid.m */; };
 		17B68F1018BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EF218BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib */; };
-		17B68F1318BEBC6D006A67D3 /* PSBNTheaterGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EF818BEBC6D006A67D3 /* PSBNTheaterGridCell.m */; };
 		17B68F1618BEBC6D006A67D3 /* Scoreboard_Football.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EFC18BEBC6D006A67D3 /* Scoreboard_Football.xib */; };
 		17B68F1818BEBC6D006A67D3 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EFF18BEBC6D006A67D3 /* Settings.bundle */; };
 		17B68F2018BEBD41006A67D3 /* ios7_Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B68F1A18BEBD41006A67D3 /* ios7_Default-568h@2x.png */; };
@@ -120,19 +118,15 @@
 		17B68EDF18BEBC6D006A67D3 /* PSBNMoviePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNMoviePlayerController.m; sourceTree = "<group>"; };
 		17B68EE118BEBC6D006A67D3 /* PSBNScores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScores.m; sourceTree = "<group>"; };
 		17B68EE418BEBC6D006A67D3 /* PSBNMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNMoviePlayerController.h; sourceTree = "<group>"; };
-		17B68EE518BEBC6D006A67D3 /* PSBNTheaterGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterGridCell.h; sourceTree = "<group>"; };
 		17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNCamera.m; sourceTree = "<group>"; };
 		17B68EE718BEBC6D006A67D3 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		17B68EE818BEBC6D006A67D3 /* Scoreboard_Basketball.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Basketball.xib; sourceTree = "<group>"; };
 		17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterPlayer.m; sourceTree = "<group>"; };
 		17B68EEC18BEBC6D006A67D3 /* Scoreboard_Soccer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Soccer.xib; sourceTree = "<group>"; };
 		17B68EF018BEBC6D006A67D3 /* Scoreboard_Wrestling.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Wrestling.xib; sourceTree = "<group>"; };
-		17B68EF118BEBC6D006A67D3 /* PSBNTheaterGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterGrid.m; sourceTree = "<group>"; };
 		17B68EF218BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Volleyball_Varsity.xib; sourceTree = "<group>"; };
 		17B68EF518BEBC6D006A67D3 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		17B68EF618BEBC6D006A67D3 /* PSBNCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNCamera.h; sourceTree = "<group>"; };
-		17B68EF818BEBC6D006A67D3 /* PSBNTheaterGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterGridCell.m; sourceTree = "<group>"; };
-		17B68EFB18BEBC6D006A67D3 /* PSBNTheaterGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterGrid.h; sourceTree = "<group>"; };
 		17B68EFC18BEBC6D006A67D3 /* Scoreboard_Football.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Football.xib; sourceTree = "<group>"; };
 		17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScores.h; sourceTree = "<group>"; };
 		17B68EFF18BEBC6D006A67D3 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -254,10 +248,6 @@
 			children = (
 				17B68EB318BEBA27006A67D3 /* PSBNAppDelegate.h */,
 				17B68EB418BEBA27006A67D3 /* PSBNAppDelegate.m */,
-				17B68EFB18BEBC6D006A67D3 /* PSBNTheaterGrid.h */,
-				17B68EF118BEBC6D006A67D3 /* PSBNTheaterGrid.m */,
-				17B68EE518BEBC6D006A67D3 /* PSBNTheaterGridCell.h */,
-				17B68EF818BEBC6D006A67D3 /* PSBNTheaterGridCell.m */,
 				17B68EF518BEBC6D006A67D3 /* PSBNTheaterList.h */,
 				17B68EE718BEBC6D006A67D3 /* PSBNTheaterList.m */,
 				17B68EDE18BEBC6D006A67D3 /* PSBNTheaterPlayer.h */,
@@ -605,8 +595,6 @@
 				17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */,
 				17B68F0518BEBC6D006A67D3 /* PSBNTheaterList.m in Sources */,
 				17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */,
-				17B68F0F18BEBC6D006A67D3 /* PSBNTheaterGrid.m in Sources */,
-				17B68F1318BEBC6D006A67D3 /* PSBNTheaterGridCell.m in Sources */,
 				17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */,
 				17B68EB518BEBA27006A67D3 /* PSBNAppDelegate.m in Sources */,
 			);

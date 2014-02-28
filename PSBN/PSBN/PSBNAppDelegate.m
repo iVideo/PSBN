@@ -8,7 +8,6 @@
 
 #import "PSBNAppDelegate.h"
 
-#import "PSBNTheaterGrid.h"
 #import "PSBNTheaterList.h"
 #import "PSBNCamera.h"
 #import "PSBNScores.h"
@@ -23,11 +22,10 @@
     [Parse setApplicationId:@"CbGaoZLs7udS8ZKr9Tbl3AdqHbah90shGjBSomyx" clientKey:@"KvO9K9dqfC876Im9Rkzo9yUmHDfkNrhD9rbteIXy"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    UIViewController *theaterGridController, *theaterListController, *scoresController;
-    UINavigationController *theaterGridNavController, *theaterListNavController, *scoresNavController;
+    UIViewController *theaterListController, *radioController, *scoresController;
+    UINavigationController *theaterListNavController, *radioNavController, *scoresNavController;
     
-    theaterGridController = [[PSBNTheaterGrid alloc] initWithCollectionViewLayout:nil];
-    theaterGridNavController = [[UINavigationController alloc] initWithRootViewController:theaterGridController];
+    radioNavController = [[UINavigationController alloc] initWithRootViewController:radioController];
     
     theaterListController = [[PSBNTheaterList alloc] init];
     theaterListNavController = [[UINavigationController alloc] initWithRootViewController:theaterListController];
@@ -48,12 +46,12 @@
         [self.window setTintColor:[UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f]];
         
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
-        [theaterGridNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
+        [radioNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
         [theaterListNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
         [scoresNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
     } else {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
-        [theaterGridNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
+        [radioNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
         [theaterListNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
         [scoresNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
     }
@@ -81,7 +79,7 @@
     } else {
         self.tabBarController = [[UITabBarController alloc] init];
         self.tabBarController.delegate = self;
-        self.tabBarController.viewControllers = @[theaterListNavController, scoresNavController];
+        self.tabBarController.viewControllers = @[theaterListNavController, radioNavController, scoresNavController];
         
         self.tabBarController.tabBar.selectedImageTintColor = [UIColor whiteColor];
         self.tabBarController.tabBar.backgroundImage = [UIImage imageNamed:@"black"];

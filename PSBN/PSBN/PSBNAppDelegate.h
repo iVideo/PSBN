@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) UISplitViewController *splitViewController;
 
-- (void)addCenterButtonWithImage:(UIImage*)buttonImage highlightImage:(UIImage*)highlightImage;
+- (void)addCenterButtonWithImage:(UIImage *)buttonImage highlightImage:(UIImage *)highlightImage;
 - (void)showCamera;
 
 @end

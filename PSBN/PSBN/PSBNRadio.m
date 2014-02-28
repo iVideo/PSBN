@@ -15,7 +15,7 @@
 @implementation PSBNRadio
 
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
-    self = [super initWithCollectionViewLayout:layout];
+    self = [super initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
     if (self) {
         self.title = @"Radio";
     }

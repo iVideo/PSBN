@@ -87,6 +87,7 @@
         self.tabBarController.tabBar.backgroundImage = [UIImage imageNamed:@"black"];
         
         theaterListNavController.navigationBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
+        radioNavController.navigationBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
         
         self.tabBarController.tabBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
         

@@ -85,6 +85,7 @@
 		17B68F8818BEC05B006A67D3 /* scores.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B68F8418BEC05B006A67D3 /* scores.png */; };
 		17B68F8918BEC05B006A67D3 /* scores@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B68F8518BEC05B006A67D3 /* scores@2x.png */; };
 		17B68F8A18BEC05B006A67D3 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B68F8618BEC05B006A67D3 /* white.png */; };
+		17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D9F07B18C05D5900616FFE /* PSBNRadio.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,8 @@
 		17B68F8418BEC05B006A67D3 /* scores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scores.png; sourceTree = "<group>"; };
 		17B68F8518BEC05B006A67D3 /* scores@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scores@2x.png"; sourceTree = "<group>"; };
 		17B68F8618BEC05B006A67D3 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
+		17D9F07A18C05D5900616FFE /* PSBNRadio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNRadio.h; sourceTree = "<group>"; };
+		17D9F07B18C05D5900616FFE /* PSBNRadio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNRadio.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +257,8 @@
 				17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */,
 				17B68EE418BEBC6D006A67D3 /* PSBNMoviePlayerController.h */,
 				17B68EDF18BEBC6D006A67D3 /* PSBNMoviePlayerController.m */,
+				17D9F07A18C05D5900616FFE /* PSBNRadio.h */,
+				17D9F07B18C05D5900616FFE /* PSBNRadio.m */,
 				17B68EF618BEBC6D006A67D3 /* PSBNCamera.h */,
 				17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */,
 				17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */,
@@ -590,6 +595,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				17B68EB118BEBA26006A67D3 /* main.m in Sources */,
 				17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */,

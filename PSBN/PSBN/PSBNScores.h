@@ -7,10 +7,14 @@
 //
 
 #import <MessageUI/MessageUI.h>
+#import "PSBNRadio.h"
 
-@interface PSBNScores : UITableViewController <UIActionSheetDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate> {
+@interface PSBNScores : UITableViewController <UIActionSheetDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, UIPopoverControllerDelegate> {
     UIBarButtonItem *submitScores;
     UIActionSheet *composeActionSheet;
+    
+    UIBarButtonItem *showRadio;
+    UIPopoverController *showRadioFrame;
     
     NSMutableArray *footballGames;
     NSMutableArray *volleyballGames;
@@ -26,5 +30,6 @@
 
 - (IBAction)resetTimer:(id)sender;
 - (IBAction)chooseSubmit:(id)sender;
+- (IBAction)showRadio:(id)sender;
 
 @end

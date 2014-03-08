@@ -43,6 +43,15 @@
     submitScores = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(chooseSubmit:)];
     self.navigationItem.leftBarButtonItem = submitScores;
     
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if ([self respondsToSelector:@selector(imageWithRenderingMode:)]) {
+            showRadio = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"UITabBarPodcasts"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStyleBordered target:self action:@selector(showRadio:)];
+        } else {
+            showRadio = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"UITabBarPodcasts"] style:UIBarButtonItemStyleBordered target:self action:@selector(showRadio:)];
+        }
+        self.navigationItem.rightBarButtonItem = showRadio;
+    }
+    
     // Setup tableview color
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor blackColor];
@@ -62,7 +71,12 @@
 }
 
 - (IBAction)chooseSubmit:(id)sender {
-    if (![composeActionSheet isVisible]) {
+    if ([composeActionSheet isVisible]) {
+        [composeActionSheet dismissWithClickedButtonIndex:[composeActionSheet cancelButtonIndex] animated:YES];
+    } else {
+        if ([showRadioFrame isPopoverVisible]) {
+            [showRadioFrame dismissPopoverAnimated:YES];
+        }
         NSString *emailButtonText;
         if ([MFMailComposeViewController canSendMail]) {
             emailButtonText = @"Email";
@@ -661,6 +675,22 @@
 - (IBAction)resetTimer:(id)sender {
     // [refreshTimer invalidate];
     [self refresh];
+}
+
+- (IBAction)showRadio:(id)sender {
+    PSBNRadio *radioVC = [[PSBNRadio alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:radioVC];
+    if ([showRadioFrame isPopoverVisible]) {
+        [showRadioFrame dismissPopoverAnimated:YES];
+    } else {
+        if ([composeActionSheet isVisible]) {
+            [composeActionSheet dismissWithClickedButtonIndex:[composeActionSheet cancelButtonIndex] animated:YES];
+        }
+        showRadioFrame = [[UIPopoverController alloc] initWithContentViewController:navController];
+        showRadioFrame.delegate = self;
+        [showRadioFrame presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+    }
 }
 
 - (void)dealloc {

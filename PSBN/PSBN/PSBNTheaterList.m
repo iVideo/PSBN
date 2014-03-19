@@ -132,7 +132,7 @@
                                         
                                         if ([components containsObject:@"views"]) {
                                             int index = (int)([components indexOfObject:@"views"]);
-                                            NSString *viewsRetrieved = [[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@", " withString:@""];
+                                            NSString *viewsRetrieved = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@", " withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""];
                                             [object setObject:viewsRetrieved forKey:@"views"];
                                             [object saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
                                                 if ([components containsObject:@"secure_m3u8_url"]) {
@@ -462,7 +462,7 @@
                 blur.barTintColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
                 blur.tintColor = [UIColor whiteColor];
                 blur.translucent = YES;
-                UIBarButtonItem *views = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"▶ %@", [object objectForKey:@"views"]] style:UIBarButtonItemStylePlain target:self action:nil];
+                UIBarButtonItem *views = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"▶ %d", [[object objectForKey:@"views"] intValue]] style:UIBarButtonItemStylePlain target:self action:nil];
                 views.enabled = YES;
                 blur.items = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], views, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
                 [cell addSubview:blur];

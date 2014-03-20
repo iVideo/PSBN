@@ -142,8 +142,6 @@
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error setting up push notifications" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to setup push notifications. We will automatically try this at a later time.", error.localizedDescription] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-        [errorImproving show];
         [currentInstallation saveEventually];
     }];
 }

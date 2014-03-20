@@ -64,6 +64,14 @@
     [self.refreshControl beginRefreshing];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Checking if any events are live..."];
     PFQuery *livestreamQuery = [PFQuery queryWithClassName:@"livestreamAvailable"];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+        [livestreamQuery clearCachedResult];
+    }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+        livestreamQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    } else {
+        livestreamQuery.cachePolicy = kPFCachePolicyNetworkOnly;
+    }
     [livestreamQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             if ([[object objectForKey:@"liveBool"] boolValue]) {
@@ -75,14 +83,18 @@
         }
         self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
         PFQuery *eventQuery = [PFQuery queryWithClassName:@"eventList"];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+            [eventQuery clearCachedResult];
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+            eventQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        } else {
+            eventQuery.cachePolicy = kPFCachePolicyNetworkOnly;
+        }
         eventQuery.limit = 1000;
         [eventQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if (!error) {
-                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
-                    numberOfVideos += (float)(number*2);
-                } else {
-                    numberOfVideos += (float)(number);
-                }
+                numberOfVideos += (float)(number);
                 self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
             }
             [eventQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -105,9 +117,11 @@
                     [feedContent addObject:section1];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
                         [self improve];
-                    } else {
-                        [self.refreshControl endRefreshing];
                     }
+                    [self.refreshControl endRefreshing];
+                    videosProcessed = 0.0f;
+                    numberOfVideos = 0.0f;
+                    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
                     [self.tableView reloadData];
                 }
             }];
@@ -121,144 +135,159 @@
             // Posters
             NSURL *eventPageURL = [NSURL URLWithString:[object objectForKey:@"eventPage"]];
             // Poster iPad Retina
-            NSURL *posterIpadRetina = [NSURL URLWithString:[object objectForKey:@"posterURLretina"]];
-            if ([posterIpadRetina.absoluteString isEqualToString:@"(undefined)"] || [posterIpadRetina.absoluteString isEqualToString:@""]) {
-                NSError *error;
-                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                if (!error) {
-                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                    
-                    if ([components containsObject:@"geo_restriction"]) {
-                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"400x600"];
-                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina"];
-                        [object saveEventually];
+            if ([[object objectForKey:@"posterURLretina"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURLretina"] isEqualToString:@""]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    NSError *error;
+                    NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
+                    if (!error) {
+                        NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
+                        
+                        if ([components containsObject:@"geo_restriction"]) {
+                            int index = (int)([components indexOfObject:@"geo_restriction"]);
+                            NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
+                            NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
+                            NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"400x600"];
+                            NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
+                            [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina"];
+                        }
                     }
-                }
+                });
             }
             
             // Poster iPad
-            NSURL *posterIpad = [NSURL URLWithString:[object objectForKey:@"posterURL"]];
-            if ([posterIpad.absoluteString isEqualToString:@"(undefined)"] || [posterIpad.absoluteString isEqualToString:@""]) {
-                NSError *error;
-                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                if (!error) {
-                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                    
-                    if ([components containsObject:@"geo_restriction"]) {
-                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"];
-                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL"];
-                        [object saveEventually];
+            if ([[object objectForKey:@"posterURL"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURL"] isEqualToString:@""]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    NSError *error;
+                    NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
+                    if (!error) {
+                        NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
+                        
+                        if ([components containsObject:@"geo_restriction"]) {
+                            int index = (int)([components indexOfObject:@"geo_restriction"]);
+                            NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
+                            NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
+                            NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"];
+                            NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
+                            [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL"];
+                        }
                     }
-                }
+                });
             }
             
             // Poster iPhone Retina
-            NSURL *posterIphoneRetina = [NSURL URLWithString:[object objectForKey:@"posterURLretina_iPhone"]];
-            if ([posterIphoneRetina.absoluteString isEqualToString:@"(undefined)"] || [posterIphoneRetina.absoluteString isEqualToString:@""]) {
-                NSError *error;
-                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                if (!error) {
-                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                    
-                    if ([components containsObject:@"geo_restriction"]) {
-                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"133x200"];
-                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina_iPhone"];
-                        [object saveEventually];
+            if ([[object objectForKey:@"posterURLretina_iPhone"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURLretina_iPhone"] isEqualToString:@""]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    NSError *error;
+                    NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
+                    if (!error) {
+                        NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
+                        
+                        if ([components containsObject:@"geo_restriction"]) {
+                            int index = (int)([components indexOfObject:@"geo_restriction"]);
+                            NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
+                            NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
+                            NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"133x200"];
+                            NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
+                            [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina_iPhone"];
+                        }
                     }
-                }
+                });
             }
             
             // Poster iPhone
-            NSURL *posterIphone = [NSURL URLWithString:[object objectForKey:@"posterURL_iPhone"]];
-            if ([posterIphone.absoluteString isEqualToString:@"(undefined)"] || [posterIphone.absoluteString isEqualToString:@""]) {
-                NSError *error;
-                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                if (!error) {
-                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                    
-                    if ([components containsObject:@"geo_restriction"]) {
-                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"67x100"];
-                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL_iPhone"];
-                        [object saveEventually];
+            if ([[object objectForKey:@"posterURL_iPhone"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURL_iPhone"] isEqualToString:@""]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    NSError *error;
+                    NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
+                    if (!error) {
+                        NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
+                        
+                        if ([components containsObject:@"geo_restriction"]) {
+                            int index = (int)([components indexOfObject:@"geo_restriction"]);
+                            NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
+                            NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
+                            NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"67x100"];
+                            NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
+                            [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL_iPhone"];
+                        }
                     }
-                }
+                });
             }
             
-            NSURL *customPlayerURL = [NSURL URLWithString:[object objectForKey:@"customPlayer"]];
-            if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [customPlayerURL.absoluteString isEqualToString:@"(undefined)"] || [customPlayerURL.absoluteString isEqualToString:@""]) {
-                // Auto-crop iframe url if existant
-                NSURL *url = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
-                NSError *error;
-                NSString *sourceCode = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-                
-                if (!error) {
-                    // Custom Player Video URL
-                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
+            if ([[object objectForKey:@"fallbackPlayer"] rangeOfString:@"iframe"].location != NSNotFound) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    NSString *originalString = [object objectForKey:@"fallbackPlayer"];
                     
-                    // Update views
-                    if ([components containsObject:@"views"]) {
-                        int index = (int)([components indexOfObject:@"views"]);
-                        int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-                        int lastViews = [[object objectForKey:@"views"] intValue];
-                        [object incrementKey:@"views" byAmount:[NSNumber numberWithInt:views-lastViews]];
-                    }
-                    // Update custom player
-                    if ([components containsObject:@"secure_m3u8_url"]) {
-                        int index = (int)([components indexOfObject:@"secure_m3u8_url"]);
-                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                    } else if ([components containsObject:@"m3u8_url"]) {
-                        int index = (int)([components indexOfObject:@"m3u8_url"]);
-                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                    } else if ([components containsObject:@"secure_progressive_url_hd"]) {
-                        int index = (int)([components indexOfObject:@"secure_progressive_url_hd"]);
-                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                    } else if ([components containsObject:@"progressive_url_hd"]) {
-                        int index = (int)([components indexOfObject:@"progressive_url_hd"]);
-                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                    } else if ([components containsObject:@"secure_progressive_url"]) {
-                        int index = (int)([components indexOfObject:@"secure_progressive_url"]);
-                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                    } else if ([components containsObject:@"progressive_url"]) {
-                        int index = (int)([components indexOfObject:@"progressive_url"]);
-                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                    }
-                }
-                [object saveEventually:^(BOOL succeeded, NSError *error) {
-                    if (succeeded && !error) {
-                        videosProcessed++;
-                        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Improving event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
-                    }
-                }];
-            } else {
-                videosProcessed++;
-                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Improving event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
-                if (videosProcessed == numberOfVideos) {
-                    [self.refreshControl endRefreshing];
-                    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
-                }
+                    NSString *edit1 = [originalString stringByReplacingOccurrencesOfString:@"<iframe src=\"" withString:@""];
+                    NSString *edit2 = [edit1 stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
+                    NSString *edit3 = [edit2 stringByReplacingOccurrencesOfString:@"autoPlay=false" withString:@"autoPlay=true"];
+                    NSString *edit4 = [edit3 stringByReplacingOccurrencesOfString:@"\" width=\"640\" height=\"360\" frameborder=\"0\" scrolling=\"no\"></iframe>" withString:@""];
+                    NSString *edit5 = [edit4 stringByReplacingOccurrencesOfString:@"\" width=\"640\" height=\"360\" frameborder=\"0\" scrolling=\"no\"> </iframe>" withString:@""];
+                    NSString *edit6 = [edit5 stringByReplacingOccurrencesOfString:@"?width=640&" withString:@"?"];
+                    NSString *edit7 = [edit6 stringByReplacingOccurrencesOfString:@"&width=640&" withString:@"&"];
+                    NSString *edit8 = [edit7 stringByReplacingOccurrencesOfString:@"&width=640" withString:@""];
+                    NSString *edit9 = [edit8 stringByReplacingOccurrencesOfString:@"?height=360&" withString:@"?"];
+                    NSString *edit10 = [edit9 stringByReplacingOccurrencesOfString:@"&height=360&" withString:@"&"];
+                    NSString *edit11 = [edit10 stringByReplacingOccurrencesOfString:@"&height=360" withString:@""];
+                    
+                    [object setObject:edit11 forKey:@"fallbackPlayer"];
+                });
             }
+            
+            if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [[object objectForKey:@"customPlayer"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"customPlayer"] isEqualToString:@""]) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    // Auto-crop iframe url if existant
+                    NSURL *url = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
+                    NSError *error;
+                    NSString *sourceCode = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+                    
+                    if (!error) {
+                        // Custom Player Video URL
+                        NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
+                        
+                        // Update views
+                        if ([components containsObject:@"views"]) {
+                            int index = (int)([components indexOfObject:@"views"]);
+                            int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+                            int lastViews = [[object objectForKey:@"views"] intValue];
+                            [object incrementKey:@"views" byAmount:[NSNumber numberWithInt:views-lastViews]];
+                        }
+                        // Update custom player
+                        if ([components containsObject:@"secure_m3u8_url"]) {
+                            int index = (int)([components indexOfObject:@"secure_m3u8_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                        } else if ([components containsObject:@"m3u8_url"]) {
+                            int index = (int)([components indexOfObject:@"m3u8_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                        } else if ([components containsObject:@"secure_progressive_url_hd"]) {
+                            int index = (int)([components indexOfObject:@"secure_progressive_url_hd"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                        } else if ([components containsObject:@"progressive_url_hd"]) {
+                            int index = (int)([components indexOfObject:@"progressive_url_hd"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                        } else if ([components containsObject:@"secure_progressive_url"]) {
+                            int index = (int)([components indexOfObject:@"secure_progressive_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                        } else if ([components containsObject:@"progressive_url"]) {
+                            int index = (int)([components indexOfObject:@"progressive_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                        }
+                    }
+                });
+            }
+            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!succeeded) {
+                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                    [errorImproving show];
+                    [object saveEventually];
+                }
+            }];
         }
     }
 }

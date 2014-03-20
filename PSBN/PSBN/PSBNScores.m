@@ -181,6 +181,14 @@
     scoresProcessed = 0.0f;
     
     PFQuery *footballScoreQuery = [PFQuery queryWithClassName:@"footballScores"];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+        [footballScoreQuery clearCachedResult];
+    }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+        footballScoreQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    } else {
+        footballScoreQuery.cachePolicy = kPFCachePolicyNetworkOnly;
+    }
     footballScoreQuery.limit = 1000;
     [footballScoreQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         numberOfScores += (float)(number);
@@ -204,6 +212,14 @@
                 }];
             }
             PFQuery *volleyballScoreQuery = [PFQuery queryWithClassName:@"volleyballScores"];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+                [volleyballScoreQuery clearCachedResult];
+            }
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+                volleyballScoreQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+            } else {
+                volleyballScoreQuery.cachePolicy = kPFCachePolicyNetworkOnly;
+            }
             volleyballScoreQuery.limit = 1000;
             [volleyballScoreQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
                 numberOfScores += (float)(number);
@@ -227,6 +243,14 @@
                         }];
                     }
                     PFQuery *basketallScoreQuery = [PFQuery queryWithClassName:@"basketballScores"];
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+                        [basketallScoreQuery clearCachedResult];
+                    }
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+                        basketallScoreQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+                    } else {
+                        basketallScoreQuery.cachePolicy = kPFCachePolicyNetworkOnly;
+                    }
                     basketallScoreQuery.limit = 1000;
                     [basketallScoreQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
                         numberOfScores += (float)(number);
@@ -250,6 +274,14 @@
                                 }];
                             }
                             PFQuery *soccerScoreQuery = [PFQuery queryWithClassName:@"soccerScores"];
+                            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+                                [soccerScoreQuery clearCachedResult];
+                            }
+                            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+                                soccerScoreQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
+                            } else {
+                                soccerScoreQuery.cachePolicy = kPFCachePolicyNetworkOnly;
+                            }
                             soccerScoreQuery.limit = 1000;
                             [soccerScoreQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
                                 numberOfScores += (float)(number);

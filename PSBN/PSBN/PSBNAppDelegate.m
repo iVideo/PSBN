@@ -141,7 +141,11 @@
     // Store the deviceToken in the current Installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
-    [currentInstallation saveInBackground];
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error setting up push notifications" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to setup push notifications. We will automatically try this at a later time.", error.localizedDescription] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [errorImproving show];
+        [currentInstallation saveEventually];
+    }];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

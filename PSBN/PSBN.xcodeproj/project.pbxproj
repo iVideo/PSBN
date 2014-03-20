@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */; };
 		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
 		1765120418C05FA700657C04 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120318C05FA700657C04 /* CoreLocation.framework */; };
 		1765120618C05FB500657C04 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120518C05FB500657C04 /* MobileCoreServices.framework */; };
@@ -28,7 +29,6 @@
 		17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EDF18BEBC6D006A67D3 /* PSBNMoviePlayerController.m */; };
 		17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EE118BEBC6D006A67D3 /* PSBNScores.m */; };
 		17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */; };
-		17B68F0518BEBC6D006A67D3 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EE718BEBC6D006A67D3 /* PSBNTheaterList.m */; };
 		17B68F0618BEBC6D006A67D3 /* Scoreboard_Basketball.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EE818BEBC6D006A67D3 /* Scoreboard_Basketball.xib */; };
 		17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */; };
 		17B68F0A18BEBC6D006A67D3 /* Scoreboard_Soccer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EEC18BEBC6D006A67D3 /* Scoreboard_Soccer.xib */; };
@@ -105,6 +105,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
+		1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		176511FF18C05F8700657C04 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1765120118C05F9500657C04 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1765120318C05FA700657C04 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -133,13 +135,11 @@
 		17B68EE118BEBC6D006A67D3 /* PSBNScores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScores.m; sourceTree = "<group>"; };
 		17B68EE418BEBC6D006A67D3 /* PSBNMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNMoviePlayerController.h; sourceTree = "<group>"; };
 		17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNCamera.m; sourceTree = "<group>"; };
-		17B68EE718BEBC6D006A67D3 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		17B68EE818BEBC6D006A67D3 /* Scoreboard_Basketball.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Basketball.xib; sourceTree = "<group>"; };
 		17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterPlayer.m; sourceTree = "<group>"; };
 		17B68EEC18BEBC6D006A67D3 /* Scoreboard_Soccer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Soccer.xib; sourceTree = "<group>"; };
 		17B68EF018BEBC6D006A67D3 /* Scoreboard_Wrestling.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Wrestling.xib; sourceTree = "<group>"; };
 		17B68EF218BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Volleyball_Varsity.xib; sourceTree = "<group>"; };
-		17B68EF518BEBC6D006A67D3 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		17B68EF618BEBC6D006A67D3 /* PSBNCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNCamera.h; sourceTree = "<group>"; };
 		17B68EFC18BEBC6D006A67D3 /* Scoreboard_Football.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Football.xib; sourceTree = "<group>"; };
 		17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScores.h; sourceTree = "<group>"; };
@@ -273,8 +273,8 @@
 			children = (
 				17B68EB318BEBA27006A67D3 /* PSBNAppDelegate.h */,
 				17B68EB418BEBA27006A67D3 /* PSBNAppDelegate.m */,
-				17B68EF518BEBC6D006A67D3 /* PSBNTheaterList.h */,
-				17B68EE718BEBC6D006A67D3 /* PSBNTheaterList.m */,
+				1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */,
+				1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */,
 				17B68EDE18BEBC6D006A67D3 /* PSBNTheaterPlayer.h */,
 				17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */,
 				17B68EE418BEBC6D006A67D3 /* PSBNMoviePlayerController.h */,
@@ -507,7 +507,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PSBN;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Tech Genius";
 				TargetAttributes = {
 					17B68EC418BEBA27006A67D3 = {
@@ -621,11 +621,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */,
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				17B68EB118BEBA26006A67D3 /* main.m in Sources */,
 				17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */,
-				17B68F0518BEBC6D006A67D3 /* PSBNTheaterList.m in Sources */,
 				17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */,
 				17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */,
 				17B68EB518BEBA27006A67D3 /* PSBNAppDelegate.m in Sources */,
@@ -674,7 +674,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -715,7 +714,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -782,7 +780,6 @@
 		17B68EDA18BEBA28006A67D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PSBN.app/PSBN";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -805,7 +802,6 @@
 		17B68EDB18BEBA28006A67D3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PSBN.app/PSBN";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

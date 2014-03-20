@@ -750,8 +750,8 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"~/Desktop/PSBN/PSBN",
-					/Users/vilisei/Apps/PSBN/PSBN,
+					"~/Desktop/PSBN-App/PSBN",
+					"~/Apps/PSBN/PSBN",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PSBN/PSBN-Prefix.pch";
@@ -766,8 +766,8 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"~/Desktop/PSBN/PSBN",
-					/Users/vilisei/Apps/PSBN/PSBN,
+					"~/Desktop/PSBN-App/PSBN",
+					"~/Apps/PSBN/PSBN",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PSBN/PSBN-Prefix.pch";

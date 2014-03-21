@@ -45,7 +45,7 @@
         fallbackPlayerURL = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
         // Check if valid custom player URL
         
-        if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [customPlayerURL.absoluteString isEqualToString:@"(undefined)"] || [customPlayerURL.absoluteString isEqualToString:@""]) {
+        if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [object objectForKey:@"customPlayer"] == nil) {
             validCustomPlayerURL = NO;
         } else {
             validCustomPlayerURL = YES;

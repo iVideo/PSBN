@@ -421,7 +421,7 @@
             url = [NSURL URLWithString:[object objectForKey:@"posterURL_iPhone"]];
         }
     }
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         cell.imageView.image = nil;

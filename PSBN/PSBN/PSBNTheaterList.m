@@ -50,6 +50,51 @@
     
     // Setup tableview color
     self.tableView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
+    
+    /*
+    PFObject *object = [PFObject objectWithClassName:@"softballScores"];
+    object[@"homeTeam"] = @"Kellis";
+    object[@"awayTeam"] = @"Peoria";
+    object[@"gameDate"] = [NSDate date];
+    
+    object[@"home1"] = @0;
+    object[@"home2"] = @0;
+    object[@"home3"] = @0;
+    object[@"home4"] = @0;
+    object[@"home5"] = @0;
+    object[@"home6"] = @0;
+    object[@"home7"] = @0;
+    object[@"home8"] = @0;
+    object[@"home9"] = @0;
+    
+    object[@"away1"] = @0;
+    object[@"away2"] = @0;
+    object[@"away3"] = @0;
+    object[@"away4"] = @0;
+    object[@"away5"] = @0;
+    object[@"away6"] = @0;
+    object[@"away7"] = @0;
+    object[@"away8"] = @0;
+    object[@"away9"] = @0;
+    
+    object[@"homeR"] = @0;
+    object[@"homeH"] = @0;
+    object[@"homeE"] = @0;
+    object[@"homeOverall"] = @0;
+    
+    object[@"awayR"] = @0;
+    object[@"awayH"] = @0;
+    object[@"awayE"] = @0;
+    object[@"awayOverall"] = @0;
+    
+    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"Saved");
+        } else {
+            NSLog(@"Error %@", error.localizedDescription);
+        }
+    }];
+     */
 }
 
 - (void)viewWillAppear:(BOOL)animated {

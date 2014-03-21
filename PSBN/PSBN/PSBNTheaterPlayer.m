@@ -67,7 +67,7 @@
             fallbackPlayer = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
             [self.view addSubview:fallbackPlayer];
             fallbackPlayer.scrollView.bounces = NO;
-            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:fallbackPlayerURL];
+            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:fallbackPlayerURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
             [fallbackPlayer loadRequest:urlRequest];
         }
         
@@ -77,7 +77,7 @@
         poster.contentMode = UIViewContentModeRedraw;
         
         NSURL *url = [NSURL URLWithString:[object objectForKey:@"posterURL"]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             if (!error) {
                 poster.image = [UIImage imageWithData:data];

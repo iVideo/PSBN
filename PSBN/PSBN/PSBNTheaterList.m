@@ -135,7 +135,7 @@
             // Posters
             NSURL *eventPageURL = [NSURL URLWithString:[object objectForKey:@"eventPage"]];
             // Poster iPad Retina
-            if ([[object objectForKey:@"posterURLretina"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURLretina"] isEqualToString:@""]) {
+            if ([object objectForKey:@"posterURLretina"] == nil) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                     NSError *error;
                     NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
@@ -149,13 +149,20 @@
                             NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"400x600"];
                             NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         }
                     }
                 });
             }
             
             // Poster iPad
-            if ([[object objectForKey:@"posterURL"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURL"] isEqualToString:@""]) {
+            if ([object objectForKey:@"posterURL"] == nil) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                     NSError *error;
                     NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
@@ -169,13 +176,20 @@
                             NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"];
                             NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         }
                     }
                 });
             }
             
             // Poster iPhone Retina
-            if ([[object objectForKey:@"posterURLretina_iPhone"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURLretina_iPhone"] isEqualToString:@""]) {
+            if ([object objectForKey:@"posterURLretina_iPhone"] == nil) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                     NSError *error;
                     NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
@@ -189,13 +203,20 @@
                             NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"133x200"];
                             NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina_iPhone"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         }
                     }
                 });
             }
             
             // Poster iPhone
-            if ([[object objectForKey:@"posterURL_iPhone"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"posterURL_iPhone"] isEqualToString:@""]) {
+            if ([object objectForKey:@"posterURL_iPhone"] == nil) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                     NSError *error;
                     NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
@@ -209,6 +230,13 @@
                             NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"67x100"];
                             NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL_iPhone"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         }
                     }
                 });
@@ -231,10 +259,17 @@
                     NSString *edit11 = [edit10 stringByReplacingOccurrencesOfString:@"&height=360" withString:@""];
                     
                     [object setObject:edit11 forKey:@"fallbackPlayer"];
+                    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (error) {
+                            UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                            [errorImproving show];
+                            [object saveEventually];
+                        }
+                    }];
                 });
             }
             
-            if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [[object objectForKey:@"customPlayer"] isEqualToString:@"(undefined)"] || [[object objectForKey:@"customPlayer"] isEqualToString:@""]) {
+            if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [object objectForKey:@"customPlayer"] == nil) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                     // Auto-crop iframe url if existant
                     NSURL *url = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
@@ -251,43 +286,85 @@
                             int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
                             int lastViews = [[object objectForKey:@"views"] intValue];
                             [object incrementKey:@"views" byAmount:[NSNumber numberWithInt:views-lastViews]];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         }
                         // Update custom player
                         if ([components containsObject:@"secure_m3u8_url"]) {
                             int index = (int)([components indexOfObject:@"secure_m3u8_url"]);
                             NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         } else if ([components containsObject:@"m3u8_url"]) {
                             int index = (int)([components indexOfObject:@"m3u8_url"]);
                             NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         } else if ([components containsObject:@"secure_progressive_url_hd"]) {
                             int index = (int)([components indexOfObject:@"secure_progressive_url_hd"]);
                             NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         } else if ([components containsObject:@"progressive_url_hd"]) {
                             int index = (int)([components indexOfObject:@"progressive_url_hd"]);
                             NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         } else if ([components containsObject:@"secure_progressive_url"]) {
                             int index = (int)([components indexOfObject:@"secure_progressive_url"]);
                             NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         } else if ([components containsObject:@"progressive_url"]) {
                             int index = (int)([components indexOfObject:@"progressive_url"]);
                             NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                                    [errorImproving show];
+                                    [object saveEventually];
+                                }
+                            }];
                         }
                     }
                 });
             }
-            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!succeeded) {
-                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                    [errorImproving show];
-                    [object saveEventually];
-                }
-            }];
         }
     }
 }
@@ -362,7 +439,7 @@
     }];
     
     cell.textLabel.text = [object objectForKey:@"title"];
-    cell.textLabel.numberOfLines = 2;
+    cell.textLabel.numberOfLines = 3;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

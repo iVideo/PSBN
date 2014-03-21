@@ -151,8 +151,7 @@
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -178,8 +177,7 @@
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -205,8 +203,7 @@
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina_iPhone"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -232,8 +229,7 @@
                             [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL_iPhone"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -261,8 +257,7 @@
                     [object setObject:edit11 forKey:@"fallbackPlayer"];
                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (error) {
-                            UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                            [errorImproving show];
+                            NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                             [object saveEventually];
                         }
                     }];
@@ -288,8 +283,7 @@
                             [object incrementKey:@"views" byAmount:[NSNumber numberWithInt:views-lastViews]];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -301,8 +295,7 @@
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -312,8 +305,7 @@
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -323,8 +315,7 @@
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -334,8 +325,7 @@
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -345,8 +335,7 @@
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];
@@ -356,8 +345,7 @@
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
-                                    UIAlertView *errorImproving = [[UIAlertView alloc] initWithTitle:@"Error improving" message:[NSString stringWithFormat:@"We have encountered and error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                                    [errorImproving show];
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
                                     [object saveEventually];
                                 }
                             }];

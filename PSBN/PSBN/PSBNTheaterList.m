@@ -324,8 +324,13 @@
                         if ([components containsObject:@"views"]) {
                             int index = (int)([components indexOfObject:@"views"]);
                             int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-                            int lastViews = [[object objectForKey:@"views"] intValue];
+                            
+                            int lastViews = [[object objectForKey:@"webViews"] intValue];
                             [object incrementKey:@"webViews" byAmount:[NSNumber numberWithInt:views-lastViews]];
+                            
+                            int lastTotalViews = [[object objectForKey:@"totalViews"] intValue];
+                            [object incrementKey:@"totalViews" byAmount:[NSNumber numberWithInt:([[object objectForKey:@"webViews"] intValue]+[[object objectForKey:@"appViews"] intValue])-lastTotalViews]];
+                            
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);

@@ -211,6 +211,16 @@
         fallbackPlayer.scrollView.bounces = NO;
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:fallbackPlayerURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
         [fallbackPlayer loadRequest:urlRequest];
+    } else if ([[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonPlaybackEnded || [[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonUserExited) {
+        PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
+        [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
+            [object incrementKey:@"appViews"];
+            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!succeeded) {
+                    [object saveEventually];
+                }
+            }];
+        }];
     }
 }
 

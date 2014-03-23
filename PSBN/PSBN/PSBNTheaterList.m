@@ -325,7 +325,7 @@
                             int index = (int)([components indexOfObject:@"views"]);
                             int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
                             int lastViews = [[object objectForKey:@"views"] intValue];
-                            [object incrementKey:@"views" byAmount:[NSNumber numberWithInt:views-lastViews]];
+                            [object incrementKey:@"webViews" byAmount:[NSNumber numberWithInt:views-lastViews]];
                             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                 if (error) {
                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
@@ -334,7 +334,9 @@
                             }];
                         }
                         // Update custom player
-                        if ([components containsObject:@"secure_m3u8_url"]) {
+                        
+                        /// Secure url don't work
+                        /* if ([components containsObject:@"secure_m3u8_url"]) {
                             int index = (int)([components indexOfObject:@"secure_m3u8_url"]);
                             NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
                             [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
@@ -394,7 +396,39 @@
                                     [object saveEventually];
                                 }
                             }];
+                        } */
+                        if ([components containsObject:@"m3u8_url"]) {
+                            int index = (int)([components indexOfObject:@"m3u8_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
+                                    [object saveEventually];
+                                }
+                            }];
+                        } else if ([components containsObject:@"progressive_url_hd"]) {
+                            int index = (int)([components indexOfObject:@"progressive_url_hd"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
+                                    [object saveEventually];
+                                }
+                            }];
+                        } else if ([components containsObject:@"progressive_url"]) {
+                            int index = (int)([components indexOfObject:@"progressive_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
+                                    [object saveEventually];
+                                }
+                            }];
                         }
+                        
                         object[@"playable"] = @YES;
                         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if (!succeeded) {

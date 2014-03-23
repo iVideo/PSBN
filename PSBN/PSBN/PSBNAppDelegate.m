@@ -82,6 +82,7 @@
         self.tabBarController = [[UITabBarController alloc] init];
         self.tabBarController.delegate = self;
         self.tabBarController.viewControllers = @[theaterListNavController, radioNavController, scoresNavController];
+        // self.tabBarController.viewControllers = @[theaterListNavController, scoresNavController];
         
         self.tabBarController.tabBar.selectedImageTintColor = [UIColor whiteColor];
         self.tabBarController.tabBar.backgroundImage = [UIImage imageNamed:@"black"];

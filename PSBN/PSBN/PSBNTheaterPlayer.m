@@ -29,49 +29,31 @@
     } else if (self.navigationController.view.frame.size.width == 320) {
         playerHeight = 180;
     }
+    // Set padding
+    viewPadding = 10.0f;
     // Check if video file for custom player exists
-    PFQuery *livestreamQuery = [PFQuery queryWithClassName:@"livestreamAvailable"];
-    [livestreamQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (error) {
-            UIAlertView *errorLoadingLive = [[UIAlertView alloc] initWithTitle:@"Error checking if live" message:error.localizedDescription delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-            [errorLoadingLive show];
-        } else {
-            customPlayerReloadInterval = [[object objectForKey:@"customPlayerUpdateInterval"] doubleValue];
-        }
-    }];
+    objectID = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoChosen"];
+    
     PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
-    [query getObjectInBackgroundWithId:[[NSUserDefaults standardUserDefaults] objectForKey:@"videoChosen"] block:^(PFObject *object, NSError *error) {
+    [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
         customPlayerURL = [NSURL URLWithString:[object objectForKey:@"customPlayer"]];
         fallbackPlayerURL = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
         // Check if valid custom player URL
         
-        if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [object objectForKey:@"customPlayer"] == nil) {
-            validCustomPlayerURL = NO;
+        customPlayer = [[PSBNMoviePlayerController alloc] initWithContentURL:customPlayerURL];
+        [customPlayer prepareToPlay];
+        [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        customPlayer.view.backgroundColor = [UIColor blackColor];
+        customPlayer.controlStyle = MPMovieControlStyleEmbedded;
+        if ([[customPlayerURL pathExtension] isEqualToString:@"m3u8"]) {
+            customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
         } else {
-            validCustomPlayerURL = YES;
+            customPlayer.movieSourceType = MPMovieSourceTypeFile;
         }
-        if (validCustomPlayerURL) {
-            customPlayer = [[PSBNMoviePlayerController alloc] initWithContentURL:customPlayerURL];
-            [customPlayer prepareToPlay];
-            [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-            customPlayer.view.backgroundColor = [UIColor blackColor];
-            customPlayer.controlStyle = MPMovieControlStyleEmbedded;
-            if ([[customPlayerURL pathExtension] isEqualToString:@"m3u8"]) {
-                customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
-            } else {
-                customPlayer.movieSourceType = MPMovieSourceTypeFile;
-            }
-            [customPlayer play];
-            [self.view addSubview:customPlayer.view];
-        } else {
-            fallbackPlayer = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-            [self.view addSubview:fallbackPlayer];
-            fallbackPlayer.scrollView.bounces = NO;
-            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:fallbackPlayerURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
-            [fallbackPlayer loadRequest:urlRequest];
-        }
+        [customPlayer play];
+        [self.view addSubview:customPlayer.view];
         
-        poster = [[UIImageView alloc] initWithFrame:CGRectMake(5, playerHeight+5, 100, 150)];
+        poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+5, 100, 150)];
         poster.backgroundColor = [UIColor whiteColor];
         poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
         poster.contentMode = UIViewContentModeRedraw;
@@ -94,13 +76,13 @@
         posterMask.image = [UIImage imageNamed:@"posterMask"];
         [self.view addSubview:posterMask];
         
-        eventName = [[UILabel alloc] initWithFrame:CGRectMake(poster.frame.size.width+20, playerHeight+5, self.navigationController.view.frame.size.width-poster.frame.size.width-20, 21)];
+        eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
         eventName.text = [object objectForKey:@"title"];
         eventName.adjustsFontSizeToFitWidth = YES;
         eventName.adjustsLetterSpacingToFitWidth = YES;
         [self.view addSubview:eventName];
         
-        eventDate = [[UILabel alloc] initWithFrame:CGRectMake(poster.frame.size.width+20, playerHeight+5+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-20, 21)];
+        eventDate = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5+21+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterFullStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -110,6 +92,7 @@
         eventDate.adjustsLetterSpacingToFitWidth = YES;
         [self.view addSubview:eventDate];
     }];
+    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"videoChosen"];
 }
 
@@ -127,9 +110,11 @@
         playerHeight = 320;
     }
     
-    if (validCustomPlayerURL) {
+    if (customPlayer != nil) {
         [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-    } else {
+    }
+    
+    if (fallbackPlayer != nil) {
         [fallbackPlayer setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
     }
     
@@ -141,19 +126,23 @@
     
     [eventDate setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
     // [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fallbackWithNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    if (validCustomPlayerURL) {
+    if (customPlayer != nil) {
         if (!customPlayer.fullscreen) {
             [customPlayer pause];
             [customPlayer stop];
         }
     }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    if (validCustomPlayerURL) {
+    if (customPlayer != nil) {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
                 [customPlayer setFullscreen:YES animated:YES];
@@ -177,14 +166,12 @@
             playerHeight = 320;
         }
         
-        if (validCustomPlayerURL) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-            });
-        } else {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [fallbackPlayer setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-            });
+        if (customPlayer != nil) {
+            [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        }
+        
+        if (fallbackPlayer != nil) {
+            [fallbackPlayer setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
         }
         
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -197,6 +184,34 @@
             [eventDate setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
         });
     });
+}
+
+- (void)fallbackWithNotification:(NSNotification *)notification {
+    // Check if error
+    if ([[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonPlaybackError) {
+        // Remove custom player
+        [customPlayer pause];
+        [customPlayer stop];
+        [customPlayer.view removeFromSuperview];
+        
+        // Set not playable flag
+        PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
+        [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
+            object[@"playable"] = @NO;
+            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!succeeded) {
+                    [object saveEventually];
+                }
+            }];
+        }];
+        
+        // Create fallback player
+        fallbackPlayer = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        [self.view addSubview:fallbackPlayer];
+        fallbackPlayer.scrollView.bounces = NO;
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:fallbackPlayerURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
+        [fallbackPlayer loadRequest:urlRequest];
+    }
 }
 
 @end

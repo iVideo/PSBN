@@ -144,31 +144,35 @@
                     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
                 }
                 [eventQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        feedContent = [[NSMutableArray alloc] init];
-                        [self.tableView reloadData];
-                        NSMutableArray *section1 = [[NSMutableArray alloc] init];
-                        for (PFObject *object in objects) {
-                            [section1 addObject:object];
-                            
-                            videosProcessed++;
-                            self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
+                    @autoreleasepool {
+                        if (!error) {
+                            feedContent = [[NSMutableArray alloc] init];
+                            [self.tableView reloadData];
+                            NSMutableArray *section1 = [[NSMutableArray alloc] init];
+                            for (PFObject *object in objects) {
+                                @autoreleasepool {
+                                    [section1 addObject:object];
+                                    
+                                    videosProcessed++;
+                                    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
+                                }
+                            }
+                            [section1 sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Sorting events latest to earliest..."];
+                                NSDate *date1 = [(PFObject *)dict1 objectForKey:@"filmedOn"];
+                                NSDate *date2 = [(PFObject *)dict2 objectForKey:@"filmedOn"];
+                                return [date2 compare:date1];
+                            }];
+                            [feedContent addObject:section1];
+                            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
+                                [self improve];
+                            }
+                            [self.refreshControl endRefreshing];
+                            videosProcessed = 0.0f;
+                            numberOfVideos = 0.0f;
+                            self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
+                            [self.tableView reloadData];
                         }
-                        [section1 sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
-                            self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Sorting events latest to earliest..."];
-                            NSDate *date1 = [(PFObject *)dict1 objectForKey:@"filmedOn"];
-                            NSDate *date2 = [(PFObject *)dict2 objectForKey:@"filmedOn"];
-                            return [date2 compare:date1];
-                        }];
-                        [feedContent addObject:section1];
-                        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
-                            [self improve];
-                        }
-                        [self.refreshControl endRefreshing];
-                        videosProcessed = 0.0f;
-                        numberOfVideos = 0.0f;
-                        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
-                        [self.tableView reloadData];
                     }
                 }];
             }];

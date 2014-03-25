@@ -17,6 +17,8 @@
     NSURL *customPlayerURL;
     NSURL *fallbackPlayerURL;
     
+    UIActivityIndicatorView *loadingWheel;
+    
     PSBNMoviePlayerController *customPlayer;
     UIWebView *fallbackPlayer;
     
@@ -26,6 +28,7 @@
     UILabel *eventDate;
 }
 
+- (void)readyToPlay:(NSNotification *)notification;
 - (void)fallbackWithNotification:(NSNotification *)notification;
 
 @end

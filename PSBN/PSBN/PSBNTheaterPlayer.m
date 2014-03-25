@@ -31,69 +31,107 @@
     }
     // Set padding
     viewPadding = 10.0f;
-    // Check if video file for custom player exists
-    objectID = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoChosen"];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
-    [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
-        customPlayerURL = [NSURL URLWithString:[object objectForKey:@"customPlayer"]];
-        fallbackPlayerURL = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
-        // Check if valid custom player URL
+    @autoreleasepool {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.view addSubview:loadingWheel];
+                [loadingWheel startAnimating];
+            });
+        });
         
-        customPlayer = [[PSBNMoviePlayerController alloc] initWithContentURL:customPlayerURL];
-        [customPlayer prepareToPlay];
+        customPlayer = [[PSBNMoviePlayerController alloc] init];
         [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-        customPlayer.view.backgroundColor = [UIColor blackColor];
+        customPlayer.view.backgroundColor = self.view.backgroundColor;
         customPlayer.controlStyle = MPMovieControlStyleEmbedded;
-        if ([[customPlayerURL pathExtension] isEqualToString:@"m3u8"]) {
-            customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
-        } else {
-            customPlayer.movieSourceType = MPMovieSourceTypeFile;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
+            poster.backgroundColor = [UIColor whiteColor];
+            poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+            poster.contentMode = UIViewContentModeRedraw;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.view insertSubview:poster belowSubview:posterMask];
+            });
+        });
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            posterMask = [[UIImageView alloc] initWithFrame:poster.frame];
+            posterMask.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+            posterMask.contentMode = UIViewContentModeRedraw;
+            posterMask.image = [UIImage imageNamed:@"posterMask"];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.view insertSubview:posterMask aboveSubview:poster];
+            });
+        });
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
+            eventName.text = @"Loading...";
+            eventName.adjustsFontSizeToFitWidth = YES;
+            eventName.adjustsLetterSpacingToFitWidth = YES;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.view addSubview:eventName];
+            });
+        });
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            eventDate = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5+21+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
+            eventDate.text = @"Loading...";
+            eventDate.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
+            eventDate.adjustsFontSizeToFitWidth = YES;
+            eventDate.adjustsLetterSpacingToFitWidth = YES;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.view addSubview:eventDate];
+            });
+        });
+        
+        // Check if video file for custom player exists
+        objectID = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoChosen"];
+        
+        @autoreleasepool {
+            PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
+            [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
+                @autoreleasepool {
+                    customPlayerURL = [NSURL URLWithString:[object objectForKey:@"customPlayer"]];
+                    fallbackPlayerURL = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
+                    // Check if valid custom player URL
+                    
+                    if ([[customPlayerURL pathExtension] isEqualToString:@"m3u8"]) {
+                        customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
+                    } else {
+                        customPlayer.movieSourceType = MPMovieSourceTypeFile;
+                    }
+                    [customPlayer setContentURL:customPlayerURL];
+                    [customPlayer prepareToPlay];
+                    
+                    NSURL *url = [NSURL URLWithString:[object objectForKey:@"posterURL"]];
+                    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
+                    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                        @autoreleasepool {
+                            if (!error) {
+                                poster.image = [UIImage imageWithData:data];
+                            } else {
+                                // Load image error
+                                poster.image = [UIImage imageNamed:@"errorLoading"];
+                            }
+                        }
+                    }];
+                    
+                    eventName.text = [object objectForKey:@"title"];
+                    
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+                    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+                    eventDate.text = [dateFormatter stringFromDate:[object objectForKey:@"filmedOn"]];
+                }
+            }];
         }
-        [customPlayer play];
-        [self.view addSubview:customPlayer.view];
         
-        poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+5, 100, 150)];
-        poster.backgroundColor = [UIColor whiteColor];
-        poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-        poster.contentMode = UIViewContentModeRedraw;
-        
-        NSURL *url = [NSURL URLWithString:[object objectForKey:@"posterURL"]];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-            if (!error) {
-                poster.image = [UIImage imageWithData:data];
-            } else {
-                // Load image error
-                poster.image = [UIImage imageNamed:@"errorLoading"];
-            }
-        }];
-        [self.view addSubview:poster];
-        
-        posterMask = [[UIImageView alloc] initWithFrame:poster.frame];
-        posterMask.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-        posterMask.contentMode = UIViewContentModeRedraw;
-        posterMask.image = [UIImage imageNamed:@"posterMask"];
-        [self.view addSubview:posterMask];
-        
-        eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
-        eventName.text = [object objectForKey:@"title"];
-        eventName.adjustsFontSizeToFitWidth = YES;
-        eventName.adjustsLetterSpacingToFitWidth = YES;
-        [self.view addSubview:eventName];
-        
-        eventDate = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5+21+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        eventDate.text = [dateFormatter stringFromDate:[object objectForKey:@"filmedOn"]];
-        eventDate.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
-        eventDate.adjustsFontSizeToFitWidth = YES;
-        eventDate.adjustsLetterSpacingToFitWidth = YES;
-        [self.view addSubview:eventDate];
-    }];
-    
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"videoChosen"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"videoChosen"];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -127,6 +165,7 @@
     [eventDate setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
     // [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readyToPlay:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fallbackWithNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
 }
 
@@ -138,6 +177,7 @@
         }
     }
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
 }
 
@@ -184,6 +224,15 @@
             [eventDate setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
         });
     });
+}
+
+- (void)readyToPlay:(NSNotification *)notification {
+    if (customPlayer.loadState == MPMovieLoadStatePlayable) {
+        [loadingWheel stopAnimating];
+        [loadingWheel removeFromSuperview];
+        [self.view addSubview:customPlayer.view];
+        [customPlayer play];
+    }
 }
 
 - (void)fallbackWithNotification:(NSNotification *)notification {

@@ -44,7 +44,6 @@
     // Setup refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f];
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
     [refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
@@ -107,7 +106,6 @@
 
 - (void)refresh {
     [self.refreshControl beginRefreshing];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Checking if any events are live..."];
     @autoreleasepool {
         PFQuery *livestreamQuery = [PFQuery queryWithClassName:@"livestreamAvailable"];
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
@@ -127,7 +125,6 @@
                 }
                 customPlayerReloadInterval = [[object objectForKey:@"customPlayerUpdateInterval"] doubleValue];
             }
-            self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
             PFQuery *eventQuery = [PFQuery queryWithClassName:@"eventList"];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
                 [eventQuery clearCachedResult];
@@ -138,43 +135,30 @@
                 eventQuery.cachePolicy = kPFCachePolicyNetworkOnly;
             }
             eventQuery.limit = 1000;
-            [eventQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-                if (!error) {
-                    numberOfVideos += (float)(number);
-                    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
-                }
-                [eventQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    @autoreleasepool {
-                        if (!error) {
-                            feedContent = [[NSMutableArray alloc] init];
-                            [self.tableView reloadData];
-                            NSMutableArray *section1 = [[NSMutableArray alloc] init];
-                            for (PFObject *object in objects) {
-                                @autoreleasepool {
-                                    [section1 addObject:object];
-                                    
-                                    videosProcessed++;
-                                    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Downloading event %.f of %.f (%.f%%)", videosProcessed, numberOfVideos, (videosProcessed/numberOfVideos)*100]];
-                                }
+            [eventQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                @autoreleasepool {
+                    if (!error) {
+                        feedContent = [[NSMutableArray alloc] init];
+                        [self.tableView reloadData];
+                        NSMutableArray *section1 = [[NSMutableArray alloc] init];
+                        for (PFObject *object in objects) {
+                            @autoreleasepool {
+                                [section1 addObject:object];
                             }
-                            [section1 sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
-                                self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Sorting events latest to earliest..."];
-                                NSDate *date1 = [(PFObject *)dict1 objectForKey:@"filmedOn"];
-                                NSDate *date2 = [(PFObject *)dict2 objectForKey:@"filmedOn"];
-                                return [date2 compare:date1];
-                            }];
-                            [feedContent addObject:section1];
-                            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
-                                [self improve];
-                            }
-                            [self.refreshControl endRefreshing];
-                            videosProcessed = 0.0f;
-                            numberOfVideos = 0.0f;
-                            self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
-                            [self.tableView reloadData];
                         }
+                        [section1 sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                            NSDate *date1 = [(PFObject *)dict1 objectForKey:@"filmedOn"];
+                            NSDate *date2 = [(PFObject *)dict2 objectForKey:@"filmedOn"];
+                            return [date2 compare:date1];
+                        }];
+                        [feedContent addObject:section1];
+                        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
+                            [self improve];
+                        }
+                        [self.refreshControl endRefreshing];
+                        [self.tableView reloadData];
                     }
-                }];
+                }
             }];
         }];
     }

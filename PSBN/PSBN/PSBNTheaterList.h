@@ -12,10 +12,6 @@
     NSMutableArray *feedContent;
     
     double customPlayerReloadInterval;
-    
-    UIProgressView *backgroundProgress;
-    float videosProcessed;
-    float numberOfVideos;
 }
 
 - (void)refresh;

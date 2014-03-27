@@ -243,17 +243,6 @@
         [customPlayer stop];
         [customPlayer.view removeFromSuperview];
         
-        // Set not playable flag
-        PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
-        [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
-            object[@"playable"] = @NO;
-            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!succeeded) {
-                    [object saveEventually];
-                }
-            }];
-        }];
-        
         // Create fallback player
         fallbackPlayer = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
         [self.view addSubview:fallbackPlayer];

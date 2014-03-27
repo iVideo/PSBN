@@ -443,7 +443,6 @@
                                         }];
                                     }
                                     
-                                    object[@"playable"] = @YES;
                                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                                         if (!succeeded) {
                                             [object saveEventually];

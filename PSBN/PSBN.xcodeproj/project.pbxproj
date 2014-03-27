@@ -510,6 +510,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Tech Genius";
 				TargetAttributes = {
+					17B68EA018BEBA26006A67D3 = {
+						DevelopmentTeam = 84PD2967AA;
+					};
 					17B68EC418BEBA27006A67D3 = {
 						TestTargetID = 17B68EA018BEBA26006A67D3;
 					};
@@ -748,6 +751,8 @@
 		17B68ED718BEBA28006A67D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"~/Desktop/PSBN-App/PSBN",
@@ -757,6 +762,7 @@
 				GCC_PREFIX_HEADER = "PSBN/PSBN-Prefix.pch";
 				INFOPLIST_FILE = "PSBN/PSBN-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -764,6 +770,8 @@
 		17B68ED818BEBA28006A67D3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"~/Desktop/PSBN-App/PSBN",
@@ -773,6 +781,7 @@
 				GCC_PREFIX_HEADER = "PSBN/PSBN-Prefix.pch";
 				INFOPLIST_FILE = "PSBN/PSBN-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

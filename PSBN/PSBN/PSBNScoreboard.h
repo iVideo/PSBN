@@ -8,4 +8,15 @@
 
 @interface PSBNScoreboard : UICollectionViewCell
 
+@property (nonatomic, retain) PFObject *scoreObject;
+
+@property (nonatomic, retain) UIImageView *awayIcon;
+@property (nonatomic, retain) UIImageView *homeIcon;
+
+- (void)setObject:(PFObject *)object;
+
+- (void)writeHeader;
+- (void)createTeamIcons;
+- (void)writeFooter;
+
 @end

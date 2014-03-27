@@ -33,60 +33,40 @@
     viewPadding = 10.0f;
     
     @autoreleasepool {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self.view addSubview:loadingWheel];
-                [loadingWheel startAnimating];
-            });
-        });
+        loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
+        [self.view addSubview:loadingWheel];
+        [loadingWheel startAnimating];
         
         customPlayer = [[PSBNMoviePlayerController alloc] init];
         [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
         customPlayer.view.backgroundColor = self.view.backgroundColor;
         customPlayer.controlStyle = MPMovieControlStyleEmbedded;
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
-            poster.backgroundColor = [UIColor whiteColor];
-            poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-            poster.contentMode = UIViewContentModeRedraw;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self.view insertSubview:poster belowSubview:posterMask];
-            });
-        });
+        poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
+        poster.backgroundColor = [UIColor whiteColor];
+        poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        poster.contentMode = UIViewContentModeRedraw;
+        [self.view insertSubview:poster belowSubview:posterMask];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            posterMask = [[UIImageView alloc] initWithFrame:poster.frame];
-            posterMask.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-            posterMask.contentMode = UIViewContentModeRedraw;
-            posterMask.image = [UIImage imageNamed:@"posterMask"];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self.view insertSubview:posterMask aboveSubview:poster];
-            });
-        });
+        posterMask = [[UIImageView alloc] initWithFrame:poster.frame];
+        posterMask.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+        posterMask.contentMode = UIViewContentModeRedraw;
+        posterMask.image = [UIImage imageNamed:@"posterMask"];
+        [self.view insertSubview:posterMask aboveSubview:poster];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
-            eventName.text = @"Loading...";
-            eventName.adjustsFontSizeToFitWidth = YES;
-            eventName.adjustsLetterSpacingToFitWidth = YES;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self.view addSubview:eventName];
-            });
-        });
+        eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
+        eventName.text = @"Loading...";
+        eventName.adjustsFontSizeToFitWidth = YES;
+        eventName.adjustsLetterSpacingToFitWidth = YES;
+        [self.view addSubview:eventName];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            eventDate = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5+21+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
-            eventDate.text = @"Loading...";
-            eventDate.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
-            eventDate.adjustsFontSizeToFitWidth = YES;
-            eventDate.adjustsLetterSpacingToFitWidth = YES;
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self.view addSubview:eventDate];
-            });
-        });
+        eventDate = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5+21+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
+        eventDate.text = @"Loading...";
+        eventDate.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
+        eventDate.adjustsFontSizeToFitWidth = YES;
+        eventDate.adjustsLetterSpacingToFitWidth = YES;
+        [self.view addSubview:eventDate];
         
         // Check if video file for custom player exists
         objectID = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoChosen"];

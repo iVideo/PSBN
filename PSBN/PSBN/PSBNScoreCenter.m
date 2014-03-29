@@ -181,4 +181,10 @@
     }
 }
 
+#pragma mark - Collection View Data Sources
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [[games objectAtIndex:section] count];
+}
+
 @end

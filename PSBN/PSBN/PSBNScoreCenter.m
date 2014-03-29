@@ -16,7 +16,8 @@
 
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(320, 81);
+    flowLayout.headerReferenceSize = CGSizeMake(self.navigationController.view.frame.size.width, 30);
+    flowLayout.itemSize = CGSizeMake(310, 210);
     self = [super initWithCollectionViewLayout:flowLayout];
     if (self) {
         // Custom initialization
@@ -38,6 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self.collectionView.alwaysBounceVertical = YES;
+    
     // Setup submit button
     @autoreleasepool {
         UIBarButtonItem *submitScores = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(chooseSubmit:)];
@@ -55,9 +59,6 @@
             }
         }
     }
-    
-    // Auto-refresh every minute
-    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,6 +71,43 @@
     // Stop timer
     [refreshTimer invalidate];
     refreshTimer = nil;
+    
+    // Reset array
+    games = [[NSMutableArray alloc] init];
+    
+    @autoreleasepool {
+        PFQuery *query = [PFQuery queryWithClassName:@"footballScores"];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+            [query clearCachedResult];
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+            query.cachePolicy = kPFCachePolicyNetworkOnly;
+        } else {
+            query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        }
+        query.limit = 1000;
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            @autoreleasepool {
+                NSMutableArray *footballGames = objects.mutableCopy;
+                [footballGames sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                    NSDate *date1 = [(PFObject *)dict1 objectForKey:@"gameDate"];
+                    NSDate *date2 = [(PFObject *)dict2 objectForKey:@"gameDate"];
+                    return [date2 compare:date1];
+                }];
+                NSDictionary *dict = @{@"index": @0, @"section": @"Football", @"scoreObjects": footballGames};
+                
+                [games addObject:dict];
+                [games sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                    NSNumber *index1 = [(NSDictionary *)dict1 objectForKey:@"index"];
+                    NSNumber *index2 = [(NSDictionary *)dict2 objectForKey:@"index"];
+                    return [index1 compare:index2];
+                }];
+                if ([games count] == 1) {
+                    [self.collectionView reloadData];
+                }
+            }
+        }];
+    }
     
     // Start timer
     refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
@@ -176,7 +214,6 @@
             showRadioFrame = [[UIPopoverController alloc] initWithContentViewController:navController];
             showRadioFrame.delegate = self;
             [showRadioFrame presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            
         }
     }
 }
@@ -188,16 +225,34 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[games objectAtIndex:section] count];
+    return [[[games objectAtIndex:section] objectForKey:@"scoreObjects"] count];
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if (kind == UICollectionElementKindSectionHeader) {
+        static NSString *HeaderIdentifier = @"HeaderView";
+        [collectionView registerClass:[PSBNScoreHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier];
+        PSBNScoreHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier forIndexPath:indexPath];
+        // Configure the header...
+        [headerView createHeaderTitleWith:[[games objectAtIndex:indexPath.section] objectForKey:@"section"]];
+        
+        return headerView;
+    } else {
+        return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    [collectionView registerClass:[PSBNScoreboard class] forCellWithReuseIdentifier:CellIdentifier];
-    PSBNScoreboard *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    // Configure the cell...
-    
-    return cell;
+    if (indexPath.section == 0) {
+        [collectionView registerClass:[PSBNFootball class] forCellWithReuseIdentifier:CellIdentifier];
+        PSBNFootball *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        // Configure the cell...
+        
+        return cell;
+    } else {
+        return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    }
 }
 
 @end

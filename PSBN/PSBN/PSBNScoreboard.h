@@ -15,6 +15,7 @@
 
 - (void)setObject:(PFObject *)object;
 
+- (void)drawBackground;
 - (void)writeHeader;
 - (void)createTeamIcons;
 - (void)writeFooter;

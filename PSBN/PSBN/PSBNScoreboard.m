@@ -12,6 +12,21 @@
 
 - (void)setObject:(PFObject *)object {
     self.scoreObject = object;
+    
+    [self drawBackground];
+    
+    [self writeHeader];
+    [self createTeamIcons];
+    [self writeFooter];
+}
+
+- (void)drawBackground {
+    @autoreleasepool {
+        UIView *whiteBackground = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 200)];
+        whiteBackground.layer.borderColor = [UIColor grayColor].CGColor;
+        whiteBackground.layer.borderWidth = 5.0f;
+        [self addSubview:whiteBackground];
+    }
 }
 
 - (void)writeHeader {

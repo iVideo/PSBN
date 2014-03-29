@@ -38,7 +38,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Setup submit button
+    @autoreleasepool {
+        UIBarButtonItem *submitScores = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(chooseSubmit:)];
+        self.navigationItem.leftBarButtonItem = submitScores;
+    }
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        @autoreleasepool {
+            if ([self respondsToSelector:@selector(imageWithRenderingMode:)]) {
+                UIBarButtonItem *showRadio = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"UITabBarPodcasts"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] style:UIBarButtonItemStyleBordered target:self action:@selector(showRadio:)];
+                self.navigationItem.rightBarButtonItem = showRadio;
+            } else {
+                UIBarButtonItem *showRadio = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"UITabBarPodcasts"] style:UIBarButtonItemStyleBordered target:self action:@selector(showRadio:)];
+                self.navigationItem.rightBarButtonItem = showRadio;
+            }
+        }
+    }
+    
+    // Auto-refresh every minute
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
+}
+
+- (void)refresh {
+    
+}
+
+- (IBAction)resetTimer:(id)sender {
+    
+}
+
+- (IBAction)chooseSubmit:(id)sender {
+    
+}
+
+- (IBAction)showRadio:(id)sender {
+    
 }
 
 @end

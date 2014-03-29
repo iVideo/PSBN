@@ -9,6 +9,8 @@
 #import <MessageUI/MessageUI.h>
 #import "PSBNRadio.h"
 
+#import "PSBNScoreboard.h"
+
 @interface PSBNScoreCenter : UICollectionViewController <UIActionSheetDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate, UIPopoverControllerDelegate> {
     UIActionSheet *composeActionSheet;
     

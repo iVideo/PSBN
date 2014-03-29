@@ -183,8 +183,21 @@
 
 #pragma mark - Collection View Data Sources
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return [games count];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [[games objectAtIndex:section] count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    [collectionView registerClass:[PSBNScoreboard class] forCellWithReuseIdentifier:CellIdentifier];
+    PSBNScoreboard *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    // Configure the cell...
+    
+    return cell;
 }
 
 @end

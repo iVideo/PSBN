@@ -67,11 +67,9 @@
 }
 
 - (void)refresh {
-    
-}
-
-- (IBAction)resetTimer:(id)sender {
-    
+    // Stop timer
+    [refreshTimer invalidate];
+    refreshTimer = nil;
 }
 
 - (IBAction)chooseSubmit:(id)sender {
@@ -163,7 +161,21 @@
 }
 
 - (IBAction)showRadio:(id)sender {
-    
+    @autoreleasepool {
+        PSBNRadio *radioVC = [[PSBNRadio alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:radioVC];
+        if ([showRadioFrame isPopoverVisible]) {
+            [showRadioFrame dismissPopoverAnimated:YES];
+        } else {
+            if ([composeActionSheet isVisible]) {
+                [composeActionSheet dismissWithClickedButtonIndex:[composeActionSheet cancelButtonIndex] animated:YES];
+            }
+            showRadioFrame = [[UIPopoverController alloc] initWithContentViewController:navController];
+            showRadioFrame.delegate = self;
+            [showRadioFrame presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            
+        }
+    }
 }
 
 @end

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PSBNAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UISplitViewControllerDelegate>
+@interface PSBNAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UISplitViewControllerDelegate> {
+    BOOL devMode;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

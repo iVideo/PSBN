@@ -12,19 +12,22 @@
 #import "PSBNRadio.h"
 #import "PSBNCamera.h"
 #import "PSBNScores.h"
+#import "PSBNScoreCenter.h"
 
 @implementation PSBNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    devMode = YES;
     // Override point for customization after application launch.
     
     // Parse stuff
     [Parse setApplicationId:@"CbGaoZLs7udS8ZKr9Tbl3AdqHbah90shGjBSomyx" clientKey:@"KvO9K9dqfC876Im9Rkzo9yUmHDfkNrhD9rbteIXy"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    UIViewController *theaterListController, *radioController, *scoresController;
-    UINavigationController *theaterListNavController, *radioNavController, *scoresNavController;
+    UIViewController *theaterListController, *radioController, *scoresController, *scoreCenterController;
+    UINavigationController *theaterListNavController, *radioNavController, *scoresNavController, *scoreCenterNavController;
     
     radioController = [[PSBNRadio alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
     radioNavController = [[UINavigationController alloc] initWithRootViewController:radioController];
@@ -36,6 +39,9 @@
     
     scoresController = [[PSBNScores alloc] init];
     scoresNavController = [[UINavigationController alloc] initWithRootViewController:scoresController];
+    
+    scoreCenterController = [[PSBNScoreCenter alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    scoreCenterNavController = [[UINavigationController alloc] initWithRootViewController:scoreCenterController];
     
     // Theme-ing
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
@@ -71,7 +77,11 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         self.splitViewController = [[UISplitViewController alloc] init];
         self.splitViewController.delegate = self;
-        self.splitViewController.viewControllers = @[scoresNavController, theaterListNavController];
+        if (devMode) {
+            self.splitViewController.viewControllers = @[scoreCenterNavController, theaterListNavController];
+        } else {
+            self.splitViewController.viewControllers = @[scoresNavController, theaterListNavController];
+        }
         
         theaterListNavController.navigationBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPad"];
         
@@ -81,8 +91,11 @@
     } else {
         self.tabBarController = [[UITabBarController alloc] init];
         self.tabBarController.delegate = self;
-        self.tabBarController.viewControllers = @[theaterListNavController, radioNavController, scoresNavController];
-        // self.tabBarController.viewControllers = @[theaterListNavController, scoresNavController];
+        if (devMode) {
+            self.tabBarController.viewControllers = @[theaterListNavController, radioNavController, scoresNavController, scoreCenterNavController];
+        } else {
+            self.tabBarController.viewControllers = @[theaterListNavController, scoresNavController];
+        }
         
         self.tabBarController.tabBar.selectedImageTintColor = [UIColor whiteColor];
         self.tabBarController.tabBar.backgroundImage = [UIImage imageNamed:@"black"];

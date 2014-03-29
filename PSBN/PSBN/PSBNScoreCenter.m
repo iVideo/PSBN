@@ -70,6 +70,9 @@
     // Stop timer
     [refreshTimer invalidate];
     refreshTimer = nil;
+    
+    // Start timer
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
 }
 
 - (IBAction)chooseSubmit:(id)sender {

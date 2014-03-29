@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1745CDF218E75B3300C33DD3 /* School Logos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1745CDF118E75B3300C33DD3 /* School Logos.plist */; };
+		1745CDF518E7603100C33DD3 /* PSBNScoreCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDF418E7603100C33DD3 /* PSBNScoreCenter.m */; };
 		1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */; };
 		175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 175F998118E4BEDE00C0D880 /* PSBNScoreboard.m */; };
 		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
@@ -132,6 +133,8 @@
 
 /* Begin PBXFileReference section */
 		1745CDF118E75B3300C33DD3 /* School Logos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "School Logos.plist"; sourceTree = "<group>"; };
+		1745CDF318E7603100C33DD3 /* PSBNScoreCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreCenter.h; sourceTree = "<group>"; };
+		1745CDF418E7603100C33DD3 /* PSBNScoreCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreCenter.m; sourceTree = "<group>"; };
 		1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		175F998018E4BEDE00C0D880 /* PSBNScoreboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreboard.h; sourceTree = "<group>"; };
@@ -369,6 +372,8 @@
 				17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */,
 				17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */,
 				17B68EE118BEBC6D006A67D3 /* PSBNScores.m */,
+				1745CDF318E7603100C33DD3 /* PSBNScoreCenter.h */,
+				1745CDF418E7603100C33DD3 /* PSBNScoreCenter.m */,
 				17B68EAB18BEBA26006A67D3 /* Supporting Files */,
 			);
 			path = PSBN;
@@ -739,6 +744,7 @@
 			files = (
 				1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */,
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
+				1745CDF518E7603100C33DD3 /* PSBNScoreCenter.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */,
 				17B68EB118BEBA26006A67D3 /* main.m in Sources */,

@@ -20,7 +20,6 @@
 }
 
 - (void)refresh;
-- (IBAction)resetTimer:(id)sender;
 - (IBAction)chooseSubmit:(id)sender;
 - (IBAction)showRadio:(id)sender;
 

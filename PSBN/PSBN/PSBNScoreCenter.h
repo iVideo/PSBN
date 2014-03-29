@@ -9,7 +9,7 @@
 #import <MessageUI/MessageUI.h>
 #import "PSBNRadio.h"
 
-@interface PSBNScoreCenter : UICollectionViewController <UINavigationControllerDelegate, MFMailComposeViewControllerDelegate, UIPopoverControllerDelegate> {
+@interface PSBNScoreCenter : UICollectionViewController <UIActionSheetDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate, UIPopoverControllerDelegate> {
     UIActionSheet *composeActionSheet;
     
     UIPopoverController *showRadioFrame;

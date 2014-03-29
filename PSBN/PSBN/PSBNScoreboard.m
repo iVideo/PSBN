@@ -27,41 +27,53 @@
 - (void)createTeamIcons {
     @autoreleasepool {
         self.awayIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            @autoreleasepool {
+                NSArray *schoolIconArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"School Logos" ofType:@"plist"]];
+                for (NSDictionary *school in schoolIconArray) {
+                    @autoreleasepool {
+                        if ([[school objectForKey:@"School Name"] isEqualToString:self.scoreObject[@"awayTeam"]]) {
+                            dispatch_sync(dispatch_get_main_queue(), ^{
+                                @autoreleasepool {
+                                    if ([UIScreen mainScreen].scale == 2.0) {
+                                        self.awayIcon.image = [UIImage imageWithData:[school objectForKey:@"Retina"]];
+                                    } else {
+                                        self.awayIcon.image = [UIImage imageWithData:[school objectForKey:@"Normal"]];
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
         [self addSubview:self.awayIcon];
     }
     
     @autoreleasepool {
         self.homeIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            @autoreleasepool {
+                NSArray *schoolIconArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"School Logos" ofType:@"plist"]];
+                for (NSDictionary *school in schoolIconArray) {
+                    @autoreleasepool {
+                        if ([[school objectForKey:@"School Name"] isEqualToString:self.scoreObject[@"homeTeam"]]) {
+                            dispatch_sync(dispatch_get_main_queue(), ^{
+                                @autoreleasepool {
+                                    if ([UIScreen mainScreen].scale == 2.0) {
+                                        self.awayIcon.image = [UIImage imageWithData:[school objectForKey:@"Retina"]];
+                                    } else {
+                                        self.awayIcon.image = [UIImage imageWithData:[school objectForKey:@"Normal"]];
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
         [self addSubview:self.homeIcon];
     }
-    
-    /*
-    // Async loading of posters
-    NSURL *url;
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0)) {
-        // Retina
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            url = [NSURL URLWithString:[object objectForKey:@"posterURLretina"]];
-        } else {
-            url = [NSURL URLWithString:[object objectForKey:@"posterURLretina_iPhone"]];
-        }
-    } else {
-        // Non-Retina
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            url = [NSURL URLWithString:[object objectForKey:@"posterURL"]];
-        } else {
-            url = [NSURL URLWithString:[object objectForKey:@"posterURL_iPhone"]];
-        }
-    }
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        cell.imageView.image = nil;
-        if (!error) {
-            cell.imageView.image = [UIImage imageWithData:data];
-        }
-    }];
-     */
 }
 
 - (void)writeFooter {

@@ -16,10 +16,7 @@
 
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(262, 81);
-    flowLayout.minimumInteritemSpacing = 5;
-    // flowLayout.minimumLineSpacing = 10;
-    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    flowLayout.itemSize = CGSizeMake(320, 81);
     self = [super initWithCollectionViewLayout:flowLayout];
     if (self) {
         // Custom initialization
@@ -32,7 +29,7 @@
         label.font = [UIFont fontWithName:@"Tahoma-Bold" size:21.0f];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
-        // self.navigationItem.titleView = label;
+        self.navigationItem.titleView = label;
         label.text = self.title;
         [label sizeToFit];
     }

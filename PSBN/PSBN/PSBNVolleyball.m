@@ -11,7 +11,7 @@
 @implementation PSBNVolleyball
 
 - (void)setObject:(PFObject *)object {
-    self.objectColor = [UIColor colorWithRed:0.0f green:1/3.0f blue:0.0f alpha:1.0f];
+    self.objectColor = [UIColor darkGrayColor];
     [super setObject:object];
 }
 

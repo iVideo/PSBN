@@ -14,36 +14,52 @@
 
 @implementation PSBNScoreCenter
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.titleScrollerBackgroundColour = [UIColor colorWithPatternImage:[UIImage imageNamed:@"navBarTile_iOS6"]];
+        
+        self.disableUIPageControl = YES;
+        if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+            self.hideStatusBarWhenScrolling = YES;
+        }
+        self.titleScrollerHeight = 44;
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBarHidden = YES;
+    self.dataSource = self;
+    self.delegate = self;
+    
+    @autoreleasepool {
+        pageArray = @[[[PSBNScoreCenterChild alloc] initWithSport:@"footballScores"], [[PSBNScoreCenterChild alloc] initWithSport:@"volleyballScores"], [[PSBNScoreCenterChild alloc] initWithSport:@"basketballScores"]];
+    }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source {
+    return [pageArray count];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index {
+    TTSlidingPageTitle *title;
+    if (index == 0) {
+        title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Football"];
+    } else if (index == 1) {
+        title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Volleyball"];
+    } else if (index == 2) {
+        title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Basketball"];
+    } else if (index == 3) {
+        title = [[TTSlidingPageTitle alloc] initWithHeaderText:@"Soccer"];
+    }
+    return title;
 }
-*/
+
+- (TTSlidingPage *)pageForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index {
+    return [[TTSlidingPage alloc] initWithContentViewController:[pageArray objectAtIndex:index]];
+}
 
 @end

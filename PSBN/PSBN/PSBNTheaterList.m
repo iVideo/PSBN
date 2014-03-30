@@ -51,13 +51,6 @@
     self.tableView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
     
     /*
-    if ([UIScreen mainScreen].scale == 2.0) {
-        NSLog(@"Retina %@", UIImageJPEGRepresentation([UIImage imageNamed:@"Agua_Fria"], 1.0f));
-    } else {
-        NSLog(@"Standard %@", UIImageJPEGRepresentation([UIImage imageNamed:@"Agua_Fria"], 1.0f));
-    } */
-    
-    /*
     PFObject *object = [PFObject objectWithClassName:@"softballScores"];
     object[@"homeTeam"] = @"Kellis";
     object[@"awayTeam"] = @"Peoria";

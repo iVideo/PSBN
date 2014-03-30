@@ -56,26 +56,7 @@
     @autoreleasepool {
         self.awayIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 26, 75, 75)];
         self.awayIcon.contentMode = UIViewContentModeScaleAspectFit;
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            @autoreleasepool {
-                NSArray *schoolIconArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"School Logos" ofType:@"plist"]];
-                for (NSDictionary *school in schoolIconArray) {
-                    @autoreleasepool {
-                        if ([[school objectForKey:@"School Name"] isEqualToString:self.scoreObject[@"awayTeam"]]) {
-                            dispatch_sync(dispatch_get_main_queue(), ^{
-                                @autoreleasepool {
-                                    if ([UIScreen mainScreen].scale == 2.0) {
-                                        self.awayIcon.image = [UIImage imageWithData:[school objectForKey:@"Retina"]];
-                                    } else {
-                                        self.awayIcon.image = [UIImage imageWithData:[school objectForKey:@"Normal"]];
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        });
+        self.awayIcon.image = [UIImage imageNamed:self.scoreObject[@"awayTeam"]];
         [self addSubview:self.awayIcon];
     }
     

@@ -7,19 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1745CDF218E75B3300C33DD3 /* School Logos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1745CDF118E75B3300C33DD3 /* School Logos.plist */; };
 		1745CDFB18E76DDB00C33DD3 /* PSBNFootball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */; };
 		1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFD18E7773900C33DD3 /* PSBNScoreHeader.m */; };
 		1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */; };
 		1745CE0718E7A29F00C33DD3 /* PSBNBasketball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE0618E7A29F00C33DD3 /* PSBNBasketball.m */; };
-		1745CE1B18E7AAF200C33DD3 /* diagmonds.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE0B18E7AAF200C33DD3 /* diagmonds.png */; };
-		1745CE1C18E7AAF200C33DD3 /* diagmonds_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE0C18E7AAF200C33DD3 /* diagmonds_@2X.png */; };
 		1745CE1E18E7AAF200C33DD3 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1018E7AAF200C33DD3 /* TTSlidingPage.m */; };
 		1745CE1F18E7AAF200C33DD3 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1318E7AAF200C33DD3 /* TTSlidingPageTitle.m */; };
 		1745CE2018E7AAF200C33DD3 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1418E7AAF200C33DD3 /* TTScrollViewWrapper.m */; };
 		1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1618E7AAF200C33DD3 /* TTScrollSlidingPagesController.m */; };
 		1745CE2218E7AAF200C33DD3 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1A18E7AAF200C33DD3 /* TTBlackTriangle.m */; };
-		1745CE2518E7AB9900C33DD3 /* PSBNScoreCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE2418E7AB9900C33DD3 /* PSBNScoreCenter.m */; };
+		1745CE2918E7AFED00C33DD3 /* PSBNScoreCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE2818E7AFED00C33DD3 /* PSBNScoreCenter.m */; };
+		1745CE2C18E7B75000C33DD3 /* PSBNScoreCenterChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE2B18E7B75000C33DD3 /* PSBNScoreCenterChild.m */; };
+		1745CE4C18E7CA3100C33DD3 /* Academy of Tucson.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3418E7CA3100C33DD3 /* Academy of Tucson.png */; };
+		1745CE4D18E7CA3100C33DD3 /* Academy of Tucson@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3518E7CA3100C33DD3 /* Academy of Tucson@2x.png */; };
+		1745CE4E18E7CA3100C33DD3 /* Agua Fria.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3618E7CA3100C33DD3 /* Agua Fria.png */; };
+		1745CE4F18E7CA3100C33DD3 /* Agua Fria@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3718E7CA3100C33DD3 /* Agua Fria@2x.png */; };
+		1745CE5018E7CA3100C33DD3 /* Ajo Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3818E7CA3100C33DD3 /* Ajo Red.png */; };
+		1745CE5118E7CA3100C33DD3 /* Ajo Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3918E7CA3100C33DD3 /* Ajo Red@2x.png */; };
+		1745CE5218E7CA3100C33DD3 /* Alchesay.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3A18E7CA3100C33DD3 /* Alchesay.png */; };
+		1745CE5318E7CA3100C33DD3 /* Alchesay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3B18E7CA3100C33DD3 /* Alchesay@2x.png */; };
+		1745CE5418E7CA3100C33DD3 /* Alhambra.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3C18E7CA3100C33DD3 /* Alhambra.png */; };
+		1745CE5518E7CA3100C33DD3 /* Alhambra@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3D18E7CA3100C33DD3 /* Alhambra@2x.png */; };
+		1745CE5618E7CA3100C33DD3 /* Amphitheater.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3E18E7CA3100C33DD3 /* Amphitheater.png */; };
+		1745CE5718E7CA3100C33DD3 /* Amphitheater@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE3F18E7CA3100C33DD3 /* Amphitheater@2x.png */; };
+		1745CE5818E7CA3100C33DD3 /* Antelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4018E7CA3100C33DD3 /* Antelope.png */; };
+		1745CE5918E7CA3100C33DD3 /* Antelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4118E7CA3100C33DD3 /* Antelope@2x.png */; };
+		1745CE5A18E7CA3100C33DD3 /* Apache Junction.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4218E7CA3100C33DD3 /* Apache Junction.png */; };
+		1745CE5B18E7CA3100C33DD3 /* Apache Junction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4318E7CA3100C33DD3 /* Apache Junction@2x.png */; };
+		1745CE5C18E7CA3100C33DD3 /* Apollo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4418E7CA3100C33DD3 /* Apollo.png */; };
+		1745CE5D18E7CA3100C33DD3 /* Apollo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4518E7CA3100C33DD3 /* Apollo@2x.png */; };
+		1745CE5E18E7CA3100C33DD3 /* Arcadia.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4618E7CA3100C33DD3 /* Arcadia.png */; };
+		1745CE5F18E7CA3100C33DD3 /* Arcadia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4718E7CA3100C33DD3 /* Arcadia@2x.png */; };
+		1745CE6018E7CA3100C33DD3 /* Arizona Charter Academy.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4818E7CA3100C33DD3 /* Arizona Charter Academy.png */; };
+		1745CE6118E7CA3100C33DD3 /* Arizona Charter Academy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4918E7CA3100C33DD3 /* Arizona Charter Academy@2x.png */; };
+		1745CE6218E7CA3100C33DD3 /* Ash Fork Spartans.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4A18E7CA3100C33DD3 /* Ash Fork Spartans.png */; };
+		1745CE6318E7CA3100C33DD3 /* Ash Fork Spartans@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4B18E7CA3100C33DD3 /* Ash Fork Spartans@2x.png */; };
+		1745CE6818E7CAFC00C33DD3 /* Peoria.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6418E7CAFC00C33DD3 /* Peoria.png */; };
+		1745CE6918E7CAFC00C33DD3 /* Peoria@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */; };
+		1745CE6A18E7CAFC00C33DD3 /* Raymond S. Kellis.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6618E7CAFC00C33DD3 /* Raymond S. Kellis.png */; };
+		1745CE6B18E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6718E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png */; };
 		1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */; };
 		175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 175F998118E4BEDE00C0D880 /* PSBNScoreboard.m */; };
 		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
@@ -28,30 +54,6 @@
 		1765120818C05FC700657C04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120718C05FC700657C04 /* SystemConfiguration.framework */; };
 		1765120B18C0608C00657C04 /* UITabBarPodcasts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */; };
 		1765120C18C0608C00657C04 /* UITabBarPodcasts.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120A18C0608C00657C04 /* UITabBarPodcasts.png */; };
-		177614C118E50828002D63EF /* Academy_of_Tucson.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614A918E50828002D63EF /* Academy_of_Tucson.png */; };
-		177614C218E50828002D63EF /* Academy_of_Tucson@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614AA18E50828002D63EF /* Academy_of_Tucson@2x.png */; };
-		177614C318E50828002D63EF /* Agua_Fria.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614AB18E50828002D63EF /* Agua_Fria.png */; };
-		177614C418E50828002D63EF /* Agua_Fria@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614AC18E50828002D63EF /* Agua_Fria@2x.png */; };
-		177614C518E50828002D63EF /* Ajo_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614AD18E50828002D63EF /* Ajo_Red.png */; };
-		177614C618E50828002D63EF /* Ajo_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614AE18E50828002D63EF /* Ajo_Red@2x.png */; };
-		177614C718E50828002D63EF /* Alchesay.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614AF18E50828002D63EF /* Alchesay.png */; };
-		177614C818E50828002D63EF /* Alchesay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B018E50828002D63EF /* Alchesay@2x.png */; };
-		177614C918E50828002D63EF /* Alhambra.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B118E50828002D63EF /* Alhambra.png */; };
-		177614CA18E50828002D63EF /* Alhambra@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B218E50828002D63EF /* Alhambra@2x.png */; };
-		177614CB18E50828002D63EF /* Amphitheater.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B318E50828002D63EF /* Amphitheater.png */; };
-		177614CC18E50828002D63EF /* Amphitheater@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B418E50828002D63EF /* Amphitheater@2x.png */; };
-		177614CD18E50828002D63EF /* Antelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B518E50828002D63EF /* Antelope.png */; };
-		177614CE18E50828002D63EF /* Antelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B618E50828002D63EF /* Antelope@2x.png */; };
-		177614CF18E50828002D63EF /* Apache_Junction.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B718E50828002D63EF /* Apache_Junction.png */; };
-		177614D018E50828002D63EF /* Apache_Junction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B818E50828002D63EF /* Apache_Junction@2x.png */; };
-		177614D118E50828002D63EF /* Apollo.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614B918E50828002D63EF /* Apollo.png */; };
-		177614D218E50828002D63EF /* Apollo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614BA18E50828002D63EF /* Apollo@2x.png */; };
-		177614D318E50828002D63EF /* Arcadia.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614BB18E50828002D63EF /* Arcadia.png */; };
-		177614D418E50828002D63EF /* Arcadia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614BC18E50828002D63EF /* Arcadia@2x.png */; };
-		177614D518E50828002D63EF /* Arizona_Charter_Academy.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614BD18E50828002D63EF /* Arizona_Charter_Academy.png */; };
-		177614D618E50828002D63EF /* Arizona_Charter_Academy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614BE18E50828002D63EF /* Arizona_Charter_Academy@2x.png */; };
-		177614D718E50828002D63EF /* Ash_Fork_Spartans.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614BF18E50828002D63EF /* Ash_Fork_Spartans.png */; };
-		177614D818E50828002D63EF /* Ash_Fork_Spartans@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 177614C018E50828002D63EF /* Ash_Fork_Spartans@2x.png */; };
 		17B68EA518BEBA26006A67D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA418BEBA26006A67D3 /* Foundation.framework */; };
 		17B68EA718BEBA26006A67D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */; };
 		17B68EA918BEBA26006A67D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA818BEBA26006A67D3 /* UIKit.framework */; };
@@ -143,7 +145,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1745CDF118E75B3300C33DD3 /* School Logos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "School Logos.plist"; sourceTree = "<group>"; };
 		1745CDF918E76DDB00C33DD3 /* PSBNFootball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNFootball.h; sourceTree = "<group>"; };
 		1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNFootball.m; sourceTree = "<group>"; };
 		1745CDFC18E7773900C33DD3 /* PSBNScoreHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreHeader.h; sourceTree = "<group>"; };
@@ -152,8 +153,6 @@
 		1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNVolleyball.m; sourceTree = "<group>"; };
 		1745CE0518E7A29F00C33DD3 /* PSBNBasketball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNBasketball.h; sourceTree = "<group>"; };
 		1745CE0618E7A29F00C33DD3 /* PSBNBasketball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNBasketball.m; sourceTree = "<group>"; };
-		1745CE0B18E7AAF200C33DD3 /* diagmonds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diagmonds.png; sourceTree = "<group>"; };
-		1745CE0C18E7AAF200C33DD3 /* diagmonds_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diagmonds_@2X.png"; sourceTree = "<group>"; };
 		1745CE0E18E7AAF200C33DD3 /* TTSlidingPagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPagesDataSource.h; sourceTree = "<group>"; };
 		1745CE0F18E7AAF200C33DD3 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
 		1745CE1018E7AAF200C33DD3 /* TTSlidingPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPage.m; sourceTree = "<group>"; };
@@ -167,8 +166,38 @@
 		1745CE1818E7AAF200C33DD3 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		1745CE1918E7AAF200C33DD3 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
 		1745CE1A18E7AAF200C33DD3 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
-		1745CE2318E7AB9900C33DD3 /* PSBNScoreCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreCenter.h; sourceTree = "<group>"; };
-		1745CE2418E7AB9900C33DD3 /* PSBNScoreCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreCenter.m; sourceTree = "<group>"; };
+		1745CE2718E7AFED00C33DD3 /* PSBNScoreCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreCenter.h; sourceTree = "<group>"; };
+		1745CE2818E7AFED00C33DD3 /* PSBNScoreCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreCenter.m; sourceTree = "<group>"; };
+		1745CE2A18E7B75000C33DD3 /* PSBNScoreCenterChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreCenterChild.h; sourceTree = "<group>"; };
+		1745CE2B18E7B75000C33DD3 /* PSBNScoreCenterChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreCenterChild.m; sourceTree = "<group>"; };
+		1745CE3418E7CA3100C33DD3 /* Academy of Tucson.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Academy of Tucson.png"; sourceTree = "<group>"; };
+		1745CE3518E7CA3100C33DD3 /* Academy of Tucson@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Academy of Tucson@2x.png"; sourceTree = "<group>"; };
+		1745CE3618E7CA3100C33DD3 /* Agua Fria.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agua Fria.png"; sourceTree = "<group>"; };
+		1745CE3718E7CA3100C33DD3 /* Agua Fria@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agua Fria@2x.png"; sourceTree = "<group>"; };
+		1745CE3818E7CA3100C33DD3 /* Ajo Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ajo Red.png"; sourceTree = "<group>"; };
+		1745CE3918E7CA3100C33DD3 /* Ajo Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ajo Red@2x.png"; sourceTree = "<group>"; };
+		1745CE3A18E7CA3100C33DD3 /* Alchesay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alchesay.png; sourceTree = "<group>"; };
+		1745CE3B18E7CA3100C33DD3 /* Alchesay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Alchesay@2x.png"; sourceTree = "<group>"; };
+		1745CE3C18E7CA3100C33DD3 /* Alhambra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alhambra.png; sourceTree = "<group>"; };
+		1745CE3D18E7CA3100C33DD3 /* Alhambra@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Alhambra@2x.png"; sourceTree = "<group>"; };
+		1745CE3E18E7CA3100C33DD3 /* Amphitheater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Amphitheater.png; sourceTree = "<group>"; };
+		1745CE3F18E7CA3100C33DD3 /* Amphitheater@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Amphitheater@2x.png"; sourceTree = "<group>"; };
+		1745CE4018E7CA3100C33DD3 /* Antelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Antelope.png; sourceTree = "<group>"; };
+		1745CE4118E7CA3100C33DD3 /* Antelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Antelope@2x.png"; sourceTree = "<group>"; };
+		1745CE4218E7CA3100C33DD3 /* Apache Junction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apache Junction.png"; sourceTree = "<group>"; };
+		1745CE4318E7CA3100C33DD3 /* Apache Junction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apache Junction@2x.png"; sourceTree = "<group>"; };
+		1745CE4418E7CA3100C33DD3 /* Apollo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Apollo.png; sourceTree = "<group>"; };
+		1745CE4518E7CA3100C33DD3 /* Apollo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apollo@2x.png"; sourceTree = "<group>"; };
+		1745CE4618E7CA3100C33DD3 /* Arcadia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arcadia.png; sourceTree = "<group>"; };
+		1745CE4718E7CA3100C33DD3 /* Arcadia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arcadia@2x.png"; sourceTree = "<group>"; };
+		1745CE4818E7CA3100C33DD3 /* Arizona Charter Academy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arizona Charter Academy.png"; sourceTree = "<group>"; };
+		1745CE4918E7CA3100C33DD3 /* Arizona Charter Academy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arizona Charter Academy@2x.png"; sourceTree = "<group>"; };
+		1745CE4A18E7CA3100C33DD3 /* Ash Fork Spartans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ash Fork Spartans.png"; sourceTree = "<group>"; };
+		1745CE4B18E7CA3100C33DD3 /* Ash Fork Spartans@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ash Fork Spartans@2x.png"; sourceTree = "<group>"; };
+		1745CE6418E7CAFC00C33DD3 /* Peoria.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Peoria.png; sourceTree = "<group>"; };
+		1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Peoria@2x.png"; sourceTree = "<group>"; };
+		1745CE6618E7CAFC00C33DD3 /* Raymond S. Kellis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Raymond S. Kellis.png"; sourceTree = "<group>"; };
+		1745CE6718E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Raymond S. Kellis@2x.png"; sourceTree = "<group>"; };
 		1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		175F998018E4BEDE00C0D880 /* PSBNScoreboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreboard.h; sourceTree = "<group>"; };
@@ -180,30 +209,6 @@
 		1765120718C05FC700657C04 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarPodcasts@2x.png"; sourceTree = "<group>"; };
 		1765120A18C0608C00657C04 /* UITabBarPodcasts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarPodcasts.png; sourceTree = "<group>"; };
-		177614A918E50828002D63EF /* Academy_of_Tucson.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Academy_of_Tucson.png; sourceTree = "<group>"; };
-		177614AA18E50828002D63EF /* Academy_of_Tucson@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Academy_of_Tucson@2x.png"; sourceTree = "<group>"; };
-		177614AB18E50828002D63EF /* Agua_Fria.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Agua_Fria.png; sourceTree = "<group>"; };
-		177614AC18E50828002D63EF /* Agua_Fria@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agua_Fria@2x.png"; sourceTree = "<group>"; };
-		177614AD18E50828002D63EF /* Ajo_Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ajo_Red.png; sourceTree = "<group>"; };
-		177614AE18E50828002D63EF /* Ajo_Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ajo_Red@2x.png"; sourceTree = "<group>"; };
-		177614AF18E50828002D63EF /* Alchesay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alchesay.png; sourceTree = "<group>"; };
-		177614B018E50828002D63EF /* Alchesay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Alchesay@2x.png"; sourceTree = "<group>"; };
-		177614B118E50828002D63EF /* Alhambra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alhambra.png; sourceTree = "<group>"; };
-		177614B218E50828002D63EF /* Alhambra@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Alhambra@2x.png"; sourceTree = "<group>"; };
-		177614B318E50828002D63EF /* Amphitheater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Amphitheater.png; sourceTree = "<group>"; };
-		177614B418E50828002D63EF /* Amphitheater@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Amphitheater@2x.png"; sourceTree = "<group>"; };
-		177614B518E50828002D63EF /* Antelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Antelope.png; sourceTree = "<group>"; };
-		177614B618E50828002D63EF /* Antelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Antelope@2x.png"; sourceTree = "<group>"; };
-		177614B718E50828002D63EF /* Apache_Junction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Apache_Junction.png; sourceTree = "<group>"; };
-		177614B818E50828002D63EF /* Apache_Junction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apache_Junction@2x.png"; sourceTree = "<group>"; };
-		177614B918E50828002D63EF /* Apollo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Apollo.png; sourceTree = "<group>"; };
-		177614BA18E50828002D63EF /* Apollo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apollo@2x.png"; sourceTree = "<group>"; };
-		177614BB18E50828002D63EF /* Arcadia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arcadia.png; sourceTree = "<group>"; };
-		177614BC18E50828002D63EF /* Arcadia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arcadia@2x.png"; sourceTree = "<group>"; };
-		177614BD18E50828002D63EF /* Arizona_Charter_Academy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arizona_Charter_Academy.png; sourceTree = "<group>"; };
-		177614BE18E50828002D63EF /* Arizona_Charter_Academy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arizona_Charter_Academy@2x.png"; sourceTree = "<group>"; };
-		177614BF18E50828002D63EF /* Ash_Fork_Spartans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ash_Fork_Spartans.png; sourceTree = "<group>"; };
-		177614C018E50828002D63EF /* Ash_Fork_Spartans@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ash_Fork_Spartans@2x.png"; sourceTree = "<group>"; };
 		17B68EA118BEBA26006A67D3 /* PSBN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSBN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B68EA418BEBA26006A67D3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -325,7 +330,6 @@
 		1745CE0818E7AAD800C33DD3 /* UIScrollSlidingPages */ = {
 			isa = PBXGroup;
 			children = (
-				1745CE0918E7AAF200C33DD3 /* Images */,
 				1745CE0E18E7AAF200C33DD3 /* TTSlidingPagesDataSource.h */,
 				1745CE0F18E7AAF200C33DD3 /* TTScrollViewWrapper.h */,
 				1745CE1018E7AAF200C33DD3 /* TTSlidingPage.m */,
@@ -343,50 +347,46 @@
 			name = UIScrollSlidingPages;
 			sourceTree = "<group>";
 		};
-		1745CE0918E7AAF200C33DD3 /* Images */ = {
+		1745CE2618E7AE9B00C33DD3 /* PSBNScoreCenter Views */ = {
 			isa = PBXGroup;
 			children = (
-				1745CE0A18E7AAF200C33DD3 /* diagmonds */,
+				1745CE2A18E7B75000C33DD3 /* PSBNScoreCenterChild.h */,
+				1745CE2B18E7B75000C33DD3 /* PSBNScoreCenterChild.m */,
 			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		1745CE0A18E7AAF200C33DD3 /* diagmonds */ = {
-			isa = PBXGroup;
-			children = (
-				1745CE0B18E7AAF200C33DD3 /* diagmonds.png */,
-				1745CE0C18E7AAF200C33DD3 /* diagmonds_@2X.png */,
-			);
-			path = diagmonds;
+			name = "PSBNScoreCenter Views";
 			sourceTree = "<group>";
 		};
 		177614A818E507E2002D63EF /* School Logos */ = {
 			isa = PBXGroup;
 			children = (
-				177614A918E50828002D63EF /* Academy_of_Tucson.png */,
-				177614AA18E50828002D63EF /* Academy_of_Tucson@2x.png */,
-				177614AB18E50828002D63EF /* Agua_Fria.png */,
-				177614AC18E50828002D63EF /* Agua_Fria@2x.png */,
-				177614AD18E50828002D63EF /* Ajo_Red.png */,
-				177614AE18E50828002D63EF /* Ajo_Red@2x.png */,
-				177614AF18E50828002D63EF /* Alchesay.png */,
-				177614B018E50828002D63EF /* Alchesay@2x.png */,
-				177614B118E50828002D63EF /* Alhambra.png */,
-				177614B218E50828002D63EF /* Alhambra@2x.png */,
-				177614B318E50828002D63EF /* Amphitheater.png */,
-				177614B418E50828002D63EF /* Amphitheater@2x.png */,
-				177614B518E50828002D63EF /* Antelope.png */,
-				177614B618E50828002D63EF /* Antelope@2x.png */,
-				177614B718E50828002D63EF /* Apache_Junction.png */,
-				177614B818E50828002D63EF /* Apache_Junction@2x.png */,
-				177614B918E50828002D63EF /* Apollo.png */,
-				177614BA18E50828002D63EF /* Apollo@2x.png */,
-				177614BB18E50828002D63EF /* Arcadia.png */,
-				177614BC18E50828002D63EF /* Arcadia@2x.png */,
-				177614BD18E50828002D63EF /* Arizona_Charter_Academy.png */,
-				177614BE18E50828002D63EF /* Arizona_Charter_Academy@2x.png */,
-				177614BF18E50828002D63EF /* Ash_Fork_Spartans.png */,
-				177614C018E50828002D63EF /* Ash_Fork_Spartans@2x.png */,
+				1745CE3418E7CA3100C33DD3 /* Academy of Tucson.png */,
+				1745CE3518E7CA3100C33DD3 /* Academy of Tucson@2x.png */,
+				1745CE3618E7CA3100C33DD3 /* Agua Fria.png */,
+				1745CE3718E7CA3100C33DD3 /* Agua Fria@2x.png */,
+				1745CE3818E7CA3100C33DD3 /* Ajo Red.png */,
+				1745CE3918E7CA3100C33DD3 /* Ajo Red@2x.png */,
+				1745CE3A18E7CA3100C33DD3 /* Alchesay.png */,
+				1745CE3B18E7CA3100C33DD3 /* Alchesay@2x.png */,
+				1745CE3C18E7CA3100C33DD3 /* Alhambra.png */,
+				1745CE3D18E7CA3100C33DD3 /* Alhambra@2x.png */,
+				1745CE3E18E7CA3100C33DD3 /* Amphitheater.png */,
+				1745CE3F18E7CA3100C33DD3 /* Amphitheater@2x.png */,
+				1745CE4018E7CA3100C33DD3 /* Antelope.png */,
+				1745CE4118E7CA3100C33DD3 /* Antelope@2x.png */,
+				1745CE4218E7CA3100C33DD3 /* Apache Junction.png */,
+				1745CE4318E7CA3100C33DD3 /* Apache Junction@2x.png */,
+				1745CE4418E7CA3100C33DD3 /* Apollo.png */,
+				1745CE4518E7CA3100C33DD3 /* Apollo@2x.png */,
+				1745CE4618E7CA3100C33DD3 /* Arcadia.png */,
+				1745CE4718E7CA3100C33DD3 /* Arcadia@2x.png */,
+				1745CE4818E7CA3100C33DD3 /* Arizona Charter Academy.png */,
+				1745CE4918E7CA3100C33DD3 /* Arizona Charter Academy@2x.png */,
+				1745CE4A18E7CA3100C33DD3 /* Ash Fork Spartans.png */,
+				1745CE4B18E7CA3100C33DD3 /* Ash Fork Spartans@2x.png */,
+				1745CE6418E7CAFC00C33DD3 /* Peoria.png */,
+				1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */,
+				1745CE6618E7CAFC00C33DD3 /* Raymond S. Kellis.png */,
+				1745CE6718E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png */,
 			);
 			name = "School Logos";
 			sourceTree = "<group>";
@@ -444,8 +444,9 @@
 				17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */,
 				17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */,
 				17B68EE118BEBC6D006A67D3 /* PSBNScores.m */,
-				1745CE2318E7AB9900C33DD3 /* PSBNScoreCenter.h */,
-				1745CE2418E7AB9900C33DD3 /* PSBNScoreCenter.m */,
+				1745CE2718E7AFED00C33DD3 /* PSBNScoreCenter.h */,
+				1745CE2818E7AFED00C33DD3 /* PSBNScoreCenter.m */,
+				1745CE2618E7AE9B00C33DD3 /* PSBNScoreCenter Views */,
 				17B68EAB18BEBA26006A67D3 /* Supporting Files */,
 			);
 			path = PSBN;
@@ -541,7 +542,6 @@
 		17B68F5818BEBED7006A67D3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				1745CDF118E75B3300C33DD3 /* School Logos.plist */,
 				177614A818E507E2002D63EF /* School Logos */,
 				1765120A18C0608C00657C04 /* UITabBarPodcasts.png */,
 				1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */,
@@ -716,77 +716,77 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1745CE5E18E7CA3100C33DD3 /* Arcadia.png in Resources */,
 				17B68F1818BEBC6D006A67D3 /* Settings.bundle in Resources */,
 				17B68F4918BEBE6A006A67D3 /* Icon@2x.png in Resources */,
-				1745CE1B18E7AAF200C33DD3 /* diagmonds.png in Resources */,
 				17B68F7B18BEBFEB006A67D3 /* navBarTile_iOS6.png in Resources */,
 				17B68F7018BEBF28006A67D3 /* cameraIcon_iPhone@2x.png in Resources */,
-				177614D618E50828002D63EF /* Arizona_Charter_Academy@2x.png in Resources */,
-				177614CE18E50828002D63EF /* Antelope@2x.png in Resources */,
-				177614CC18E50828002D63EF /* Amphitheater@2x.png in Resources */,
-				177614D518E50828002D63EF /* Arizona_Charter_Academy.png in Resources */,
 				17B68F2D18BEBD52006A67D3 /* Default-568h@2x.png in Resources */,
 				17B68F8A18BEC05B006A67D3 /* white.png in Resources */,
-				1745CE1C18E7AAF200C33DD3 /* diagmonds_@2X.png in Resources */,
-				177614C818E50828002D63EF /* Alchesay@2x.png in Resources */,
 				17B68F4318BEBE6A006A67D3 /* Icon-72@2x.png in Resources */,
-				177614CA18E50828002D63EF /* Alhambra@2x.png in Resources */,
 				17B68F6118BEBF03006A67D3 /* errorLoading_iPhone.png in Resources */,
+				1745CE5018E7CA3100C33DD3 /* Ajo Red.png in Resources */,
+				1745CE5418E7CA3100C33DD3 /* Alhambra.png in Resources */,
 				17B68F2418BEBD41006A67D3 /* ios7_Default-Portrait~ipad.png in Resources */,
-				177614D718E50828002D63EF /* Ash_Fork_Spartans.png in Resources */,
 				17B68F2518BEBD41006A67D3 /* ios7_Default@2x.png in Resources */,
+				1745CE4E18E7CA3100C33DD3 /* Agua Fria.png in Resources */,
 				17B68F7718BEBFD0006A67D3 /* navBarShadow_iPhone.png in Resources */,
 				17B68F8918BEC05B006A67D3 /* scores@2x.png in Resources */,
 				17B68F0A18BEBC6D006A67D3 /* Scoreboard_Soccer.xib in Resources */,
-				1745CDF218E75B3300C33DD3 /* School Logos.plist in Resources */,
 				17B68F6818BEBF17006A67D3 /* ScoreboardPlaceholder@2x.png in Resources */,
+				1745CE6018E7CA3100C33DD3 /* Arizona Charter Academy.png in Resources */,
 				17B68F3018BEBD52006A67D3 /* Default-Portrait@2x~ipad.png in Resources */,
 				17B68F2F18BEBD52006A67D3 /* Default-Landscape~ipad.png in Resources */,
-				177614C118E50828002D63EF /* Academy_of_Tucson.png in Resources */,
 				17B68F6F18BEBF28006A67D3 /* cameraIcon_iPhone.png in Resources */,
+				1745CE5918E7CA3100C33DD3 /* Antelope@2x.png in Resources */,
+				1745CE5D18E7CA3100C33DD3 /* Apollo@2x.png in Resources */,
+				1745CE5618E7CA3100C33DD3 /* Amphitheater.png in Resources */,
 				17B68F6718BEBF17006A67D3 /* ScoreboardPlaceholder.png in Resources */,
+				1745CE6118E7CA3100C33DD3 /* Arizona Charter Academy@2x.png in Resources */,
+				1745CE5318E7CA3100C33DD3 /* Alchesay@2x.png in Resources */,
 				1765120C18C0608C00657C04 /* UITabBarPodcasts.png in Resources */,
 				17B68F6D18BEBF28006A67D3 /* cameraIcon_iPad.png in Resources */,
 				17B68F2018BEBD41006A67D3 /* ios7_Default-568h@2x.png in Resources */,
-				177614D818E50828002D63EF /* Ash_Fork_Spartans@2x.png in Resources */,
 				17B68F5418BEBEC9006A67D3 /* DS-DIGI.TTF in Resources */,
 				17B68F3218BEBD52006A67D3 /* Default.png in Resources */,
-				177614D118E50828002D63EF /* Apollo.png in Resources */,
-				177614C318E50828002D63EF /* Agua_Fria.png in Resources */,
+				1745CE5A18E7CA3100C33DD3 /* Apache Junction.png in Resources */,
 				17B68F4818BEBE6A006A67D3 /* Icon.png in Resources */,
 				17B68F7818BEBFD0006A67D3 /* navBarShadow_iPhone@2x.png in Resources */,
 				17B68F7518BEBFD0006A67D3 /* navBarShadow_iPad.png in Resources */,
-				177614D218E50828002D63EF /* Apollo@2x.png in Resources */,
 				17B68F8718BEC05B006A67D3 /* black.png in Resources */,
-				177614C718E50828002D63EF /* Alchesay.png in Resources */,
-				177614CB18E50828002D63EF /* Amphitheater.png in Resources */,
-				177614C218E50828002D63EF /* Academy_of_Tucson@2x.png in Resources */,
+				1745CE6818E7CAFC00C33DD3 /* Peoria.png in Resources */,
 				17B68F1618BEBC6D006A67D3 /* Scoreboard_Football.xib in Resources */,
-				177614CF18E50828002D63EF /* Apache_Junction.png in Resources */,
 				17B68F3318BEBD52006A67D3 /* Default@2x.png in Resources */,
+				1745CE6A18E7CAFC00C33DD3 /* Raymond S. Kellis.png in Resources */,
+				1745CE5718E7CA3100C33DD3 /* Amphitheater@2x.png in Resources */,
+				1745CE4F18E7CA3100C33DD3 /* Agua Fria@2x.png in Resources */,
 				17B68F2218BEBD41006A67D3 /* ios7_Default-Landscape~ipad.png in Resources */,
+				1745CE5C18E7CA3100C33DD3 /* Apollo.png in Resources */,
 				17B68F0E18BEBC6D006A67D3 /* Scoreboard_Wrestling.xib in Resources */,
+				1745CE4C18E7CA3100C33DD3 /* Academy of Tucson.png in Resources */,
+				1745CE5818E7CA3100C33DD3 /* Antelope.png in Resources */,
+				1745CE6918E7CAFC00C33DD3 /* Peoria@2x.png in Resources */,
 				17B68F4218BEBE6A006A67D3 /* Icon-72.png in Resources */,
-				177614CD18E50828002D63EF /* Antelope.png in Resources */,
-				177614C518E50828002D63EF /* Ajo_Red.png in Resources */,
 				17B68F5718BEBEC9006A67D3 /* Transist.ttf in Resources */,
 				17B68F4518BEBE6A006A67D3 /* Icon-Small-50@2x.png in Resources */,
-				177614D418E50828002D63EF /* Arcadia@2x.png in Resources */,
-				177614D018E50828002D63EF /* Apache_Junction@2x.png in Resources */,
+				1745CE5518E7CA3100C33DD3 /* Alhambra@2x.png in Resources */,
 				17B68F2318BEBD41006A67D3 /* ios7_Default-Portrait@2x~ipad.png in Resources */,
 				17B68F4718BEBE6A006A67D3 /* Icon-Small@2x.png in Resources */,
 				17B68F8218BEC03F006A67D3 /* theater@2x.png in Resources */,
 				17B68F4D18BEBE6A006A67D3 /* ios7_spotlight_icon.png in Resources */,
 				17B68F4B18BEBE6A006A67D3 /* ios7_app_icon_ipad@2x.png in Resources */,
+				1745CE5218E7CA3100C33DD3 /* Alchesay.png in Resources */,
+				1745CE5B18E7CA3100C33DD3 /* Apache Junction@2x.png in Resources */,
 				17B68F6418BEBF03006A67D3 /* errorLoading@2x.png in Resources */,
 				17B68F0618BEBC6D006A67D3 /* Scoreboard_Basketball.xib in Resources */,
 				17B68F4618BEBE6A006A67D3 /* Icon-Small.png in Resources */,
 				17B68F6218BEBF03006A67D3 /* errorLoading_iPhone@2x.png in Resources */,
+				1745CE5118E7CA3100C33DD3 /* Ajo Red@2x.png in Resources */,
 				17B68F2118BEBD41006A67D3 /* ios7_Default-Landscape@2x~ipad.png in Resources */,
+				1745CE6218E7CA3100C33DD3 /* Ash Fork Spartans.png in Resources */,
+				1745CE6B18E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png in Resources */,
 				17B68F6E18BEBF28006A67D3 /* cameraIcon_iPad@2x.png in Resources */,
-				177614C418E50828002D63EF /* Agua_Fria@2x.png in Resources */,
 				17B68F5518BEBEC9006A67D3 /* DS-DIGIB.TTF in Resources */,
-				177614C618E50828002D63EF /* Ajo_Red@2x.png in Resources */,
 				17B68F2E18BEBD52006A67D3 /* Default-Landscape@2x~ipad.png in Resources */,
 				17B68F1018BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib in Resources */,
 				17B68F4C18BEBE6A006A67D3 /* ios7_app_icon_iphone@2x.png in Resources */,
@@ -794,16 +794,17 @@
 				17B68F8118BEC03F006A67D3 /* theater.png in Resources */,
 				17B68F4E18BEBE6A006A67D3 /* ios7_spotlight_icon@2x.png in Resources */,
 				17B68F7E18BEBFFF006A67D3 /* red.png in Resources */,
+				1745CE6318E7CA3100C33DD3 /* Ash Fork Spartans@2x.png in Resources */,
 				17B68F5C18BEBEF5006A67D3 /* posterMask@2x.png in Resources */,
 				17B68F5B18BEBEF5006A67D3 /* posterMask.png in Resources */,
 				1765120B18C0608C00657C04 /* UITabBarPodcasts@2x.png in Resources */,
 				17B68F7618BEBFD0006A67D3 /* navBarShadow_iPad@2x.png in Resources */,
-				177614C918E50828002D63EF /* Alhambra.png in Resources */,
-				177614D318E50828002D63EF /* Arcadia.png in Resources */,
+				1745CE5F18E7CA3100C33DD3 /* Arcadia@2x.png in Resources */,
 				17B68F8818BEC05B006A67D3 /* scores.png in Resources */,
 				17B68F4A18BEBE6A006A67D3 /* ios7_app_icon_ipad.png in Resources */,
 				17B68F6318BEBF03006A67D3 /* errorLoading.png in Resources */,
 				17B68F7C18BEBFEB006A67D3 /* navBarTile_iOS7.png in Resources */,
+				1745CE4D18E7CA3100C33DD3 /* Academy of Tucson@2x.png in Resources */,
 				17B68F4418BEBE6A006A67D3 /* Icon-Small-50.png in Resources */,
 				17B68EAF18BEBA26006A67D3 /* InfoPlist.strings in Resources */,
 				17B68F3118BEBD52006A67D3 /* Default-Portrait~ipad.png in Resources */,
@@ -830,6 +831,7 @@
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */,
+				1745CE2C18E7B75000C33DD3 /* PSBNScoreCenterChild.m in Sources */,
 				1745CE0718E7A29F00C33DD3 /* PSBNBasketball.m in Sources */,
 				1745CE2018E7AAF200C33DD3 /* TTScrollViewWrapper.m in Sources */,
 				175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */,
@@ -838,7 +840,7 @@
 				17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */,
 				1745CE1E18E7AAF200C33DD3 /* TTSlidingPage.m in Sources */,
 				17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */,
-				1745CE2518E7AB9900C33DD3 /* PSBNScoreCenter.m in Sources */,
+				1745CE2918E7AFED00C33DD3 /* PSBNScoreCenter.m in Sources */,
 				1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */,
 				1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */,
 				17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */,

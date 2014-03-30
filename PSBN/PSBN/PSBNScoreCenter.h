@@ -6,8 +6,13 @@
 //  Copyright (c) 2014 Tech Genius. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TTScrollSlidingPagesController.h"
+#import "TTUIScrollViewSlidingPages.h"
 
-@interface PSBNScoreCenter : UIViewController
+#import "PSBNScoreCenterChild.h"
+
+@interface PSBNScoreCenter : TTScrollSlidingPagesController <TTSlidingPagesDataSource, TTSliddingPageDelegate> {
+    NSArray *pageArray;
+}
 
 @end

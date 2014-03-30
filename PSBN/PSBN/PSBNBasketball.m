@@ -11,7 +11,7 @@
 @implementation PSBNBasketball
 
 - (void)setObject:(PFObject *)object {
-    self.objectColor = [UIColor colorWithRed:1/3.0f green:0.5/3.0f blue:0.0f alpha:1.0f];
+    self.objectColor = [UIColor colorWithRed:228/255.0f green:100/255.f blue:0.0f alpha:1.0f];
     [super setObject:object];
 }
 

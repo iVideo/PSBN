@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1745CDF218E75B3300C33DD3 /* School Logos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1745CDF118E75B3300C33DD3 /* School Logos.plist */; };
-		1745CDF518E7603100C33DD3 /* PSBNScoreCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDF418E7603100C33DD3 /* PSBNScoreCenter.m */; };
 		1745CDFB18E76DDB00C33DD3 /* PSBNFootball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */; };
 		1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFD18E7773900C33DD3 /* PSBNScoreHeader.m */; };
 		1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */; };
@@ -144,8 +143,6 @@
 
 /* Begin PBXFileReference section */
 		1745CDF118E75B3300C33DD3 /* School Logos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "School Logos.plist"; sourceTree = "<group>"; };
-		1745CDF318E7603100C33DD3 /* PSBNScoreCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreCenter.h; sourceTree = "<group>"; };
-		1745CDF418E7603100C33DD3 /* PSBNScoreCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreCenter.m; sourceTree = "<group>"; };
 		1745CDF918E76DDB00C33DD3 /* PSBNFootball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNFootball.h; sourceTree = "<group>"; };
 		1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNFootball.m; sourceTree = "<group>"; };
 		1745CDFC18E7773900C33DD3 /* PSBNScoreHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreHeader.h; sourceTree = "<group>"; };
@@ -444,8 +441,6 @@
 				17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */,
 				17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */,
 				17B68EE118BEBC6D006A67D3 /* PSBNScores.m */,
-				1745CDF318E7603100C33DD3 /* PSBNScoreCenter.h */,
-				1745CDF418E7603100C33DD3 /* PSBNScoreCenter.m */,
 				17B68EAB18BEBA26006A67D3 /* Supporting Files */,
 			);
 			path = PSBN;
@@ -828,7 +823,6 @@
 				1745CE1F18E7AAF200C33DD3 /* TTSlidingPageTitle.m in Sources */,
 				1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */,
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
-				1745CDF518E7603100C33DD3 /* PSBNScoreCenter.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */,
 				1745CE0718E7A29F00C33DD3 /* PSBNBasketball.m in Sources */,

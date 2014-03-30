@@ -46,7 +46,9 @@
     // Theme-ing
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     theaterListNavController.navigationBar.barStyle = UIBarStyleBlack;
+    radioNavController.navigationBar.barStyle = UIBarStyleBlack;
     scoresNavController.navigationBar.barStyle = UIBarStyleBlack;
+    scoreCenterNavController.navigationBar.barStyle = UIBarStyleBlack;
     
     if ([[[UIDevice currentDevice] systemVersion] intValue] >= 7) {
         [application setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
@@ -57,14 +59,17 @@
         [radioNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
         [theaterListNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
         [scoresNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
+        [scoreCenterNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
     } else {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
         [radioNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
         [theaterListNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
         [scoresNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
+        [scoreCenterNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
     }
     
     scoresNavController.navigationBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
+    scoreCenterNavController.navigationBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
     
     // Register for push notifications
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];

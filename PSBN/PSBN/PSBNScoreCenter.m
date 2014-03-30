@@ -248,6 +248,7 @@
         [collectionView registerClass:[PSBNFootball class] forCellWithReuseIdentifier:CellIdentifier];
         PSBNFootball *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         // Configure the cell...
+        [cell setObject:[[[games objectAtIndex:indexPath.section] objectForKey:@"scoreObjects"] objectAtIndex:indexPath.row]];
         
         return cell;
     } else {

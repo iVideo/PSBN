@@ -63,11 +63,11 @@
     // Teams
     @autoreleasepool {
         UIView *background1 = [[UIView alloc] initWithFrame:CGRectMake(5, 132, 300, 33)];
-        background1.backgroundColor = [UIColor colorWithWhite:50/255.0f alpha:1.0f];
+        background1.backgroundColor = [UIColor blackColor];
         [self addSubview:background1];
         
         UIView *background2 = [[UIView alloc] initWithFrame:CGRectMake(5, 170, 300, 33)];
-        background2.backgroundColor = [UIColor colorWithWhite:50/255.0f alpha:1.0f];
+        background2.backgroundColor = [UIColor blackColor];
         [self addSubview:background2];
         
         UILabel *awayTeam = [[UILabel alloc] initWithFrame:CGRectMake(10, 132, 65, 33)];
@@ -87,7 +87,7 @@
     
     // Per Quarter scores
     @autoreleasepool {
-        UIColor *backgroundColor = [UIColor colorWithWhite:50/255.0f alpha:1.0f];
+        UIColor *backgroundColor = [UIColor blackColor];
         
         UILabel *away1 = [[UILabel alloc] initWithFrame:CGRectMake(85, 132, 27, 33)];
         away1.backgroundColor = backgroundColor;
@@ -132,7 +132,7 @@
     
     // Per Quarter scores
     @autoreleasepool {
-        UIColor *backgroundColor = [UIColor colorWithWhite:50/255.0f alpha:1.0f];
+        UIColor *backgroundColor = [UIColor blackColor];
         
         UILabel *home1 = [[UILabel alloc] initWithFrame:CGRectMake(85, 170, 27, 33)];
         home1.backgroundColor = backgroundColor;

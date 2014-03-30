@@ -28,7 +28,7 @@
     gradient.startPoint = CGPointMake(0, 0);
     gradient.locations = @[@0, @0.5, @0.5, @1.0];
     gradient.endPoint = CGPointMake(1.0, 1.0);
-    gradient.colors = @[(id)[UIColor colorWithWhite:1.0f alpha:0.4f].CGColor, (id)[UIColor colorWithWhite:1.0f alpha:0.2f].CGColor, (id)[UIColor colorWithWhite:0.75f alpha:0.0f].CGColor, (id)[UIColor colorWithWhite:1.0f alpha:0.2f].CGColor];
+    gradient.colors = @[(id)[UIColor colorWithWhite:1.0f alpha:0.2f].CGColor, (id)[UIColor colorWithWhite:1.0f alpha:0.1f].CGColor, (id)[UIColor colorWithWhite:0.75f alpha:0.0f].CGColor, (id)[UIColor colorWithWhite:1.0f alpha:0.1f].CGColor];
     [self.layer addSublayer:gradient];
 }
 
@@ -57,7 +57,7 @@
 
 - (void)createTeamIcons {
     @autoreleasepool {
-        self.awayIcon = [[UIImageView alloc] initWithFrame:CGRectMake(5, 26, 75, 75)];
+        self.awayIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 26, 75, 75)];
         self.awayIcon.contentMode = UIViewContentModeScaleAspectFit;
         self.awayIcon.image = [UIImage imageNamed:self.scoreObject[@"awayTeam"]];
         [self addSubview:self.awayIcon];
@@ -73,7 +73,7 @@
 
 - (void)fillInScores {
     @autoreleasepool {
-        self.overallScore = [[UILabel alloc] initWithFrame:CGRectMake(85, 26, 130, 75)];
+        self.overallScore = [[UILabel alloc] initWithFrame:CGRectMake(90, 26, 125, 75)];
         self.overallScore.backgroundColor = [UIColor blackColor];
         self.overallScore.textColor = [UIColor whiteColor];
         self.overallScore.textAlignment = NSTextAlignmentCenter;

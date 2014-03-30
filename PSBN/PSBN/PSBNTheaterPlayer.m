@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ([[[UIDevice currentDevice] systemVersion] intValue] >= 7) {
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
     }
     // Set background color
@@ -47,7 +47,6 @@
         poster.backgroundColor = [UIColor whiteColor];
         poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
         poster.contentMode = UIViewContentModeRedraw;
-        [self.view insertSubview:poster belowSubview:posterMask];
         
         posterMask = [[UIImageView alloc] initWithFrame:poster.frame];
         posterMask.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
@@ -97,6 +96,7 @@
                                 // Load image error
                                 poster.image = [UIImage imageNamed:@"errorLoading"];
                             }
+                            [self.view insertSubview:poster belowSubview:posterMask];
                         }
                     }];
                     
@@ -150,15 +150,15 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    if (customPlayer != nil) {
-        if (!customPlayer.fullscreen) {
-            [customPlayer pause];
-            [customPlayer stop];
-        }
-    }
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
+    if (customPlayer != nil) {
+        if (!customPlayer.fullscreen) {
+            [customPlayer stop];
+            customPlayer.initialPlaybackTime = -1;
+        }
+    }
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -219,16 +219,93 @@
     // Check if error
     if ([[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonPlaybackError) {
         // Remove custom player
-        [customPlayer pause];
         [customPlayer stop];
+        customPlayer.initialPlaybackTime = -1;
         [customPlayer.view removeFromSuperview];
         
         // Create fallback player
         fallbackPlayer = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-        [self.view addSubview:fallbackPlayer];
         fallbackPlayer.scrollView.bounces = NO;
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:fallbackPlayerURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
         [fallbackPlayer loadRequest:urlRequest];
+        [loadingWheel stopAnimating];
+        [loadingWheel removeFromSuperview];
+        [self.view addSubview:fallbackPlayer];
+        
+        // Improve video for next time
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
+                [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
+                    // Auto-crop iframe url if existant
+                    NSURL *url = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
+                    NSError *error1;
+                    NSString *sourceCode = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error1];
+                    
+                    if (!error) {
+                        // Custom Player Video URL
+                        NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
+                        
+                        // Update views
+                        if ([components containsObject:@"views"]) {
+                            int index = (int)([components indexOfObject:@"views"]);
+                            int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+                            
+                            int lastViews = [[object objectForKey:@"webViews"] intValue];
+                            [object incrementKey:@"webViews" byAmount:[NSNumber numberWithInt:views-lastViews]];
+                            
+                            int lastTotalViews = [[object objectForKey:@"totalViews"] intValue];
+                            [object incrementKey:@"totalViews" byAmount:[NSNumber numberWithInt:([[object objectForKey:@"webViews"] intValue]+[[object objectForKey:@"appViews"] intValue])-lastTotalViews]];
+                            
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
+                                    [object saveEventually];
+                                }
+                            }];
+                        }
+                        // Update custom player
+                        if ([components containsObject:@"m3u8_url"]) {
+                            int index = (int)([components indexOfObject:@"m3u8_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
+                                    [object saveEventually];
+                                }
+                            }];
+                        } else if ([components containsObject:@"progressive_url_hd"]) {
+                            int index = (int)([components indexOfObject:@"progressive_url_hd"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
+                                    [object saveEventually];
+                                }
+                            }];
+                        } else if ([components containsObject:@"progressive_url"]) {
+                            int index = (int)([components indexOfObject:@"progressive_url"]);
+                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
+                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                if (error) {
+                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
+                                    [object saveEventually];
+                                }
+                            }];
+                        }
+                        
+                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if (!succeeded) {
+                                [object saveEventually];
+                            }
+                        }];
+                    }
+                }];
+            });
+        }
     } else if ([[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonPlaybackEnded || [[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonUserExited) {
         PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
         [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {

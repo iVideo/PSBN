@@ -21,9 +21,10 @@
         
         self.disableUIPageControl = YES;
         if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-            self.hideStatusBarWhenScrolling = YES;
+            self.titleScrollerHeight = 64;
+        } else {
+            self.titleScrollerHeight = 44;
         }
-        self.titleScrollerHeight = 44;
     }
     return self;
 }
@@ -31,7 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor blackColor];
     self.navigationController.navigationBarHidden = YES;
+    self.view.layer.masksToBounds = YES;
     self.dataSource = self;
     self.delegate = self;
     

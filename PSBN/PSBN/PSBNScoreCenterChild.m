@@ -16,7 +16,11 @@
 
 - (id)initWithSport:(NSString *)sportName {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 20+44+self.tabBarController.tabBar.frame.size.height+64, 0);
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 20+44+self.tabBarController.tabBar.frame.size.height+229+29+5, 0);
+    } else {
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 20+44+self.tabBarController.tabBar.frame.size.height+64, 0);
+    }
     flowLayout.itemSize = CGSizeMake(310, 229);
     self = [super initWithCollectionViewLayout:flowLayout];
     if (self) {

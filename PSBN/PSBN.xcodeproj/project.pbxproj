@@ -19,6 +19,7 @@
 		1745CE2018E7AAF200C33DD3 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1418E7AAF200C33DD3 /* TTScrollViewWrapper.m */; };
 		1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1618E7AAF200C33DD3 /* TTScrollSlidingPagesController.m */; };
 		1745CE2218E7AAF200C33DD3 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1A18E7AAF200C33DD3 /* TTBlackTriangle.m */; };
+		1745CE2518E7AB9900C33DD3 /* PSBNScoreCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE2418E7AB9900C33DD3 /* PSBNScoreCenter.m */; };
 		1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */; };
 		175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 175F998118E4BEDE00C0D880 /* PSBNScoreboard.m */; };
 		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
@@ -166,6 +167,8 @@
 		1745CE1818E7AAF200C33DD3 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
 		1745CE1918E7AAF200C33DD3 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
 		1745CE1A18E7AAF200C33DD3 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
+		1745CE2318E7AB9900C33DD3 /* PSBNScoreCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreCenter.h; sourceTree = "<group>"; };
+		1745CE2418E7AB9900C33DD3 /* PSBNScoreCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreCenter.m; sourceTree = "<group>"; };
 		1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		175F998018E4BEDE00C0D880 /* PSBNScoreboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreboard.h; sourceTree = "<group>"; };
@@ -441,6 +444,8 @@
 				17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */,
 				17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */,
 				17B68EE118BEBC6D006A67D3 /* PSBNScores.m */,
+				1745CE2318E7AB9900C33DD3 /* PSBNScoreCenter.h */,
+				1745CE2418E7AB9900C33DD3 /* PSBNScoreCenter.m */,
 				17B68EAB18BEBA26006A67D3 /* Supporting Files */,
 			);
 			path = PSBN;
@@ -833,6 +838,7 @@
 				17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */,
 				1745CE1E18E7AAF200C33DD3 /* TTSlidingPage.m in Sources */,
 				17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */,
+				1745CE2518E7AB9900C33DD3 /* PSBNScoreCenter.m in Sources */,
 				1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */,
 				1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */,
 				17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */,

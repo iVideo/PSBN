@@ -15,4 +15,8 @@
     [super setObject:object];
 }
 
+- (void)fillInScores {
+    [super fillInScores];
+}
+
 @end

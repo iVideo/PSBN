@@ -13,6 +13,9 @@
 - (void)setObject:(PFObject *)object {
     self.scoreObject = object;
     
+    self.layer.cornerRadius = 5.0f;
+    self.layer.masksToBounds = YES;
+    
     [self drawBackground];
     
     [self writeHeader];
@@ -54,30 +57,27 @@
 
 - (void)createTeamIcons {
     @autoreleasepool {
-        self.awayIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 26, 75, 75)];
+        self.awayIcon = [[UIImageView alloc] initWithFrame:CGRectMake(5, 26, 75, 75)];
         self.awayIcon.contentMode = UIViewContentModeScaleAspectFit;
         self.awayIcon.image = [UIImage imageNamed:self.scoreObject[@"awayTeam"]];
         [self addSubview:self.awayIcon];
     }
     
     @autoreleasepool {
-        self.homeIcon = [[UIImageView alloc] initWithFrame:CGRectMake(225, 26, 75, 75)];
+        self.homeIcon = [[UIImageView alloc] initWithFrame:CGRectMake(220, 26, 75, 75)];
         self.homeIcon.contentMode = UIViewContentModeScaleAspectFit;
-        self.awayIcon.image = [UIImage imageNamed:self.scoreObject[@"homeTeam"]];
+        self.homeIcon.image = [UIImage imageNamed:self.scoreObject[@"homeTeam"]];
         [self addSubview:self.homeIcon];
     }
 }
 
 - (void)fillInScores {
     @autoreleasepool {
-        self.overallScore = [[UILabel alloc] initWithFrame:CGRectMake(90, 26, 144, 75)];
+        self.overallScore = [[UILabel alloc] initWithFrame:CGRectMake(85, 26, 130, 75)];
         self.overallScore.backgroundColor = [UIColor blackColor];
-
         self.overallScore.textColor = [UIColor whiteColor];
         self.overallScore.textAlignment = NSTextAlignmentCenter;
-        self.overallScore.font = [UIFont fontWithName:@"DS-Digital-Bold" size:45.0f];
-        self.overallScore.adjustsFontSizeToFitWidth = YES;
-        
+        self.overallScore.font = [UIFont fontWithName:@"DS-Digital-Bold" size:40.0f];
         self.overallScore.text = [NSString stringWithFormat:@"%@ - %@", self.scoreObject[@"awayScore"], self.scoreObject[@"homeScore"]];
                 
         [self addSubview:self.overallScore];
@@ -91,11 +91,13 @@
         footerLabel.textColor = [UIColor whiteColor];
         footerLabel.adjustsFontSizeToFitWidth = YES;
         
-        NSDateFormatter *lastUpdatedFormatter = [[NSDateFormatter alloc] init];
-        [lastUpdatedFormatter setDateStyle:NSDateFormatterShortStyle];
-        [lastUpdatedFormatter setTimeStyle:NSDateFormatterShortStyle];
+        NSDateFormatter *lastUpdatedFormatter1 = [[NSDateFormatter alloc] init];
+        [lastUpdatedFormatter1 setDateStyle:NSDateFormatterShortStyle];
         
-        footerLabel.text = [NSString stringWithFormat:@"%@ - %@ - %@", [lastUpdatedFormatter stringFromDate:self.scoreObject[@"gameDate"]], self.scoreObject[@"quarter"], [lastUpdatedFormatter stringFromDate:self.scoreObject.updatedAt]];
+        NSDateFormatter *lastUpdatedFormatter2 = [[NSDateFormatter alloc] init];
+        [lastUpdatedFormatter2 setTimeStyle:NSDateFormatterShortStyle];
+        
+        footerLabel.text = [NSString stringWithFormat:@"%@ - %@ - U: %@", [lastUpdatedFormatter1 stringFromDate:self.scoreObject[@"gameDate"]], self.scoreObject[@"quarter"], [lastUpdatedFormatter2 stringFromDate:self.scoreObject.updatedAt]];
         footerLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:footerLabel];
     }

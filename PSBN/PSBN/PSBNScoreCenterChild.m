@@ -17,7 +17,7 @@
 - (id)initWithSport:(NSString *)sportName {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 20+44+self.tabBarController.tabBar.frame.size.height+64, 0);
-    flowLayout.itemSize = CGSizeMake(310, 210);
+    flowLayout.itemSize = CGSizeMake(310, 229);
     self = [super initWithCollectionViewLayout:flowLayout];
     if (self) {
         queryClassName = sportName;
@@ -81,7 +81,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    if ([queryClassName isEqualToString:@"footballScores"]) {
+    if ([queryClassName isEqualToString:@"Football_Scores"]) {
         [collectionView registerClass:[PSBNFootball class] forCellWithReuseIdentifier:CellIdentifier];
         PSBNFootball *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         // Configure the cell...

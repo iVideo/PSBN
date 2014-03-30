@@ -36,7 +36,7 @@
     self.delegate = self;
     
     @autoreleasepool {
-        pageArray = @[[[PSBNScoreCenterChild alloc] initWithSport:@"footballScores"], [[PSBNScoreCenterChild alloc] initWithSport:@"volleyballScores"], [[PSBNScoreCenterChild alloc] initWithSport:@"basketballScores"]];
+        pageArray = @[[[PSBNScoreCenterChild alloc] initWithSport:@"Football_Scores"], [[PSBNScoreCenterChild alloc] initWithSport:@"volleyballScores"], [[PSBNScoreCenterChild alloc] initWithSport:@"basketballScores"]];
     }
 }
 

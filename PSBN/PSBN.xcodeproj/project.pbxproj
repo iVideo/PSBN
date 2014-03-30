@@ -44,8 +44,8 @@
 		1745CE6318E7CA3100C33DD3 /* Ash Fork Spartans@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE4B18E7CA3100C33DD3 /* Ash Fork Spartans@2x.png */; };
 		1745CE6818E7CAFC00C33DD3 /* Peoria.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6418E7CAFC00C33DD3 /* Peoria.png */; };
 		1745CE6918E7CAFC00C33DD3 /* Peoria@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */; };
-		1745CE6A18E7CAFC00C33DD3 /* Raymond S. Kellis.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6618E7CAFC00C33DD3 /* Raymond S. Kellis.png */; };
-		1745CE6B18E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6718E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png */; };
+		1745CE6A18E7CAFC00C33DD3 /* Raymond S Kellis.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6618E7CAFC00C33DD3 /* Raymond S Kellis.png */; };
+		1745CE6B18E7CAFC00C33DD3 /* Raymond S Kellis@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6718E7CAFC00C33DD3 /* Raymond S Kellis@2x.png */; };
 		1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */; };
 		175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 175F998118E4BEDE00C0D880 /* PSBNScoreboard.m */; };
 		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
@@ -196,8 +196,8 @@
 		1745CE4B18E7CA3100C33DD3 /* Ash Fork Spartans@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ash Fork Spartans@2x.png"; sourceTree = "<group>"; };
 		1745CE6418E7CAFC00C33DD3 /* Peoria.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Peoria.png; sourceTree = "<group>"; };
 		1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Peoria@2x.png"; sourceTree = "<group>"; };
-		1745CE6618E7CAFC00C33DD3 /* Raymond S. Kellis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Raymond S. Kellis.png"; sourceTree = "<group>"; };
-		1745CE6718E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Raymond S. Kellis@2x.png"; sourceTree = "<group>"; };
+		1745CE6618E7CAFC00C33DD3 /* Raymond S Kellis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Raymond S Kellis.png"; sourceTree = "<group>"; };
+		1745CE6718E7CAFC00C33DD3 /* Raymond S Kellis@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Raymond S Kellis@2x.png"; sourceTree = "<group>"; };
 		1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		175F998018E4BEDE00C0D880 /* PSBNScoreboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreboard.h; sourceTree = "<group>"; };
@@ -385,8 +385,8 @@
 				1745CE4B18E7CA3100C33DD3 /* Ash Fork Spartans@2x.png */,
 				1745CE6418E7CAFC00C33DD3 /* Peoria.png */,
 				1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */,
-				1745CE6618E7CAFC00C33DD3 /* Raymond S. Kellis.png */,
-				1745CE6718E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png */,
+				1745CE6618E7CAFC00C33DD3 /* Raymond S Kellis.png */,
+				1745CE6718E7CAFC00C33DD3 /* Raymond S Kellis@2x.png */,
 			);
 			name = "School Logos";
 			sourceTree = "<group>";
@@ -757,7 +757,7 @@
 				1745CE6818E7CAFC00C33DD3 /* Peoria.png in Resources */,
 				17B68F1618BEBC6D006A67D3 /* Scoreboard_Football.xib in Resources */,
 				17B68F3318BEBD52006A67D3 /* Default@2x.png in Resources */,
-				1745CE6A18E7CAFC00C33DD3 /* Raymond S. Kellis.png in Resources */,
+				1745CE6A18E7CAFC00C33DD3 /* Raymond S Kellis.png in Resources */,
 				1745CE5718E7CA3100C33DD3 /* Amphitheater@2x.png in Resources */,
 				1745CE4F18E7CA3100C33DD3 /* Agua Fria@2x.png in Resources */,
 				17B68F2218BEBD41006A67D3 /* ios7_Default-Landscape~ipad.png in Resources */,
@@ -784,7 +784,7 @@
 				1745CE5118E7CA3100C33DD3 /* Ajo Red@2x.png in Resources */,
 				17B68F2118BEBD41006A67D3 /* ios7_Default-Landscape@2x~ipad.png in Resources */,
 				1745CE6218E7CA3100C33DD3 /* Ash Fork Spartans.png in Resources */,
-				1745CE6B18E7CAFC00C33DD3 /* Raymond S. Kellis@2x.png in Resources */,
+				1745CE6B18E7CAFC00C33DD3 /* Raymond S Kellis@2x.png in Resources */,
 				17B68F6E18BEBF28006A67D3 /* cameraIcon_iPad@2x.png in Resources */,
 				17B68F5518BEBEC9006A67D3 /* DS-DIGIB.TTF in Resources */,
 				17B68F2E18BEBD52006A67D3 /* Default-Landscape@2x~ipad.png in Resources */,

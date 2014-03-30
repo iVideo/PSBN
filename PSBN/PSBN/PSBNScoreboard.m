@@ -63,26 +63,7 @@
     @autoreleasepool {
         self.homeIcon = [[UIImageView alloc] initWithFrame:CGRectMake(225, 26, 75, 75)];
         self.homeIcon.contentMode = UIViewContentModeScaleAspectFit;
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            @autoreleasepool {
-                NSArray *schoolIconArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"School Logos" ofType:@"plist"]];
-                for (NSDictionary *school in schoolIconArray) {
-                    @autoreleasepool {
-                        if ([[school objectForKey:@"School Name"] isEqualToString:self.scoreObject[@"homeTeam"]]) {
-                            dispatch_sync(dispatch_get_main_queue(), ^{
-                                @autoreleasepool {
-                                    if ([UIScreen mainScreen].scale == 2.0) {
-                                        self.homeIcon.image = [UIImage imageWithData:[school objectForKey:@"Retina"]];
-                                    } else {
-                                        self.homeIcon.image = [UIImage imageWithData:[school objectForKey:@"Normal"]];
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        });
+        self.awayIcon.image = [UIImage imageNamed:self.scoreObject[@"homeTeam"]];
         [self addSubview:self.homeIcon];
     }
 }

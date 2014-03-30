@@ -11,6 +11,15 @@
 		1745CDF518E7603100C33DD3 /* PSBNScoreCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDF418E7603100C33DD3 /* PSBNScoreCenter.m */; };
 		1745CDFB18E76DDB00C33DD3 /* PSBNFootball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */; };
 		1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFD18E7773900C33DD3 /* PSBNScoreHeader.m */; };
+		1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */; };
+		1745CE0718E7A29F00C33DD3 /* PSBNBasketball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE0618E7A29F00C33DD3 /* PSBNBasketball.m */; };
+		1745CE1B18E7AAF200C33DD3 /* diagmonds.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE0B18E7AAF200C33DD3 /* diagmonds.png */; };
+		1745CE1C18E7AAF200C33DD3 /* diagmonds_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE0C18E7AAF200C33DD3 /* diagmonds_@2X.png */; };
+		1745CE1E18E7AAF200C33DD3 /* TTSlidingPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1018E7AAF200C33DD3 /* TTSlidingPage.m */; };
+		1745CE1F18E7AAF200C33DD3 /* TTSlidingPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1318E7AAF200C33DD3 /* TTSlidingPageTitle.m */; };
+		1745CE2018E7AAF200C33DD3 /* TTScrollViewWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1418E7AAF200C33DD3 /* TTScrollViewWrapper.m */; };
+		1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1618E7AAF200C33DD3 /* TTScrollSlidingPagesController.m */; };
+		1745CE2218E7AAF200C33DD3 /* TTBlackTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE1A18E7AAF200C33DD3 /* TTBlackTriangle.m */; };
 		1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */; };
 		175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 175F998118E4BEDE00C0D880 /* PSBNScoreboard.m */; };
 		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
@@ -141,6 +150,25 @@
 		1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNFootball.m; sourceTree = "<group>"; };
 		1745CDFC18E7773900C33DD3 /* PSBNScoreHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreHeader.h; sourceTree = "<group>"; };
 		1745CDFD18E7773900C33DD3 /* PSBNScoreHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreHeader.m; sourceTree = "<group>"; };
+		1745CE0218E7A26D00C33DD3 /* PSBNVolleyball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNVolleyball.h; sourceTree = "<group>"; };
+		1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNVolleyball.m; sourceTree = "<group>"; };
+		1745CE0518E7A29F00C33DD3 /* PSBNBasketball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNBasketball.h; sourceTree = "<group>"; };
+		1745CE0618E7A29F00C33DD3 /* PSBNBasketball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNBasketball.m; sourceTree = "<group>"; };
+		1745CE0B18E7AAF200C33DD3 /* diagmonds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diagmonds.png; sourceTree = "<group>"; };
+		1745CE0C18E7AAF200C33DD3 /* diagmonds_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diagmonds_@2X.png"; sourceTree = "<group>"; };
+		1745CE0E18E7AAF200C33DD3 /* TTSlidingPagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPagesDataSource.h; sourceTree = "<group>"; };
+		1745CE0F18E7AAF200C33DD3 /* TTScrollViewWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollViewWrapper.h; sourceTree = "<group>"; };
+		1745CE1018E7AAF200C33DD3 /* TTSlidingPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPage.m; sourceTree = "<group>"; };
+		1745CE1118E7AAF200C33DD3 /* TTSliddingPageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSliddingPageDelegate.h; sourceTree = "<group>"; };
+		1745CE1218E7AAF200C33DD3 /* TTSlidingPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPageTitle.h; sourceTree = "<group>"; };
+		1745CE1318E7AAF200C33DD3 /* TTSlidingPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSlidingPageTitle.m; sourceTree = "<group>"; };
+		1745CE1418E7AAF200C33DD3 /* TTScrollViewWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollViewWrapper.m; sourceTree = "<group>"; };
+		1745CE1518E7AAF200C33DD3 /* TTBlackTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBlackTriangle.h; sourceTree = "<group>"; };
+		1745CE1618E7AAF200C33DD3 /* TTScrollSlidingPagesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTScrollSlidingPagesController.m; sourceTree = "<group>"; };
+		1745CE1718E7AAF200C33DD3 /* TTSlidingPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSlidingPage.h; sourceTree = "<group>"; };
+		1745CE1818E7AAF200C33DD3 /* TTScrollSlidingPagesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScrollSlidingPagesController.h; sourceTree = "<group>"; };
+		1745CE1918E7AAF200C33DD3 /* TTUIScrollViewSlidingPages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTUIScrollViewSlidingPages.h; sourceTree = "<group>"; };
+		1745CE1A18E7AAF200C33DD3 /* TTBlackTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBlackTriangle.m; sourceTree = "<group>"; };
 		1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		175F998018E4BEDE00C0D880 /* PSBNScoreboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreboard.h; sourceTree = "<group>"; };
@@ -294,6 +322,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1745CE0818E7AAD800C33DD3 /* UIScrollSlidingPages */ = {
+			isa = PBXGroup;
+			children = (
+				1745CE0918E7AAF200C33DD3 /* Images */,
+				1745CE0E18E7AAF200C33DD3 /* TTSlidingPagesDataSource.h */,
+				1745CE0F18E7AAF200C33DD3 /* TTScrollViewWrapper.h */,
+				1745CE1018E7AAF200C33DD3 /* TTSlidingPage.m */,
+				1745CE1118E7AAF200C33DD3 /* TTSliddingPageDelegate.h */,
+				1745CE1218E7AAF200C33DD3 /* TTSlidingPageTitle.h */,
+				1745CE1318E7AAF200C33DD3 /* TTSlidingPageTitle.m */,
+				1745CE1418E7AAF200C33DD3 /* TTScrollViewWrapper.m */,
+				1745CE1518E7AAF200C33DD3 /* TTBlackTriangle.h */,
+				1745CE1618E7AAF200C33DD3 /* TTScrollSlidingPagesController.m */,
+				1745CE1718E7AAF200C33DD3 /* TTSlidingPage.h */,
+				1745CE1818E7AAF200C33DD3 /* TTScrollSlidingPagesController.h */,
+				1745CE1918E7AAF200C33DD3 /* TTUIScrollViewSlidingPages.h */,
+				1745CE1A18E7AAF200C33DD3 /* TTBlackTriangle.m */,
+			);
+			name = UIScrollSlidingPages;
+			sourceTree = "<group>";
+		};
+		1745CE0918E7AAF200C33DD3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				1745CE0A18E7AAF200C33DD3 /* diagmonds */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		1745CE0A18E7AAF200C33DD3 /* diagmonds */ = {
+			isa = PBXGroup;
+			children = (
+				1745CE0B18E7AAF200C33DD3 /* diagmonds.png */,
+				1745CE0C18E7AAF200C33DD3 /* diagmonds_@2X.png */,
+			);
+			path = diagmonds;
+			sourceTree = "<group>";
+		};
 		177614A818E507E2002D63EF /* School Logos */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +454,7 @@
 		17B68EAB18BEBA26006A67D3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1745CE0818E7AAD800C33DD3 /* UIScrollSlidingPages */,
 				17B68F8B18BEC07C006A67D3 /* Scoreboards */,
 				17B68F4F18BEBEB1006A67D3 /* Fonts */,
 				17B68F5818BEBED7006A67D3 /* Images */,
@@ -542,6 +609,8 @@
 		17B68F8E18BEC099006A67D3 /* Basketball */ = {
 			isa = PBXGroup;
 			children = (
+				1745CE0518E7A29F00C33DD3 /* PSBNBasketball.h */,
+				1745CE0618E7A29F00C33DD3 /* PSBNBasketball.m */,
 				17B68EE818BEBC6D006A67D3 /* Scoreboard_Basketball.xib */,
 			);
 			name = Basketball;
@@ -550,6 +619,8 @@
 		17B68F8F18BEC09F006A67D3 /* Volleyball */ = {
 			isa = PBXGroup;
 			children = (
+				1745CE0218E7A26D00C33DD3 /* PSBNVolleyball.h */,
+				1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */,
 				17B68EF218BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib */,
 			);
 			name = Volleyball;
@@ -647,6 +718,7 @@
 			files = (
 				17B68F1818BEBC6D006A67D3 /* Settings.bundle in Resources */,
 				17B68F4918BEBE6A006A67D3 /* Icon@2x.png in Resources */,
+				1745CE1B18E7AAF200C33DD3 /* diagmonds.png in Resources */,
 				17B68F7B18BEBFEB006A67D3 /* navBarTile_iOS6.png in Resources */,
 				17B68F7018BEBF28006A67D3 /* cameraIcon_iPhone@2x.png in Resources */,
 				177614D618E50828002D63EF /* Arizona_Charter_Academy@2x.png in Resources */,
@@ -655,6 +727,7 @@
 				177614D518E50828002D63EF /* Arizona_Charter_Academy.png in Resources */,
 				17B68F2D18BEBD52006A67D3 /* Default-568h@2x.png in Resources */,
 				17B68F8A18BEC05B006A67D3 /* white.png in Resources */,
+				1745CE1C18E7AAF200C33DD3 /* diagmonds_@2X.png in Resources */,
 				177614C818E50828002D63EF /* Alchesay@2x.png in Resources */,
 				17B68F4318BEBE6A006A67D3 /* Icon-72@2x.png in Resources */,
 				177614CA18E50828002D63EF /* Alhambra@2x.png in Resources */,
@@ -752,18 +825,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1745CE1F18E7AAF200C33DD3 /* TTSlidingPageTitle.m in Sources */,
 				1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */,
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
 				1745CDF518E7603100C33DD3 /* PSBNScoreCenter.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */,
+				1745CE0718E7A29F00C33DD3 /* PSBNBasketball.m in Sources */,
+				1745CE2018E7AAF200C33DD3 /* TTScrollViewWrapper.m in Sources */,
 				175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */,
 				1745CDFB18E76DDB00C33DD3 /* PSBNFootball.m in Sources */,
 				17B68EB118BEBA26006A67D3 /* main.m in Sources */,
 				17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */,
+				1745CE1E18E7AAF200C33DD3 /* TTSlidingPage.m in Sources */,
 				17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */,
+				1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */,
+				1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */,
 				17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */,
 				17B68EB518BEBA27006A67D3 /* PSBNAppDelegate.m in Sources */,
+				1745CE2218E7AAF200C33DD3 /* TTBlackTriangle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

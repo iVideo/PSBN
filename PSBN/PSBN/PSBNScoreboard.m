@@ -113,7 +113,7 @@
 
         self.overallScore.textColor = [UIColor whiteColor];
         self.overallScore.textAlignment = NSTextAlignmentCenter;
-        self.overallScore.font = [UIFont fontWithName:@"DS-Digital-Bold" size:50.0f];
+        self.overallScore.font = [UIFont fontWithName:@"DS-Digital-Bold" size:45.0f];
         self.overallScore.adjustsFontSizeToFitWidth = YES;
         
         self.overallScore.text = [NSString stringWithFormat:@"%@ - %@", self.scoreObject[@"awayScore"], self.scoreObject[@"homeScore"]];

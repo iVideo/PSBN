@@ -102,7 +102,75 @@
                     NSNumber *index2 = [(NSDictionary *)dict2 objectForKey:@"index"];
                     return [index1 compare:index2];
                 }];
-                if ([games count] == 1) {
+                if ([games count] == 3) {
+                    [self.collectionView reloadData];
+                }
+            }
+        }];
+    }
+    
+    @autoreleasepool {
+        PFQuery *query = [PFQuery queryWithClassName:@"volleyballScores"];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+            [query clearCachedResult];
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+            query.cachePolicy = kPFCachePolicyNetworkOnly;
+        } else {
+            query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        }
+        query.limit = 1000;
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            @autoreleasepool {
+                NSMutableArray *volleyballGames = objects.mutableCopy;
+                [volleyballGames sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                    NSDate *date1 = [(PFObject *)dict1 objectForKey:@"gameDate"];
+                    NSDate *date2 = [(PFObject *)dict2 objectForKey:@"gameDate"];
+                    return [date2 compare:date1];
+                }];
+                NSDictionary *dict = @{@"index": @1, @"section": @"Volleyball", @"scoreObjects": volleyballGames};
+                
+                [games addObject:dict];
+                [games sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                    NSNumber *index1 = [(NSDictionary *)dict1 objectForKey:@"index"];
+                    NSNumber *index2 = [(NSDictionary *)dict2 objectForKey:@"index"];
+                    return [index1 compare:index2];
+                }];
+                if ([games count] == 3) {
+                    [self.collectionView reloadData];
+                }
+            }
+        }];
+    }
+    
+    @autoreleasepool {
+        PFQuery *query = [PFQuery queryWithClassName:@"basketballScores"];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
+            [query clearCachedResult];
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
+            query.cachePolicy = kPFCachePolicyNetworkOnly;
+        } else {
+            query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        }
+        query.limit = 1000;
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            @autoreleasepool {
+                NSMutableArray *basketballGames = objects.mutableCopy;
+                [basketballGames sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                    NSDate *date1 = [(PFObject *)dict1 objectForKey:@"gameDate"];
+                    NSDate *date2 = [(PFObject *)dict2 objectForKey:@"gameDate"];
+                    return [date2 compare:date1];
+                }];
+                NSDictionary *dict = @{@"index": @2, @"section": @"Basketball", @"scoreObjects": basketballGames};
+                
+                [games addObject:dict];
+                [games sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
+                    NSNumber *index1 = [(NSDictionary *)dict1 objectForKey:@"index"];
+                    NSNumber *index2 = [(NSDictionary *)dict2 objectForKey:@"index"];
+                    return [index1 compare:index2];
+                }];
+                if ([games count] == 3) {
                     [self.collectionView reloadData];
                 }
             }
@@ -230,13 +298,15 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if (kind == UICollectionElementKindSectionHeader) {
-        static NSString *HeaderIdentifier = @"HeaderView";
-        [collectionView registerClass:[PSBNScoreHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier];
-        PSBNScoreHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier forIndexPath:indexPath];
-        // Configure the header...
-        [headerView createHeaderTitleWith:[[games objectAtIndex:indexPath.section] objectForKey:@"section"]];
-        
-        return headerView;
+        @autoreleasepool {
+            static NSString *HeaderIdentifier = @"HeaderView";
+            [collectionView registerClass:[PSBNScoreHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier];
+            PSBNScoreHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier forIndexPath:indexPath];
+            // Configure the header...
+            [headerView createHeaderTitleWith:[[games objectAtIndex:indexPath.section] objectForKey:@"section"]];
+            
+            return headerView;
+        }
     } else {
         return [super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
     }
@@ -247,6 +317,20 @@
     if (indexPath.section == 0) {
         [collectionView registerClass:[PSBNFootball class] forCellWithReuseIdentifier:CellIdentifier];
         PSBNFootball *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        // Configure the cell...
+        [cell setObject:[[[games objectAtIndex:indexPath.section] objectForKey:@"scoreObjects"] objectAtIndex:indexPath.row]];
+        
+        return cell;
+    } else if (indexPath.section == 1) {
+        [collectionView registerClass:[PSBNVolleyball class] forCellWithReuseIdentifier:CellIdentifier];
+        PSBNVolleyball *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        // Configure the cell...
+        [cell setObject:[[[games objectAtIndex:indexPath.section] objectForKey:@"scoreObjects"] objectAtIndex:indexPath.row]];
+        
+        return cell;
+    } else if (indexPath.section == 2) {
+        [collectionView registerClass:[PSBNBasketball class] forCellWithReuseIdentifier:CellIdentifier];
+        PSBNBasketball *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         // Configure the cell...
         [cell setObject:[[[games objectAtIndex:indexPath.section] objectForKey:@"scoreObjects"] objectAtIndex:indexPath.row]];
         

@@ -45,6 +45,7 @@
     [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
     customPlayer.view.backgroundColor = self.view.backgroundColor;
     customPlayer.controlStyle = MPMovieControlStyleEmbedded;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readyToPlay:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     
     poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
     poster.backgroundColor = [UIColor whiteColor];

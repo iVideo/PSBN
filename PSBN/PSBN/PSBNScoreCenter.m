@@ -39,7 +39,13 @@
     self.delegate = self;
     
     @autoreleasepool {
-        pageArray = @[[[PSBNScoreCenterChild alloc] initWithSport:@"Football_Scores"], [[PSBNScoreCenterChild alloc] initWithSport:@"Volleyball_Scores"], [[PSBNScoreCenterChild alloc] initWithSport:@"basketballScores"]];
+        PSBNAppDelegate *delegate = (PSBNAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        if (delegate.devMode) {
+            pageArray = @[[[PSBNScoreCenterChild alloc] initWithSport:@"Football_Scores"], [[PSBNScoreCenterChild alloc] initWithSport:@"Volleyball_Scores"], [[PSBNScoreCenterChild alloc] initWithSport:@"basketballScores"]];
+        } else {
+            pageArray = @[[[PSBNScoreCenterChild alloc] initWithSport:@"Football_Scores"], [[PSBNScoreCenterChild alloc] initWithSport:@"Volleyball_Scores"]];
+        }
     }
 }
 

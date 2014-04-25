@@ -67,14 +67,8 @@
 		17B68ED318BEBA27006A67D3 /* PSBNTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68ED218BEBA27006A67D3 /* PSBNTests.m */; };
 		17B68EDD18BEBB58006A67D3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EDC18BEBB57006A67D3 /* Parse.framework */; };
 		17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EDF18BEBC6D006A67D3 /* PSBNMoviePlayerController.m */; };
-		17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EE118BEBC6D006A67D3 /* PSBNScores.m */; };
 		17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */; };
-		17B68F0618BEBC6D006A67D3 /* Scoreboard_Basketball.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EE818BEBC6D006A67D3 /* Scoreboard_Basketball.xib */; };
 		17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */; };
-		17B68F0A18BEBC6D006A67D3 /* Scoreboard_Soccer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EEC18BEBC6D006A67D3 /* Scoreboard_Soccer.xib */; };
-		17B68F0E18BEBC6D006A67D3 /* Scoreboard_Wrestling.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EF018BEBC6D006A67D3 /* Scoreboard_Wrestling.xib */; };
-		17B68F1018BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EF218BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib */; };
-		17B68F1618BEBC6D006A67D3 /* Scoreboard_Football.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EFC18BEBC6D006A67D3 /* Scoreboard_Football.xib */; };
 		17B68F1818BEBC6D006A67D3 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 17B68EFF18BEBC6D006A67D3 /* Settings.bundle */; };
 		17B68F2018BEBD41006A67D3 /* ios7_Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B68F1A18BEBD41006A67D3 /* ios7_Default-568h@2x.png */; };
 		17B68F2118BEBD41006A67D3 /* ios7_Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B68F1B18BEBD41006A67D3 /* ios7_Default-Landscape@2x~ipad.png */; };
@@ -227,17 +221,10 @@
 		17B68EDC18BEBB57006A67D3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		17B68EDE18BEBC6D006A67D3 /* PSBNTheaterPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterPlayer.h; sourceTree = "<group>"; };
 		17B68EDF18BEBC6D006A67D3 /* PSBNMoviePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNMoviePlayerController.m; sourceTree = "<group>"; };
-		17B68EE118BEBC6D006A67D3 /* PSBNScores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScores.m; sourceTree = "<group>"; };
 		17B68EE418BEBC6D006A67D3 /* PSBNMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNMoviePlayerController.h; sourceTree = "<group>"; };
 		17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNCamera.m; sourceTree = "<group>"; };
-		17B68EE818BEBC6D006A67D3 /* Scoreboard_Basketball.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Basketball.xib; sourceTree = "<group>"; };
 		17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterPlayer.m; sourceTree = "<group>"; };
-		17B68EEC18BEBC6D006A67D3 /* Scoreboard_Soccer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Soccer.xib; sourceTree = "<group>"; };
-		17B68EF018BEBC6D006A67D3 /* Scoreboard_Wrestling.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Wrestling.xib; sourceTree = "<group>"; };
-		17B68EF218BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Volleyball_Varsity.xib; sourceTree = "<group>"; };
 		17B68EF618BEBC6D006A67D3 /* PSBNCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNCamera.h; sourceTree = "<group>"; };
-		17B68EFC18BEBC6D006A67D3 /* Scoreboard_Football.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Scoreboard_Football.xib; sourceTree = "<group>"; };
-		17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScores.h; sourceTree = "<group>"; };
 		17B68EFF18BEBC6D006A67D3 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		17B68F1A18BEBD41006A67D3 /* ios7_Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7_Default-568h@2x.png"; sourceTree = "<group>"; };
 		17B68F1B18BEBD41006A67D3 /* ios7_Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7_Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
@@ -442,8 +429,6 @@
 				17D9F07B18C05D5900616FFE /* PSBNRadio.m */,
 				17B68EF618BEBC6D006A67D3 /* PSBNCamera.h */,
 				17B68EE618BEBC6D006A67D3 /* PSBNCamera.m */,
-				17B68EFD18BEBC6D006A67D3 /* PSBNScores.h */,
-				17B68EE118BEBC6D006A67D3 /* PSBNScores.m */,
 				1745CE2718E7AFED00C33DD3 /* PSBNScoreCenter.h */,
 				1745CE2818E7AFED00C33DD3 /* PSBNScoreCenter.m */,
 				1745CE2618E7AE9B00C33DD3 /* PSBNScoreCenter Views */,
@@ -585,23 +570,13 @@
 				17B68F8F18BEC09F006A67D3 /* Volleyball */,
 				17B68F8E18BEC099006A67D3 /* Basketball */,
 				17B68F8D18BEC090006A67D3 /* Soccer */,
-				17B68F8C18BEC083006A67D3 /* Wrestling */,
 			);
 			name = Scoreboards;
-			sourceTree = "<group>";
-		};
-		17B68F8C18BEC083006A67D3 /* Wrestling */ = {
-			isa = PBXGroup;
-			children = (
-				17B68EF018BEBC6D006A67D3 /* Scoreboard_Wrestling.xib */,
-			);
-			name = Wrestling;
 			sourceTree = "<group>";
 		};
 		17B68F8D18BEC090006A67D3 /* Soccer */ = {
 			isa = PBXGroup;
 			children = (
-				17B68EEC18BEBC6D006A67D3 /* Scoreboard_Soccer.xib */,
 			);
 			name = Soccer;
 			sourceTree = "<group>";
@@ -611,7 +586,6 @@
 			children = (
 				1745CE0518E7A29F00C33DD3 /* PSBNBasketball.h */,
 				1745CE0618E7A29F00C33DD3 /* PSBNBasketball.m */,
-				17B68EE818BEBC6D006A67D3 /* Scoreboard_Basketball.xib */,
 			);
 			name = Basketball;
 			sourceTree = "<group>";
@@ -621,7 +595,6 @@
 			children = (
 				1745CE0218E7A26D00C33DD3 /* PSBNVolleyball.h */,
 				1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */,
-				17B68EF218BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib */,
 			);
 			name = Volleyball;
 			sourceTree = "<group>";
@@ -631,7 +604,6 @@
 			children = (
 				1745CDF918E76DDB00C33DD3 /* PSBNFootball.h */,
 				1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */,
-				17B68EFC18BEBC6D006A67D3 /* Scoreboard_Football.xib */,
 			);
 			name = Football;
 			sourceTree = "<group>";
@@ -732,7 +704,6 @@
 				1745CE4E18E7CA3100C33DD3 /* Agua Fria.png in Resources */,
 				17B68F7718BEBFD0006A67D3 /* navBarShadow_iPhone.png in Resources */,
 				17B68F8918BEC05B006A67D3 /* scores@2x.png in Resources */,
-				17B68F0A18BEBC6D006A67D3 /* Scoreboard_Soccer.xib in Resources */,
 				17B68F6818BEBF17006A67D3 /* ScoreboardPlaceholder@2x.png in Resources */,
 				1745CE6018E7CA3100C33DD3 /* Arizona Charter Academy.png in Resources */,
 				17B68F3018BEBD52006A67D3 /* Default-Portrait@2x~ipad.png in Resources */,
@@ -755,14 +726,12 @@
 				17B68F7518BEBFD0006A67D3 /* navBarShadow_iPad.png in Resources */,
 				17B68F8718BEC05B006A67D3 /* black.png in Resources */,
 				1745CE6818E7CAFC00C33DD3 /* Peoria.png in Resources */,
-				17B68F1618BEBC6D006A67D3 /* Scoreboard_Football.xib in Resources */,
 				17B68F3318BEBD52006A67D3 /* Default@2x.png in Resources */,
 				1745CE6A18E7CAFC00C33DD3 /* Kellis.png in Resources */,
 				1745CE5718E7CA3100C33DD3 /* Amphitheater@2x.png in Resources */,
 				1745CE4F18E7CA3100C33DD3 /* Agua Fria@2x.png in Resources */,
 				17B68F2218BEBD41006A67D3 /* ios7_Default-Landscape~ipad.png in Resources */,
 				1745CE5C18E7CA3100C33DD3 /* Apollo.png in Resources */,
-				17B68F0E18BEBC6D006A67D3 /* Scoreboard_Wrestling.xib in Resources */,
 				1745CE4C18E7CA3100C33DD3 /* Academy of Tucson.png in Resources */,
 				1745CE5818E7CA3100C33DD3 /* Antelope.png in Resources */,
 				1745CE6918E7CAFC00C33DD3 /* Peoria@2x.png in Resources */,
@@ -778,7 +747,6 @@
 				1745CE5218E7CA3100C33DD3 /* Alchesay.png in Resources */,
 				1745CE5B18E7CA3100C33DD3 /* Apache Junction@2x.png in Resources */,
 				17B68F6418BEBF03006A67D3 /* errorLoading@2x.png in Resources */,
-				17B68F0618BEBC6D006A67D3 /* Scoreboard_Basketball.xib in Resources */,
 				17B68F4618BEBE6A006A67D3 /* Icon-Small.png in Resources */,
 				17B68F6218BEBF03006A67D3 /* errorLoading_iPhone@2x.png in Resources */,
 				1745CE5118E7CA3100C33DD3 /* Ajo Red@2x.png in Resources */,
@@ -788,7 +756,6 @@
 				17B68F6E18BEBF28006A67D3 /* cameraIcon_iPad@2x.png in Resources */,
 				17B68F5518BEBEC9006A67D3 /* DS-DIGIB.TTF in Resources */,
 				17B68F2E18BEBD52006A67D3 /* Default-Landscape@2x~ipad.png in Resources */,
-				17B68F1018BEBC6D006A67D3 /* Scoreboard_Volleyball_Varsity.xib in Resources */,
 				17B68F4C18BEBE6A006A67D3 /* ios7_app_icon_iphone@2x.png in Resources */,
 				17B68F5618BEBEC9006A67D3 /* Tahoma_Bold.ttf in Resources */,
 				17B68F8118BEC03F006A67D3 /* theater.png in Resources */,
@@ -843,7 +810,6 @@
 				1745CE2918E7AFED00C33DD3 /* PSBNScoreCenter.m in Sources */,
 				1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */,
 				1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */,
-				17B68F0218BEBC6D006A67D3 /* PSBNScores.m in Sources */,
 				17B68EB518BEBA27006A67D3 /* PSBNAppDelegate.m in Sources */,
 				1745CE2218E7AAF200C33DD3 /* TTBlackTriangle.m in Sources */,
 			);

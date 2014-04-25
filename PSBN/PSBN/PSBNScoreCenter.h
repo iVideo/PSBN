@@ -8,6 +8,8 @@
 
 #import <Parse/Parse.h>
 
+#import "PSBNAppDelegate.h"
+
 #import "TTScrollSlidingPagesController.h"
 #import "TTUIScrollViewSlidingPages.h"
 

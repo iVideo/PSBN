@@ -160,8 +160,6 @@
         cell.selectedBackgroundView = selectedView;
     }
     
-    NSLog(@"Views %@", [[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]);
-    
     @autoreleasepool {
         NSURL *url;
         

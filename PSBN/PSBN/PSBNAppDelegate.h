@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PSBNAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UISplitViewControllerDelegate> {
-    BOOL devMode;
-}
+@interface PSBNAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UISplitViewControllerDelegate>
+
+@property(nonatomic, getter=isDevMode) BOOL devMode;
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) UISplitViewController *splitViewController;
 
+- (BOOL)returnDevMode;
 - (void)addCenterButtonWithImage:(UIImage *)buttonImage highlightImage:(UIImage *)highlightImage;
 - (void)showCamera;
 

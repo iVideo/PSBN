@@ -36,16 +36,21 @@
     // Set padding
     viewPadding = 10.0f;
     
-    loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
-    [self.view addSubview:loadingWheel];
-    [loadingWheel startAnimating];
-    
-    customPlayer = [[PSBNMoviePlayerController alloc] init];
-    [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-    customPlayer.view.backgroundColor = self.view.backgroundColor;
-    customPlayer.controlStyle = MPMovieControlStyleEmbedded;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readyToPlay:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+    if ([self.eventDate timeIntervalSinceNow] > 0) {
+        // Future Event
+    } else {
+        // Past Event
+        loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
+        [self.view addSubview:loadingWheel];
+        [loadingWheel startAnimating];
+        
+        customPlayer = [[PSBNMoviePlayerController alloc] init];
+        [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        customPlayer.view.backgroundColor = self.view.backgroundColor;
+        customPlayer.controlStyle = MPMovieControlStyleEmbedded;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readyToPlay:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+    }
     
     poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
     poster.backgroundColor = [UIColor whiteColor];
@@ -208,13 +213,30 @@
 }
 
 - (void)fallbackWithNotification:(NSNotification *)notification {
-    @autoreleasepool {
-        UIAlertView *videoError = [[UIAlertView alloc] initWithTitle:@"Error loading video" message:[NSString stringWithFormat:@"%@", [notification userInfo]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-        [videoError show];
-    }
     // Check if error
     if ([[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonPlaybackError) {
+        [customPlayer stop];
+        @autoreleasepool {
+            UILabel *errorTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2-21, self.navigationController.view.frame.size.width, 21)];
+            errorTitle.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
+            errorTitle.font = [UIFont boldSystemFontOfSize:18.0f];
+            errorTitle.textAlignment = NSTextAlignmentCenter;
+            errorTitle.text = @"Error loading video";
+            [self.view addSubview:errorTitle];
+        }
         
+        @autoreleasepool {
+            NSNumber *errorNumber = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
+            NSError *error = [[notification userInfo] objectForKey:@"error"];
+            
+            UILabel *errorDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, 21)];
+            errorDescription.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
+            errorDescription.font = [UIFont systemFontOfSize:16.0f];
+            errorDescription.textAlignment = NSTextAlignmentCenter;
+            errorDescription.numberOfLines = 2;
+            errorDescription.text = [NSString stringWithFormat:@"Error %d (%@)\nPlease try again later", [errorNumber intValue], error.localizedDescription];
+            [self.view addSubview:errorDescription];
+        }
     }
 }
 

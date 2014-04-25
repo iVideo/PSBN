@@ -123,7 +123,7 @@
                 
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"m3u8_url"]]];
             } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]) {
-                customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
+                customPlayer.movieSourceType = MPMovieSourceTypeFile;
                 
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]];
             } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url_hd"]]) {

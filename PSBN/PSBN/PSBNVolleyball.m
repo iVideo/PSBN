@@ -13,6 +13,7 @@
 - (void)setObject:(PFObject *)object {
     self.objectColor = [UIColor darkGrayColor];
     [super setObject:object];
+    [self writeFooterWithType:@"set"];
 }
 
 - (void)fillInScores {

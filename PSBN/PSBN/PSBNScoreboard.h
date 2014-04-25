@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Tech Genius. All rights reserved.
 //
 
+#import <Parse/Parse.h>
+
 @interface PSBNScoreboard : UICollectionViewCell
 
 @property (nonatomic, retain) PFObject *scoreObject;
@@ -21,6 +23,6 @@
 - (void)writeHeader;
 - (void)createTeamIcons;
 - (void)fillInScores;
-- (void)writeFooter;
+- (void)writeFooterWithType:(NSString *)type;
 
 @end

@@ -28,89 +28,101 @@
         playerHeight = 251;
     } else if (self.navigationController.view.frame.size.width == 320) {
         playerHeight = 180;
+    } else if (self.navigationController.view.frame.size.width == 480) {
+        playerHeight = 270;
+    } else if (self.navigationController.view.frame.size.width == 568) {
+        playerHeight = 320;
     }
     // Set padding
     viewPadding = 10.0f;
     
+    loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
+    [self.view addSubview:loadingWheel];
+    [loadingWheel startAnimating];
+    
+    customPlayer = [[PSBNMoviePlayerController alloc] init];
+    [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+    customPlayer.view.backgroundColor = self.view.backgroundColor;
+    customPlayer.controlStyle = MPMovieControlStyleEmbedded;
+    
+    poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
+    poster.backgroundColor = [UIColor whiteColor];
+    poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    poster.contentMode = UIViewContentModeRedraw;
+    
+    posterMask = [[UIImageView alloc] initWithFrame:poster.frame];
+    posterMask.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    posterMask.contentMode = UIViewContentModeRedraw;
+    posterMask.image = [UIImage imageNamed:@"posterMask"];
+    [self.view insertSubview:posterMask aboveSubview:poster];
+    
+    eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 63)];
+    eventName.text = self.title;
+    eventName.numberOfLines = 3;
+    eventName.adjustsFontSizeToFitWidth = YES;
+    eventName.adjustsLetterSpacingToFitWidth = YES;
+    [self.view addSubview:eventName];
+    
+    eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding+eventName.frame.size.height+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
     @autoreleasepool {
-        loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
-        [self.view addSubview:loadingWheel];
-        [loadingWheel startAnimating];
-        
-        customPlayer = [[PSBNMoviePlayerController alloc] init];
-        [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-        customPlayer.view.backgroundColor = self.view.backgroundColor;
-        customPlayer.controlStyle = MPMovieControlStyleEmbedded;
-        
-        poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
-        poster.backgroundColor = [UIColor whiteColor];
-        poster.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-        poster.contentMode = UIViewContentModeRedraw;
-        
-        posterMask = [[UIImageView alloc] initWithFrame:poster.frame];
-        posterMask.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-        posterMask.contentMode = UIViewContentModeRedraw;
-        posterMask.image = [UIImage imageNamed:@"posterMask"];
-        [self.view insertSubview:posterMask aboveSubview:poster];
-        
-        eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
-        eventName.text = @"Loading...";
-        eventName.adjustsFontSizeToFitWidth = YES;
-        eventName.adjustsLetterSpacingToFitWidth = YES;
-        [self.view addSubview:eventName];
-        
-        eventDate = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+5+21+5, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
-        eventDate.text = @"Loading...";
-        eventDate.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
-        eventDate.adjustsFontSizeToFitWidth = YES;
-        eventDate.adjustsLetterSpacingToFitWidth = YES;
-        [self.view addSubview:eventDate];
-        
-        // Check if video file for custom player exists
-        objectID = [[NSUserDefaults standardUserDefaults] objectForKey:@"videoChosen"];
-        
-        @autoreleasepool {
-            PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
-            [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
-                @autoreleasepool {
-                    customPlayerURL = [NSURL URLWithString:[object objectForKey:@"customPlayer"]];
-                    fallbackPlayerURL = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
-                    // Check if valid custom player URL
-                    
-                    if ([[customPlayerURL pathExtension] isEqualToString:@"m3u8"]) {
-                        customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
-                    } else {
-                        customPlayer.movieSourceType = MPMovieSourceTypeFile;
-                    }
-                    [customPlayer setContentURL:customPlayerURL];
-                    [customPlayer prepareToPlay];
-                    
-                    NSURL *url = [NSURL URLWithString:[object objectForKey:@"posterURL"]];
-                    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
-                    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                        @autoreleasepool {
-                            if (!error) {
-                                poster.image = [UIImage imageWithData:data];
-                            } else {
-                                // Load image error
-                                poster.image = [UIImage imageNamed:@"errorLoading"];
-                            }
-                            [self.view insertSubview:poster belowSubview:posterMask];
-                        }
-                    }];
-                    
-                    eventName.text = [object objectForKey:@"title"];
-                    
-                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-                    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-                    eventDate.text = [dateFormatter stringFromDate:[object objectForKey:@"filmedOn"]];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        eventDateLabel.text = [dateFormatter stringFromDate:self.eventDate];
+    }
+    eventDateLabel.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
+    eventDateLabel.adjustsFontSizeToFitWidth = YES;
+    eventDateLabel.adjustsLetterSpacingToFitWidth = YES;
+    [self.view addSubview:eventDateLabel];
+    
+    [self refresh];
+}
+
+- (void)refresh {
+    @autoreleasepool {
+        NSString *eventAPIURL = [NSString stringWithFormat:@"https://api.new.livestream.com/accounts/5145446/events/%ld", self.eventID];
+        NSData *eventAPI = [NSData dataWithContentsOfURL:[NSURL URLWithString:eventAPIURL]];
+        NSError *eventError;
+        NSDictionary *eventContent = [NSJSONSerialization JSONObjectWithData:eventAPI options:kNilOptions error:&eventError];
+        if (eventError) {
+            @autoreleasepool {
+                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:eventError.localizedFailureReason message:eventError.localizedDescription delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                [errorAlert show];
+            }
+        } else {
+            if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]) {
+                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]];
+            } else {
+                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url"]]];
+            }
+            [customPlayer prepareToPlay];
+            
+            @autoreleasepool {
+                NSURL *url;
+                
+                if ([[UIScreen mainScreen] scale] == 2.00) {
+                    url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"]];
+                } else {
+                    url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"100x150"]];
                 }
-            }];
+                
+                NSURLRequest *request = [NSURLRequest requestWithURL:url];
+                [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                    if (!error) {
+                        poster.image = [UIImage imageWithData:data];
+                    } else {
+                        // Load image error
+                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                            poster.image = [UIImage imageNamed:@"errorLoading"];
+                        } else {
+                            poster.image = [UIImage imageNamed:@"errorLoading_iPhone"];
+                        }
+                    }
+                    [self.view insertSubview:poster belowSubview:posterMask];
+                }];
+            }
         }
-        
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"videoChosen"];
     }
 }
 
@@ -127,23 +139,6 @@
     } else if (self.navigationController.view.frame.size.width == 568) {
         playerHeight = 320;
     }
-    
-    if (customPlayer != nil) {
-        [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-    }
-    
-    if (fallbackPlayer != nil) {
-        [fallbackPlayer setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-    }
-    
-    [poster setFrame:CGRectMake(0, playerHeight+5, 100, 150)];
-    
-    [posterMask setFrame:poster.frame];
-    
-    [eventName setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
-    
-    [eventDate setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
-    // [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readyToPlay:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fallbackWithNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
@@ -172,38 +167,34 @@
         }
     }
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        // Find player height
-        if (self.navigationController.view.frame.size.width == 703) {
-            playerHeight = 395;
-        } else if (self.navigationController.view.frame.size.width == 447) {
-            playerHeight = 251;
-        } else if (self.navigationController.view.frame.size.width == 320) {
-            playerHeight = 180;
-        } else if (self.navigationController.view.frame.size.width == 480) {
-            playerHeight = 270;
-        } else if (self.navigationController.view.frame.size.width == 568) {
-            playerHeight = 320;
-        }
-        
-        if (customPlayer != nil) {
-            [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-        }
-        
-        if (fallbackPlayer != nil) {
-            [fallbackPlayer setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-        }
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [poster setFrame:CGRectMake(0, playerHeight+5, 100, 150)];
-            
-            [posterMask setFrame:poster.frame];
-            
-            [eventName setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
-            
-            [eventDate setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
-        });
-    });
+    // Find player height
+    if (self.navigationController.view.frame.size.width == 703) {
+        playerHeight = 395;
+    } else if (self.navigationController.view.frame.size.width == 447) {
+        playerHeight = 251;
+    } else if (self.navigationController.view.frame.size.width == 320) {
+        playerHeight = 180;
+    } else if (self.navigationController.view.frame.size.width == 480) {
+        playerHeight = 270;
+    } else if (self.navigationController.view.frame.size.width == 568) {
+        playerHeight = 320;
+    }
+    
+    if (customPlayer != nil) {
+        [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+    }
+    
+    if (fallbackPlayer != nil) {
+        [fallbackPlayer setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+    }
+    
+    [poster setFrame:CGRectMake(0, playerHeight+5, 100, 150)];
+    
+    [posterMask setFrame:poster.frame];
+    
+    [eventName setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
+    
+    [eventDateLabel setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
 }
 
 - (void)readyToPlay:(NSNotification *)notification {
@@ -216,106 +207,13 @@
 }
 
 - (void)fallbackWithNotification:(NSNotification *)notification {
+    @autoreleasepool {
+        UIAlertView *videoError = [[UIAlertView alloc] initWithTitle:@"Error loading video" message:[NSString stringWithFormat:@"%@", [notification userInfo]] delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [videoError show];
+    }
     // Check if error
     if ([[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonPlaybackError) {
-        // Remove custom player
-        [customPlayer stop];
-        customPlayer.initialPlaybackTime = -1;
-        [customPlayer.view removeFromSuperview];
         
-        // Create fallback player
-        fallbackPlayer = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-        fallbackPlayer.scrollView.bounces = NO;
-        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:fallbackPlayerURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
-        [fallbackPlayer loadRequest:urlRequest];
-        [loadingWheel stopAnimating];
-        [loadingWheel removeFromSuperview];
-        [self.view addSubview:fallbackPlayer];
-        
-        // Improve video for next time
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
-                [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
-                    // Auto-crop iframe url if existant
-                    NSURL *url = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
-                    NSError *error1;
-                    NSString *sourceCode = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error1];
-                    
-                    if (!error) {
-                        // Custom Player Video URL
-                        NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                        
-                        // Update views
-                        if ([components containsObject:@"views"]) {
-                            int index = (int)([components indexOfObject:@"views"]);
-                            int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-                            
-                            int lastViews = [[object objectForKey:@"webViews"] intValue];
-                            [object incrementKey:@"webViews" byAmount:[NSNumber numberWithInt:views-lastViews]];
-                            
-                            int lastTotalViews = [[object objectForKey:@"totalViews"] intValue];
-                            [object incrementKey:@"totalViews" byAmount:[NSNumber numberWithInt:([[object objectForKey:@"webViews"] intValue]+[[object objectForKey:@"appViews"] intValue])-lastTotalViews]];
-                            
-                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                if (error) {
-                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                    [object saveEventually];
-                                }
-                            }];
-                        }
-                        // Update custom player
-                        if ([components containsObject:@"m3u8_url"]) {
-                            int index = (int)([components indexOfObject:@"m3u8_url"]);
-                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                if (error) {
-                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                    [object saveEventually];
-                                }
-                            }];
-                        } else if ([components containsObject:@"progressive_url_hd"]) {
-                            int index = (int)([components indexOfObject:@"progressive_url_hd"]);
-                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                if (error) {
-                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                    [object saveEventually];
-                                }
-                            }];
-                        } else if ([components containsObject:@"progressive_url"]) {
-                            int index = (int)([components indexOfObject:@"progressive_url"]);
-                            NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                            [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                if (error) {
-                                    NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                    [object saveEventually];
-                                }
-                            }];
-                        }
-                        
-                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            if (!succeeded) {
-                                [object saveEventually];
-                            }
-                        }];
-                    }
-                }];
-            });
-        }
-    } else if ([[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonPlaybackEnded || [[[notification userInfo] objectForKey:@"MPMoviePlayerPlaybackDidFinishReasonUserInfoKey"] intValue] == MPMovieFinishReasonUserExited) {
-        PFQuery *query = [PFQuery queryWithClassName:@"eventList"];
-        [query getObjectInBackgroundWithId:objectID block:^(PFObject *object, NSError *error) {
-            [object incrementKey:@"appViews"];
-            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!succeeded) {
-                    [object saveEventually];
-                }
-            }];
-        }];
     }
 }
 

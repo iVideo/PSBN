@@ -92,7 +92,7 @@
         [cell setObject:[games objectAtIndex:indexPath.row]];
         
         return cell;
-    } else if ([queryClassName isEqualToString:@"volleyballScores"]) {
+    } else if ([queryClassName isEqualToString:@"Volleyball_Scores"]) {
         [collectionView registerClass:[PSBNVolleyball class] forCellWithReuseIdentifier:CellIdentifier];
         PSBNVolleyball *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         // Configure the cell...

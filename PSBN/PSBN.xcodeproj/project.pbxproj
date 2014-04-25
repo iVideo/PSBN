@@ -46,7 +46,6 @@
 		1745CE6918E7CAFC00C33DD3 /* Peoria@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */; };
 		1745CE6A18E7CAFC00C33DD3 /* Kellis.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6618E7CAFC00C33DD3 /* Kellis.png */; };
 		1745CE6B18E7CAFC00C33DD3 /* Kellis@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1745CE6718E7CAFC00C33DD3 /* Kellis@2x.png */; };
-		1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */; };
 		175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 175F998118E4BEDE00C0D880 /* PSBNScoreboard.m */; };
 		1765120018C05F8700657C04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176511FF18C05F8700657C04 /* AudioToolbox.framework */; };
 		1765120418C05FA700657C04 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120318C05FA700657C04 /* CoreLocation.framework */; };
@@ -54,6 +53,7 @@
 		1765120818C05FC700657C04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120718C05FC700657C04 /* SystemConfiguration.framework */; };
 		1765120B18C0608C00657C04 /* UITabBarPodcasts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */; };
 		1765120C18C0608C00657C04 /* UITabBarPodcasts.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120A18C0608C00657C04 /* UITabBarPodcasts.png */; };
+		17A024E8190870AB000EFB25 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A024E7190870AB000EFB25 /* PSBNTheaterList.m */; };
 		17B68EA518BEBA26006A67D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA418BEBA26006A67D3 /* Foundation.framework */; };
 		17B68EA718BEBA26006A67D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */; };
 		17B68EA918BEBA26006A67D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA818BEBA26006A67D3 /* UIKit.framework */; };
@@ -198,8 +198,6 @@
 		1745CE6518E7CAFC00C33DD3 /* Peoria@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Peoria@2x.png"; sourceTree = "<group>"; };
 		1745CE6618E7CAFC00C33DD3 /* Kellis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Kellis.png; sourceTree = "<group>"; };
 		1745CE6718E7CAFC00C33DD3 /* Kellis@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Kellis@2x.png"; sourceTree = "<group>"; };
-		1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
-		1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		175F998018E4BEDE00C0D880 /* PSBNScoreboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreboard.h; sourceTree = "<group>"; };
 		175F998118E4BEDE00C0D880 /* PSBNScoreboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNScoreboard.m; sourceTree = "<group>"; };
 		176511FF18C05F8700657C04 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -209,6 +207,8 @@
 		1765120718C05FC700657C04 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarPodcasts@2x.png"; sourceTree = "<group>"; };
 		1765120A18C0608C00657C04 /* UITabBarPodcasts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarPodcasts.png; sourceTree = "<group>"; };
+		17A024E6190870AB000EFB25 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
+		17A024E7190870AB000EFB25 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		17B68EA118BEBA26006A67D3 /* PSBN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSBN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B68EA418BEBA26006A67D3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -432,8 +432,8 @@
 			children = (
 				17B68EB318BEBA27006A67D3 /* PSBNAppDelegate.h */,
 				17B68EB418BEBA27006A67D3 /* PSBNAppDelegate.m */,
-				1746C5B318DB5C9F00B4E714 /* PSBNTheaterList.h */,
-				1746C5B418DB5C9F00B4E714 /* PSBNTheaterList.m */,
+				17A024E6190870AB000EFB25 /* PSBNTheaterList.h */,
+				17A024E7190870AB000EFB25 /* PSBNTheaterList.m */,
 				17B68EDE18BEBC6D006A67D3 /* PSBNTheaterPlayer.h */,
 				17B68EEB18BEBC6D006A67D3 /* PSBNTheaterPlayer.m */,
 				17B68EE418BEBC6D006A67D3 /* PSBNMoviePlayerController.h */,
@@ -827,10 +827,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1745CE1F18E7AAF200C33DD3 /* TTSlidingPageTitle.m in Sources */,
-				1746C5B518DB5C9F00B4E714 /* PSBNTheaterList.m in Sources */,
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */,
+				17A024E8190870AB000EFB25 /* PSBNTheaterList.m in Sources */,
 				1745CE2C18E7B75000C33DD3 /* PSBNScoreCenterChild.m in Sources */,
 				1745CE0718E7A29F00C33DD3 /* PSBNBasketball.m in Sources */,
 				1745CE2018E7AAF200C33DD3 /* TTScrollViewWrapper.m in Sources */,

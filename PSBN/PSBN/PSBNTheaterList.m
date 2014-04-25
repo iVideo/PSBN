@@ -2,7 +2,7 @@
 //  PSBNTheaterList.m
 //  PSBN
 //
-//  Created by Victor Ilisei on 3/20/14.
+//  Created by Victor Ilisei on 4/23/14.
 //  Copyright (c) 2014 Tech Genius. All rights reserved.
 //
 
@@ -21,14 +21,16 @@
         self.tabBarItem.image = [UIImage imageNamed:@"theater"];
         
         // this will appear as the title in the navigation bar
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-        label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:@"Tahoma-Bold" size:21.0f];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor whiteColor];
-        self.navigationItem.titleView = label;
-        label.text = self.title;
-        [label sizeToFit];
+        @autoreleasepool {
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+            label.backgroundColor = [UIColor clearColor];
+            label.font = [UIFont fontWithName:@"Tahoma-Bold" size:21.0f];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.textColor = [UIColor whiteColor];
+            self.navigationItem.titleView = label;
+            label.text = self.title;
+            [label sizeToFit];
+        }
     }
     return self;
 }
@@ -42,426 +44,96 @@
     }
     
     // Setup refresh control
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.tintColor = [UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f];
-    [refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refreshControl;
+    @autoreleasepool {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        refreshControl.tintColor = [UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f];
+        [refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+        self.refreshControl = refreshControl;
+    }
+    [self refresh];
     
     // Setup tableview color
     self.tableView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
-    
-    /*
-    PFObject *object = [PFObject objectWithClassName:@"softballScores"];
-    object[@"homeTeam"] = @"Kellis";
-    object[@"awayTeam"] = @"Peoria";
-    object[@"gameDate"] = [NSDate date];
-    
-    object[@"home1"] = @0;
-    object[@"home2"] = @0;
-    object[@"home3"] = @0;
-    object[@"home4"] = @0;
-    object[@"home5"] = @0;
-    object[@"home6"] = @0;
-    object[@"home7"] = @0;
-    object[@"home8"] = @0;
-    object[@"home9"] = @0;
-    
-    object[@"away1"] = @0;
-    object[@"away2"] = @0;
-    object[@"away3"] = @0;
-    object[@"away4"] = @0;
-    object[@"away5"] = @0;
-    object[@"away6"] = @0;
-    object[@"away7"] = @0;
-    object[@"away8"] = @0;
-    object[@"away9"] = @0;
-    
-    object[@"homeR"] = @0;
-    object[@"homeH"] = @0;
-    object[@"homeE"] = @0;
-    object[@"homeOverall"] = @0;
-    
-    object[@"awayR"] = @0;
-    object[@"awayH"] = @0;
-    object[@"awayE"] = @0;
-    object[@"awayOverall"] = @0;
-    
-    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"Saved");
+}
+
+- (UIColor *)lighterColor:(UIColor *)baseColor {
+    @autoreleasepool {
+        CGFloat h, s, b, a;
+        if ([baseColor getHue:&h saturation:&s brightness:&b alpha:&a]) {
+            return [UIColor colorWithHue:h saturation:s brightness:MIN(b * 1.5f, 0.65f) alpha:a];
         } else {
-            NSLog(@"Error %@", error.localizedDescription);
+            return nil;
         }
-    }];
-     */
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self refresh];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    self.navigationController.toolbarHidden = YES;
+    }
 }
 
 - (void)refresh {
+    // Animate start
     [self.refreshControl beginRefreshing];
-    @autoreleasepool {
-        PFQuery *livestreamQuery = [PFQuery queryWithClassName:@"livestreamAvailable"];
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
-            [livestreamQuery clearCachedResult];
-        }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
-            livestreamQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
-        } else {
-            livestreamQuery.cachePolicy = kPFCachePolicyNetworkOnly;
-        }
-        [livestreamQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            if (!error) {
-                if ([[object objectForKey:@"liveBool"] boolValue]) {
-                    self.tabBarItem.badgeValue = @"";
-                } else {
-                    self.tabBarItem.badgeValue = nil;
-                }
-                customPlayerReloadInterval = [[object objectForKey:@"customPlayerUpdateInterval"] doubleValue];
-            }
-            PFQuery *eventQuery = [PFQuery queryWithClassName:@"eventList"];
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_reset"]) {
-                [eventQuery clearCachedResult];
-            }
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"cache_disable"]) {
-                eventQuery.cachePolicy = kPFCachePolicyCacheThenNetwork;
-            } else {
-                eventQuery.cachePolicy = kPFCachePolicyNetworkOnly;
-            }
-            eventQuery.limit = 1000;
-            [eventQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    
+    // Clear array
+    events = [[NSMutableArray alloc] init];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        @autoreleasepool {
+            NSString *channelAPIURL = @"https://api.new.livestream.com/accounts/5145446";
+            NSData *channelAPI = [NSData dataWithContentsOfURL:[NSURL URLWithString:channelAPIURL]];
+            NSError *channelError;
+            NSDictionary *channelContent = [NSJSONSerialization JSONObjectWithData:channelAPI options:kNilOptions error:&channelError];
+            if (channelError) {
                 @autoreleasepool {
-                    if (!error) {
-                        feedContent = [[NSMutableArray alloc] init];
-                        [self.tableView reloadData];
-                        NSMutableArray *section1 = [[NSMutableArray alloc] init];
-                        for (PFObject *object in objects) {
-                            @autoreleasepool {
-                                [section1 addObject:object];
-                            }
-                        }
-                        [section1 sortUsingComparator:^NSComparisonResult(id dict1, id dict2) {
-                            NSDate *date1 = [(PFObject *)dict1 objectForKey:@"filmedOn"];
-                            NSDate *date2 = [(PFObject *)dict2 objectForKey:@"filmedOn"];
-                            return [date2 compare:date1];
-                        }];
-                        [feedContent addObject:section1];
-                        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"improve_enabled"]) {
-                            [self improve];
-                        }
-                        [self.refreshControl endRefreshing];
-                        [self.tableView reloadData];
-                    }
+                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:channelError.localizedFailureReason message:channelError.localizedDescription delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                    [errorAlert show];
                 }
-            }];
-        }];
-    }
-}
-
-- (void)improve {
-    @autoreleasepool {
-        for (NSMutableArray *section in feedContent) {
-            @autoreleasepool {
-                for (PFObject *object in section) {
-                    @autoreleasepool {
-                        // Posters
-                        NSURL *eventPageURL = [NSURL URLWithString:[object objectForKey:@"eventPage"]];
-                        // Poster iPad Retina
-                        if ([object objectForKey:@"posterURLretina"] == nil) {
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                NSError *error;
-                                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                                if (!error) {
-                                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                                    
-                                    if ([components containsObject:@"geo_restriction"]) {
-                                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"400x600"];
-                                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina"];
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    }
-                                }
-                            });
-                        }
-                        
-                        // Poster iPad
-                        if ([object objectForKey:@"posterURL"] == nil) {
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                NSError *error;
-                                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                                if (!error) {
-                                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                                    
-                                    if ([components containsObject:@"geo_restriction"]) {
-                                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"];
-                                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL"];
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    }
-                                }
-                            });
-                        }
-                        
-                        // Poster iPhone Retina
-                        if ([object objectForKey:@"posterURLretina_iPhone"] == nil) {
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                NSError *error;
-                                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                                if (!error) {
-                                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                                    
-                                    if ([components containsObject:@"geo_restriction"]) {
-                                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"133x200"];
-                                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURLretina_iPhone"];
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    }
-                                }
-                            });
-                        }
-                        
-                        // Poster iPhone
-                        if ([object objectForKey:@"posterURL_iPhone"] == nil) {
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                NSError *error;
-                                NSString *sourceCode = [NSString stringWithContentsOfURL:eventPageURL encoding:NSUTF8StringEncoding error:&error];
-                                if (!error) {
-                                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                                    
-                                    if ([components containsObject:@"geo_restriction"]) {
-                                        int index = (int)([components indexOfObject:@"geo_restriction"]);
-                                        NSString *posterIpadRetinaURLretrieved = [components objectAtIndex:index-8];
-                                        NSString *posterIpadRetinaURLretrievedNoEXT = [posterIpadRetinaURLretrieved stringByDeletingPathExtension];
-                                        NSString *posterIpadRetinaURLretrievedNoEXTcorrectSize = [posterIpadRetinaURLretrievedNoEXT stringByReplacingOccurrencesOfString:@"170x255" withString:@"67x100"];
-                                        NSString *posterIpadRetinaURLretrievedCorrectSize = [posterIpadRetinaURLretrievedNoEXTcorrectSize stringByAppendingPathExtension:[posterIpadRetinaURLretrieved pathExtension]];
-                                        [object setObject:posterIpadRetinaURLretrievedCorrectSize forKey:@"posterURL_iPhone"];
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    }
-                                }
-                            });
-                        }
-                        
-                        if ([[object objectForKey:@"fallbackPlayer"] rangeOfString:@"iframe"].location != NSNotFound) {
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                NSString *originalString = [object objectForKey:@"fallbackPlayer"];
-                                
-                                NSString *edit1 = [originalString stringByReplacingOccurrencesOfString:@"<iframe src=\"" withString:@""];
-                                NSString *edit2 = [edit1 stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
-                                NSString *edit3 = [edit2 stringByReplacingOccurrencesOfString:@"autoPlay=false" withString:@"autoPlay=true"];
-                                NSString *edit4 = [edit3 stringByReplacingOccurrencesOfString:@"\" width=\"640\" height=\"360\" frameborder=\"0\" scrolling=\"no\"></iframe>" withString:@""];
-                                NSString *edit5 = [edit4 stringByReplacingOccurrencesOfString:@"\" width=\"640\" height=\"360\" frameborder=\"0\" scrolling=\"no\"> </iframe>" withString:@""];
-                                NSString *edit6 = [edit5 stringByReplacingOccurrencesOfString:@"?width=640&" withString:@"?"];
-                                NSString *edit7 = [edit6 stringByReplacingOccurrencesOfString:@"&width=640&" withString:@"&"];
-                                NSString *edit8 = [edit7 stringByReplacingOccurrencesOfString:@"&width=640" withString:@""];
-                                NSString *edit9 = [edit8 stringByReplacingOccurrencesOfString:@"?height=360&" withString:@"?"];
-                                NSString *edit10 = [edit9 stringByReplacingOccurrencesOfString:@"&height=360&" withString:@"&"];
-                                NSString *edit11 = [edit10 stringByReplacingOccurrencesOfString:@"&height=360" withString:@""];
-                                
-                                [object setObject:edit11 forKey:@"fallbackPlayer"];
-                                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                    if (error) {
-                                        NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                        [object saveEventually];
-                                    }
-                                }];
-                            });
-                        }
-                        
-                        if ([[object updatedAt] timeIntervalSinceNow] < customPlayerReloadInterval || [object objectForKey:@"customPlayer"] == nil) {
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                // Auto-crop iframe url if existant
-                                NSURL *url = [NSURL URLWithString:[object objectForKey:@"fallbackPlayer"]];
-                                NSError *error;
-                                NSString *sourceCode = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-                                
-                                if (!error) {
-                                    // Custom Player Video URL
-                                    NSArray *components = [sourceCode componentsSeparatedByString:@"\""];
-                                    
-                                    // Update views
-                                    if ([components containsObject:@"views"]) {
-                                        int index = (int)([components indexOfObject:@"views"]);
-                                        int views = [[[[components objectAtIndex:index+1] stringByReplacingOccurrencesOfString:@":" withString:@""] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-                                        
-                                        int lastViews = [[object objectForKey:@"webViews"] intValue];
-                                        [object incrementKey:@"webViews" byAmount:[NSNumber numberWithInt:views-lastViews]];
-                                        
-                                        int lastTotalViews = [[object objectForKey:@"totalViews"] intValue];
-                                        [object incrementKey:@"totalViews" byAmount:[NSNumber numberWithInt:([[object objectForKey:@"webViews"] intValue]+[[object objectForKey:@"appViews"] intValue])-lastTotalViews]];
-                                        
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    }
-                                    // Update custom player
-                                    
-                                    /// Secure url don't work
-                                    /* if ([components containsObject:@"secure_m3u8_url"]) {
-                                     int index = (int)([components indexOfObject:@"secure_m3u8_url"]);
-                                     NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                     [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                     if (error) {
-                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                     [object saveEventually];
-                                     }
-                                     }];
-                                     } else if ([components containsObject:@"m3u8_url"]) {
-                                     int index = (int)([components indexOfObject:@"m3u8_url"]);
-                                     NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                     [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                     if (error) {
-                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                     [object saveEventually];
-                                     }
-                                     }];
-                                     } else if ([components containsObject:@"secure_progressive_url_hd"]) {
-                                     int index = (int)([components indexOfObject:@"secure_progressive_url_hd"]);
-                                     NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                     [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                     if (error) {
-                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                     [object saveEventually];
-                                     }
-                                     }];
-                                     } else if ([components containsObject:@"progressive_url_hd"]) {
-                                     int index = (int)([components indexOfObject:@"progressive_url_hd"]);
-                                     NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                     [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                     if (error) {
-                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                     [object saveEventually];
-                                     }
-                                     }];
-                                     } else if ([components containsObject:@"secure_progressive_url"]) {
-                                     int index = (int)([components indexOfObject:@"secure_progressive_url"]);
-                                     NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                     [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                     if (error) {
-                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                     [object saveEventually];
-                                     }
-                                     }];
-                                     } else if ([components containsObject:@"progressive_url"]) {
-                                     int index = (int)([components indexOfObject:@"progressive_url"]);
-                                     NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                     [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                     [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                     if (error) {
-                                     NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                     [object saveEventually];
-                                     }
-                                     }];
-                                     } */
-                                    if ([components containsObject:@"m3u8_url"]) {
-                                        int index = (int)([components indexOfObject:@"m3u8_url"]);
-                                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    } else if ([components containsObject:@"progressive_url_hd"]) {
-                                        int index = (int)([components indexOfObject:@"progressive_url_hd"]);
-                                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    } else if ([components containsObject:@"progressive_url"]) {
-                                        int index = (int)([components indexOfObject:@"progressive_url"]);
-                                        NSString *customPlayerURLretrieved = [components objectAtIndex:index+2];
-                                        [object setObject:customPlayerURLretrieved forKey:@"customPlayer"];
-                                        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                            if (error) {
-                                                NSLog(@"error (%@) trying to improve %@. We will automatically try improving this event at a later time.", error.localizedDescription, [object objectForKey:@"title"]);
-                                                [object saveEventually];
-                                            }
-                                        }];
-                                    }
-                                    
-                                    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                        if (!succeeded) {
-                                            [object saveEventually];
-                                        }
-                                    }];
-                                }
-                            });
-                        }
-                    }
+            } else {
+                @autoreleasepool {
+                    NSDictionary *allEvents = [channelContent objectForKey:@"upcoming_events"];
+                    
+                    [events addObject:[allEvents objectForKey:@"data"]];
                 }
+                
+                @autoreleasepool {
+                    NSDictionary *allEvents = [channelContent objectForKey:@"past_events"];
+                    
+                    [events addObject:[allEvents objectForKey:@"data"]];
+                }
+                
             }
         }
-    }
+        
+        // Update table
+        [self.tableView reloadData];
+        // Animate end
+        [self.refreshControl endRefreshing];
+    });
 }
 
 #pragma mark - Table view data source
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Upcoming & Live Events";
+    } else {
+        return @"Archived Events";
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        // return 300-(300/3);
         return 300;
     } else {
-        // return 100-(100/3);
         return 100;
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return [feedContent count];
+    return [events count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [[feedContent objectAtIndex:section] count];
+    return [[events objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -472,31 +144,40 @@
     }
     // Configure the cell...
     @autoreleasepool {
-        UIView *selectedView = [[UIView alloc] initWithFrame:cell.frame];
-        selectedView.backgroundColor = [UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f];
+        float cellHeight;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            cellHeight = 300.0f;
+        } else {
+            cellHeight = 100.0f;
+        }
+        UIView *selectedView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cellHeight)];
+        @autoreleasepool {
+            CAGradientLayer *gradient = [CAGradientLayer layer];
+            gradient.frame = selectedView.frame;
+            gradient.colors = @[(id)[UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f].CGColor, (id)[self lighterColor:[self lighterColor:[UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f]]].CGColor];
+            [selectedView.layer addSublayer:gradient];
+        }
         cell.selectedBackgroundView = selectedView;
-        
-        PFObject *object = [[feedContent objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        
-        // Async loading of posters
+    }
+    
+    @autoreleasepool {
         NSURL *url;
-        if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0)) {
-            // Retina
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                url = [NSURL URLWithString:[object objectForKey:@"posterURLretina"]];
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            if ([[UIScreen mainScreen] scale] == 2.00) {
+                url = [NSURL URLWithString:[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
             } else {
-                url = [NSURL URLWithString:[object objectForKey:@"posterURLretina_iPhone"]];
+                url = [NSURL URLWithString:[[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
             }
         } else {
-            // Non-Retina
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                url = [NSURL URLWithString:[object objectForKey:@"posterURL"]];
+            if ([[UIScreen mainScreen] scale] == 2.00) {
+                url = [NSURL URLWithString:[[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"133x200"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
             } else {
-                url = [NSURL URLWithString:[object objectForKey:@"posterURL_iPhone"]];
+                url = [NSURL URLWithString:[[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"67x100"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
             }
         }
-        NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
         
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             cell.imageView.image = nil;
             if (!error) {
@@ -511,57 +192,39 @@
             }
             [cell setNeedsLayout];
         }];
-        
-        cell.textLabel.text = [object objectForKey:@"title"];
-        cell.textLabel.numberOfLines = 3;
-        
+    }
+    
+    cell.textLabel.text = [[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"full_name"];
+    cell.textLabel.numberOfLines = 3;
+    
+    @autoreleasepool {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
+        NSDate *date = [dateFormatter dateFromString:[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"start_time"]];
+        
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        cell.detailTextLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"filmedOn"]];
-        cell.detailTextLabel.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
-        
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.detailTextLabel.text = [dateFormatter stringFromDate:date];
     }
+    cell.detailTextLabel.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    PSBNTheaterPlayer *player = [[PSBNTheaterPlayer alloc] init];
+    player.title = [[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"full_name"];
+    player.eventID = [[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"id"] longValue];
     @autoreleasepool {
-        PFObject *object = [[feedContent objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:[object objectId] forKey:@"videoChosen"];
-        
-        PSBNTheaterPlayer *player = [[PSBNTheaterPlayer alloc] init];
-        player.title = [object objectForKey:@"title"];
-        
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        [self.navigationController pushViewController:player animated:YES];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
+        player.eventDate = [dateFormatter dateFromString:[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"start_time"]];
     }
+    [self.navigationController pushViewController:player animated:YES];
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
 @end

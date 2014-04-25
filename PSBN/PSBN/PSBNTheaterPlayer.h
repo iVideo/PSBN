@@ -9,13 +9,8 @@
 #import "PSBNMoviePlayerController.h"
 
 @interface PSBNTheaterPlayer : UIViewController {
-    NSString *objectID;
-    
     int playerHeight;
     float viewPadding;
-    
-    NSURL *customPlayerURL;
-    NSURL *fallbackPlayerURL;
     
     UIActivityIndicatorView *loadingWheel;
     
@@ -25,9 +20,13 @@
     UIImageView *poster;
     UIImageView *posterMask;
     UILabel *eventName;
-    UILabel *eventDate;
+    UILabel *eventDateLabel;
 }
 
+@property (nonatomic) long eventID;
+@property (nonatomic, retain) NSDate *eventDate;
+
+- (void)refresh;
 - (void)readyToPlay:(NSNotification *)notification;
 - (void)fallbackWithNotification:(NSNotification *)notification;
 

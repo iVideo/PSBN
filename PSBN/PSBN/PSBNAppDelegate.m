@@ -94,7 +94,7 @@
         self.tabBarController = [[UITabBarController alloc] init];
         self.tabBarController.delegate = self;
         if (devMode) {
-            self.tabBarController.viewControllers = @[theaterListNavController, radioNavController, scoresNavController, scoreCenterController];
+            self.tabBarController.viewControllers = @[theaterListNavController, radioNavController, scoreCenterController];
         } else {
             self.tabBarController.viewControllers = @[theaterListNavController, scoresNavController];
         }

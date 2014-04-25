@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Tech Genius. All rights reserved.
 //
 
+#import <Parse/Parse.h>
+
 #import <MessageUI/MessageUI.h>
 #import "PSBNRadio.h"
 

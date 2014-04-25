@@ -13,6 +13,7 @@
 - (void)setObject:(PFObject *)object {
     self.objectColor = [UIColor colorWithRed:228/255.0f green:100/255.f blue:0.0f alpha:1.0f];
     [super setObject:object];
+    [self writeFooterWithType:@"quarter"];
 }
 
 - (void)fillInScores {

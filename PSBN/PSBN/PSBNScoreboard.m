@@ -21,7 +21,6 @@
     [self writeHeader];
     [self createTeamIcons];
     [self fillInScores];
-    [self writeFooter];
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
@@ -84,7 +83,7 @@
     }
 }
 
-- (void)writeFooter {
+- (void)writeFooterWithType:(NSString *)type {
     @autoreleasepool {
         UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.frame.size.height-21, self.frame.size.width, 21)];
         footerLabel.backgroundColor = self.objectColor;
@@ -97,7 +96,7 @@
         NSDateFormatter *lastUpdatedFormatter2 = [[NSDateFormatter alloc] init];
         [lastUpdatedFormatter2 setTimeStyle:NSDateFormatterShortStyle];
         
-        footerLabel.text = [NSString stringWithFormat:@"%@ - %@ - U: %@", [lastUpdatedFormatter1 stringFromDate:self.scoreObject[@"gameDate"]], self.scoreObject[@"quarter"], [lastUpdatedFormatter2 stringFromDate:self.scoreObject.updatedAt]];
+        footerLabel.text = [NSString stringWithFormat:@"%@ - %@ - U: %@", [lastUpdatedFormatter1 stringFromDate:self.scoreObject[@"gameDate"]], self.scoreObject[type], [lastUpdatedFormatter2 stringFromDate:self.scoreObject.updatedAt]];
         footerLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:footerLabel];
     }

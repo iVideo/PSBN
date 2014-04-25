@@ -14,6 +14,9 @@
     
     UIActivityIndicatorView *loadingWheel;
     
+    UILabel *upcomingDescription;
+    NSTimer *refreshTimer;
+    
     PSBNMoviePlayerController *customPlayer;
     UIWebView *fallbackPlayer;
     
@@ -27,6 +30,9 @@
 @property (nonatomic, retain) NSDate *eventDate;
 
 - (void)refresh;
+
+- (void)updateTimeUntilEvent;
+
 - (void)readyToPlay:(NSNotification *)notification;
 - (void)fallbackWithNotification:(NSNotification *)notification;
 

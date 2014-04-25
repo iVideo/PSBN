@@ -38,6 +38,23 @@
     
     if ([self.eventDate timeIntervalSinceNow] > 0) {
         // Future Event
+        @autoreleasepool {
+            UILabel *upcomingTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2-21, self.navigationController.view.frame.size.width, 21)];
+            upcomingTitle.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
+            upcomingTitle.font = [UIFont boldSystemFontOfSize:18.0f];
+            upcomingTitle.textAlignment = NSTextAlignmentCenter;
+            upcomingTitle.text = @"Coming Soon";
+            [self.view addSubview:upcomingTitle];
+        }
+        
+        @autoreleasepool {
+            upcomingDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, 21)];
+            upcomingDescription.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
+            upcomingDescription.font = [UIFont systemFontOfSize:16.0f];
+            upcomingDescription.textAlignment = NSTextAlignmentCenter;
+            [self updateTimeUntilEvent];
+            [self.view addSubview:upcomingDescription];
+        }
     } else {
         // Past Event
         loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -97,10 +114,30 @@
                 [errorAlert show];
             }
         } else {
-            if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]) {
+            if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_m3u8_url"]]) {
+                customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
+                
+                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_m3u8_url"]]];
+            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"m3u8_url"]]) {
+                customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
+                
+                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"m3u8_url"]]];
+            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]) {
+                customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
+                
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]];
-            } else {
+            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url_hd"]]) {
+                customPlayer.movieSourceType = MPMovieSourceTypeFile;
+                
+                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url_hd"]]];
+            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url"]]) {
+                customPlayer.movieSourceType = MPMovieSourceTypeFile;
+                
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url"]]];
+            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url"]]) {
+                customPlayer.movieSourceType = MPMovieSourceTypeFile;
+                
+                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url"]]];
             }
             [customPlayer prepareToPlay];
             
@@ -130,6 +167,28 @@
             }
         }
     }
+}
+
+- (void)updateTimeUntilEvent {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        // Stop timer
+        [refreshTimer invalidate];
+        refreshTimer = nil;
+        
+        @autoreleasepool {
+            NSTimeInterval timeFromNow = [self.eventDate timeIntervalSinceNow];
+            
+            NSTimeInterval days = timeFromNow/86400.0f;
+            NSTimeInterval hours = (timeFromNow-days*86400.0f)/3600.0f;
+            NSTimeInterval minutes = ((timeFromNow-days*86400.0f)-hours*3600.0f)/60.0f;
+            NSTimeInterval seconds = ((timeFromNow-days*86400.0f)-hours*3600.0f)-minutes*6.0f;
+            
+            upcomingDescription.text = [NSString stringWithFormat:@"%.fd %.fh %.fm %.fs", days, hours, minutes, seconds];
+        }
+        
+        // Start timer
+        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
+    });
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -229,7 +288,7 @@
             NSNumber *errorNumber = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
             NSError *error = [[notification userInfo] objectForKey:@"error"];
             
-            UILabel *errorDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, 21)];
+            UILabel *errorDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, 42)];
             errorDescription.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
             errorDescription.font = [UIFont systemFontOfSize:16.0f];
             errorDescription.textAlignment = NSTextAlignmentCenter;

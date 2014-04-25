@@ -8,24 +8,6 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Help Improve PSBN</string>
-			<key>FooterText</key>
-			<string>By turning this on, you will help improve the app experience for everyone. No user info will be collected and stored by participating. Turning this off may increase loading performance.</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Participate</string>
-			<key>Key</key>
-			<string>improve_enabled</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
 			<string>Cache</string>
 			<key>FooterText</key>
 			<string>Uses this to control the application cache.</string>

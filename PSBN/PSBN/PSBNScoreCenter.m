@@ -22,6 +22,8 @@
         self.disableUIPageControl = YES;
         if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
             self.titleScrollerHeight = 64;
+            self.hideStatusBarWhenScrolling = YES;
+            self.triangleBackgroundColour = [UIColor clearColor];
         } else {
             self.titleScrollerHeight = 44;
         }
@@ -33,8 +35,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor blackColor];
-    self.navigationController.navigationBarHidden = YES;
-    self.view.layer.masksToBounds = YES;
     self.dataSource = self;
     self.delegate = self;
     
@@ -50,7 +50,7 @@
 }
 
 - (int)numberOfPagesForSlidingPagesViewController:(TTScrollSlidingPagesController *)source {
-    return [pageArray count];
+    return (int)[pageArray count];
 }
 
 - (TTSlidingPageTitle *)titleForSlidingPagesViewController:(TTScrollSlidingPagesController *)source atIndex:(int)index {

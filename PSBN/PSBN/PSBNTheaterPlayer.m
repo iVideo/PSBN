@@ -114,30 +114,42 @@
                 [errorAlert show];
             }
         } else {
-            if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_m3u8_url"]]) {
+            if ([NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"secure_m3u8_url"]]) {
+                
                 customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
                 
-                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_m3u8_url"]]];
-            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"m3u8_url"]]) {
+                [customPlayer setContentURL:[NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"secure_m3u8_url"]]];
+                      
+            } else if ([NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"m3u8_url"]]) {
+                
                 customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
                 
-                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"m3u8_url"]]];
+                [customPlayer setContentURL:[NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"m3u8_url"]]];
+                
             } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]) {
+                
                 customPlayer.movieSourceType = MPMovieSourceTypeFile;
                 
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]];
+                
             } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url_hd"]]) {
+                
                 customPlayer.movieSourceType = MPMovieSourceTypeFile;
                 
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url_hd"]]];
+                
             } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url"]]) {
+                
                 customPlayer.movieSourceType = MPMovieSourceTypeFile;
                 
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url"]]];
+                
             } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url"]]) {
+                
                 customPlayer.movieSourceType = MPMovieSourceTypeFile;
                 
                 [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url"]]];
+                
             }
             [customPlayer prepareToPlay];
             

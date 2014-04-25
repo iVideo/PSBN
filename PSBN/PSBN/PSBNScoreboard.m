@@ -96,7 +96,7 @@
         NSDateFormatter *lastUpdatedFormatter2 = [[NSDateFormatter alloc] init];
         [lastUpdatedFormatter2 setTimeStyle:NSDateFormatterShortStyle];
         
-        footerLabel.text = [NSString stringWithFormat:@"%@ - %@ - U: %@", [lastUpdatedFormatter1 stringFromDate:self.scoreObject[@"gameDate"]], self.scoreObject[type], [lastUpdatedFormatter2 stringFromDate:self.scoreObject.updatedAt]];
+        footerLabel.text = [NSString stringWithFormat:@"%@ - %@ - UPD: %@", [lastUpdatedFormatter1 stringFromDate:self.scoreObject[@"gameDate"]], self.scoreObject[type], [lastUpdatedFormatter2 stringFromDate:self.scoreObject.updatedAt]];
         footerLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:footerLabel];
     }

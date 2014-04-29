@@ -18,7 +18,6 @@
     NSTimer *refreshTimer;
     
     PSBNMoviePlayerController *customPlayer;
-    UIWebView *fallbackPlayer;
     
     UIImageView *poster;
     UIImageView *posterMask;
@@ -30,8 +29,6 @@
 @property (nonatomic, retain) NSDate *eventDate;
 
 - (void)refresh;
-
-- (void)updateTimeUntilEvent;
 
 - (void)readyToPlay:(NSNotification *)notification;
 - (void)fallbackWithNotification:(NSNotification *)notification;

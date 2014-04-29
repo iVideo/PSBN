@@ -10,6 +10,7 @@
 
 @implementation PSBNMoviePlayerController
 
+/*
 - (id)initWithContentURL:(NSURL *)url {
     self = [super initWithContentURL:url];
     if (self) {
@@ -29,5 +30,6 @@
         }
     }
 }
+ */
 
 @end

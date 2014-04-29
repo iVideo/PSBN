@@ -52,7 +52,6 @@
             upcomingDescription.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
             upcomingDescription.font = [UIFont systemFontOfSize:16.0f];
             upcomingDescription.textAlignment = NSTextAlignmentCenter;
-            [self updateTimeUntilEvent];
             [self.view addSubview:upcomingDescription];
         }
     } else {
@@ -66,7 +65,6 @@
         [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
         customPlayer.view.backgroundColor = self.view.backgroundColor;
         customPlayer.controlStyle = MPMovieControlStyleEmbedded;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readyToPlay:) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     }
     
     poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
@@ -114,42 +112,45 @@
                 [errorAlert show];
             }
         } else {
-            if ([NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"secure_m3u8_url"]]) {
+            NSDictionary *stream_info = [eventContent objectForKey:@"stream_info"];
+            NSLog(@"%@", stream_info);
+            NSDictionary *feed = [eventContent objectForKey:@"feed"];
+            
+            if (stream_info == [NSNull null]) {
+                customPlayer.movieSourceType = MPMovieSourceTypeFile;
                 
+                NSArray *data = [feed objectForKey:@"data"];
+                NSDictionary *firstPost = [data firstObject];
+                NSDictionary *postData = [firstPost objectForKey:@"data"];
+                
+                NSString *secureHD = [postData objectForKey:@"secure_progressive_url_hd"];
+                NSString *normalHD = [postData objectForKey:@"progressive_url_hd"];
+                NSString *secureSD = [postData objectForKey:@"secure_progressive_url"];
+                NSString *normalSD = [postData objectForKey:@"progressive_url"];
+                
+                if (secureHD) {
+                    [customPlayer setContentURL:[NSURL URLWithString:secureHD]];
+                } else if (normalHD) {
+                    [customPlayer setContentURL:[NSURL URLWithString:normalHD]];
+                } else if (secureSD) {
+                    [customPlayer setContentURL:[NSURL URLWithString:secureSD]];
+                } else if (normalSD) {
+                    [customPlayer setContentURL:[NSURL URLWithString:normalSD]];
+                }
+            } else {
+                NSLog(@"Called");
                 customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
                 
-                [customPlayer setContentURL:[NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"secure_m3u8_url"]]];
-                      
-            } else if ([NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"m3u8_url"]]) {
+                NSString *secureM3U8 = [stream_info objectForKey:@"secure_m3u8_url"];
+                NSString *normalM3U8 = [stream_info objectForKey:@"m3u8_url"];
                 
-                customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
-                
-                [customPlayer setContentURL:[NSURL URLWithString:[[eventContent objectForKey:@"stream_info"] objectForKey:@"m3u8_url"]]];
-                
-            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]) {
-                
-                customPlayer.movieSourceType = MPMovieSourceTypeFile;
-                
-                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url_hd"]]];
-                
-            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url_hd"]]) {
-                
-                customPlayer.movieSourceType = MPMovieSourceTypeFile;
-                
-                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url_hd"]]];
-                
-            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url"]]) {
-                
-                customPlayer.movieSourceType = MPMovieSourceTypeFile;
-                
-                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"secure_progressive_url"]]];
-                
-            } else if ([NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url"]]) {
-                
-                customPlayer.movieSourceType = MPMovieSourceTypeFile;
-                
-                [customPlayer setContentURL:[NSURL URLWithString:[[[[[eventContent objectForKey:@"feed"] objectForKey:@"data"] firstObject] objectForKey:@"data"] objectForKey:@"progressive_url"]]];
-                
+                if (secureM3U8) {
+                    NSLog(@"secureM3U8 %@", secureM3U8);
+                    [customPlayer setContentURL:[NSURL URLWithString:secureM3U8]];
+                } else if (normalM3U8) {
+                    NSLog(@"normalM3U8 %@", normalM3U8);
+                    [customPlayer setContentURL:[NSURL URLWithString:normalM3U8]];
+                }
             }
             [customPlayer prepareToPlay];
             
@@ -179,28 +180,6 @@
             }
         }
     }
-}
-
-- (void)updateTimeUntilEvent {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        // Stop timer
-        [refreshTimer invalidate];
-        refreshTimer = nil;
-        
-        @autoreleasepool {
-            NSTimeInterval timeFromNow = [self.eventDate timeIntervalSinceNow];
-            
-            NSTimeInterval days = timeFromNow/86400.0f;
-            NSTimeInterval hours = (timeFromNow-days*86400.0f)/3600.0f;
-            NSTimeInterval minutes = ((timeFromNow-days*86400.0f)-hours*3600.0f)/60.0f;
-            NSTimeInterval seconds = ((timeFromNow-days*86400.0f)-hours*3600.0f)-minutes*6.0f;
-            
-            upcomingDescription.text = [NSString stringWithFormat:@"%.fd %.fh %.fm %.fs", days, hours, minutes, seconds];
-        }
-        
-        // Start timer
-        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
-    });
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -261,17 +240,13 @@
         [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
     }
     
-    if (fallbackPlayer != nil) {
-        [fallbackPlayer setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
-    }
-    
-    [poster setFrame:CGRectMake(0, playerHeight+5, 100, 150)];
+    [poster setFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
     
     [posterMask setFrame:poster.frame];
     
-    [eventName setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
+    [eventName setFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, viewPadding+playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 63)];
     
-    [eventDateLabel setFrame:CGRectMake(poster.frame.size.width+5, playerHeight+10+21+5, self.navigationController.view.frame.size.width-poster.frame.size.width-5, 21)];
+    [eventDateLabel setFrame:CGRectMake(poster.frame.size.width+viewPadding, playerHeight+viewPadding+eventName.frame.size.height+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
 }
 
 - (void)readyToPlay:(NSNotification *)notification {

@@ -50,8 +50,8 @@
         
         [self.window setTintColor:[UIColor colorWithRed:229/255.0f green:46/255.0f blue:23/255.0f alpha:1.0f]];
         
-        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
-        [radioNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
+        // [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
+        // [radioNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
         [theaterListNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS7"] forBarMetrics:UIBarMetricsDefault];
     } else {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBarTile_iOS6"] forBarMetrics:UIBarMetricsDefault];
@@ -91,16 +91,17 @@
         }
         
         self.tabBarController.tabBar.selectedImageTintColor = [UIColor whiteColor];
-        self.tabBarController.tabBar.backgroundImage = [UIImage imageNamed:@"black"];
+        if ([[[UIDevice currentDevice] systemVersion] intValue] < 7) {
+            self.tabBarController.tabBar.backgroundImage = [UIImage imageNamed:@"black"];
+        } else {
+            self.tabBarController.tabBar.barStyle = UIBarStyleBlack;
+            self.tabBarController.tabBar.tintColor = [UIColor whiteColor];
+        }
         
         theaterListNavController.navigationBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
         radioNavController.navigationBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
         
         self.tabBarController.tabBar.shadowImage = [UIImage imageNamed:@"navBarShadow_iPhone"];
-        
-        if ([[[UIDevice currentDevice] systemVersion] intValue] >= 7) {
-            self.tabBarController.tabBar.tintColor = [UIColor whiteColor];
-        }
         
         // [self addCenterButtonWithImage:[UIImage imageNamed:@"cameraIcon_iPhone"] highlightImage:nil];
         

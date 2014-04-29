@@ -14,6 +14,7 @@
     
     UIActivityIndicatorView *loadingWheel;
     
+    UILabel *upcomingTitle;
     UILabel *upcomingDescription;
     NSTimer *refreshTimer;
     
@@ -29,6 +30,8 @@
 @property (nonatomic, retain) NSDate *eventDate;
 
 - (void)refresh;
+
+- (void)updateLiveTimer;
 
 - (void)readyToPlay:(NSNotification *)notification;
 - (void)fallbackWithNotification:(NSNotification *)notification;

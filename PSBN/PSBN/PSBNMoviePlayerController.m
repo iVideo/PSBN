@@ -10,6 +10,10 @@
 
 @implementation PSBNMoviePlayerController
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 /*
 - (id)initWithContentURL:(NSURL *)url {
     self = [super initWithContentURL:url];

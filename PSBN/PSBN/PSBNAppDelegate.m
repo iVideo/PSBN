@@ -111,6 +111,21 @@
     return YES;
 }
 
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    @autoreleasepool {
+        NSUInteger orientations = UIInterfaceOrientationMaskAllButUpsideDown;
+        
+        if (self.window.rootViewController) {
+            @autoreleasepool {
+                UIViewController *presentedViewController = [[(UINavigationController *)self.window.rootViewController viewControllers] lastObject];
+                orientations = [presentedViewController supportedInterfaceOrientations];
+            }
+        }
+        
+        return orientations;
+    }
+}
+
 - (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
     return NO;
 }

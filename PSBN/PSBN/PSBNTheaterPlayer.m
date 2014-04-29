@@ -14,6 +14,14 @@
 
 @implementation PSBNTheaterPlayer
 
+- (NSUInteger)supportedInterfaceOrientations {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return UIInterfaceOrientationMaskAll;
+    } else {
+        return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown);
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
@@ -39,7 +47,7 @@
     if ([self.eventDate timeIntervalSinceNow] > 0) {
         // Future Event
         @autoreleasepool {
-            UILabel *upcomingTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2-21, self.navigationController.view.frame.size.width, 21)];
+            upcomingTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2-21, self.navigationController.view.frame.size.width, 21)];
             upcomingTitle.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
             upcomingTitle.font = [UIFont boldSystemFontOfSize:18.0f];
             upcomingTitle.textAlignment = NSTextAlignmentCenter;
@@ -53,6 +61,7 @@
             upcomingDescription.font = [UIFont systemFontOfSize:16.0f];
             upcomingDescription.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:upcomingDescription];
+            [self updateLiveTimer];
         }
     } else {
         // Past Event
@@ -80,9 +89,8 @@
     
     eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 63)];
     eventName.text = self.title;
+    eventName.textAlignment = NSTextAlignmentCenter;
     eventName.numberOfLines = 3;
-    eventName.adjustsFontSizeToFitWidth = YES;
-    eventName.adjustsLetterSpacingToFitWidth = YES;
     [self.view addSubview:eventName];
     
     eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding+eventName.frame.size.height+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
@@ -92,6 +100,7 @@
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
         eventDateLabel.text = [dateFormatter stringFromDate:self.eventDate];
     }
+    eventDateLabel.textAlignment = NSTextAlignmentCenter;
     eventDateLabel.textColor = [UIColor colorWithRed:100/255.0f green:0.0f blue:0.0f alpha:1.0f];
     eventDateLabel.adjustsFontSizeToFitWidth = YES;
     eventDateLabel.adjustsLetterSpacingToFitWidth = YES;
@@ -113,10 +122,9 @@
             }
         } else {
             NSDictionary *stream_info = [eventContent objectForKey:@"stream_info"];
-            NSLog(@"%@", stream_info);
             NSDictionary *feed = [eventContent objectForKey:@"feed"];
             
-            if (stream_info == [NSNull null]) {
+            if ([stream_info isKindOfClass:[NSNull class]]) {
                 customPlayer.movieSourceType = MPMovieSourceTypeFile;
                 
                 NSArray *data = [feed objectForKey:@"data"];
@@ -138,17 +146,14 @@
                     [customPlayer setContentURL:[NSURL URLWithString:normalSD]];
                 }
             } else {
-                NSLog(@"Called");
                 customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
                 
                 NSString *secureM3U8 = [stream_info objectForKey:@"secure_m3u8_url"];
                 NSString *normalM3U8 = [stream_info objectForKey:@"m3u8_url"];
                 
                 if (secureM3U8) {
-                    NSLog(@"secureM3U8 %@", secureM3U8);
                     [customPlayer setContentURL:[NSURL URLWithString:secureM3U8]];
                 } else if (normalM3U8) {
-                    NSLog(@"normalM3U8 %@", normalM3U8);
                     [customPlayer setContentURL:[NSURL URLWithString:normalM3U8]];
                 }
             }
@@ -179,6 +184,44 @@
                 }];
             }
         }
+    }
+}
+
+- (void)updateLiveTimer {
+    [refreshTimer invalidate];
+    refreshTimer = nil;
+    
+    if ([self.eventDate timeIntervalSinceNow] > 0) {
+        @autoreleasepool {
+            NSTimeInterval secondsUntilEvent = [self.eventDate timeIntervalSinceNow];
+            NSLog(@"seconds %f", secondsUntilEvent);
+            
+            NSTimeInterval days = secondsUntilEvent/86400;
+            NSTimeInterval hours = (secondsUntilEvent - days*86400)/3600;
+            NSTimeInterval minutes = (secondsUntilEvent - days*86400 - hours*3600) / 60;
+            NSTimeInterval seconds = secondsUntilEvent - days*86400 - hours*3600 - minutes*60;
+            
+            upcomingDescription.text = [NSString stringWithFormat:@"%.fd %.fh %.fm %.fs", days, hours, minutes, seconds];
+        }
+        
+        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateLiveTimer) userInfo:nil repeats:NO];
+    } else {
+        // Remove upcoming labels
+        [upcomingTitle removeFromSuperview];
+        [upcomingDescription removeFromSuperview];
+        
+        // Past Event
+        loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
+        [self.view addSubview:loadingWheel];
+        [loadingWheel startAnimating];
+        
+        customPlayer = [[PSBNMoviePlayerController alloc] init];
+        [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        customPlayer.view.backgroundColor = self.view.backgroundColor;
+        customPlayer.controlStyle = MPMovieControlStyleEmbedded;
+        
+        [self refresh];
     }
 }
 

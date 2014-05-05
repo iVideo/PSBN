@@ -82,10 +82,10 @@
     // Clear array
     events = [[NSMutableArray alloc] init];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        @autoreleasepool {
-            NSString *channelAPIURL = @"https://api.new.livestream.com/accounts/5145446";
-            NSData *channelAPI = [NSData dataWithContentsOfURL:[NSURL URLWithString:channelAPIURL]];
+    @autoreleasepool {
+        NSString *channelAPIURL = @"https://api.new.livestream.com/accounts/5145446";
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:channelAPIURL]];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *channelAPI, NSError *connectionError) {
             NSError *channelError;
             NSDictionary *channelContent = [NSJSONSerialization JSONObjectWithData:channelAPI options:kNilOptions error:&channelError];
             if (channelError) {
@@ -106,14 +106,14 @@
                     [events addObject:[allEvents objectForKey:@"data"]];
                 }
                 
+                // Update table
+                [self.tableView reloadData];
             }
-        }
-        
-        // Update table
-        [self.tableView reloadData];
-        // Animate end
-        [self.refreshControl endRefreshing];
-    });
+        }];
+    }
+    
+    // Animate end
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - Table view data source

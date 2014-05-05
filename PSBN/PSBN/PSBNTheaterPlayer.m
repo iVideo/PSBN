@@ -56,7 +56,7 @@
         }
         
         @autoreleasepool {
-            upcomingDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, 21)];
+            upcomingDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, playerHeight/2)];
             upcomingDescription.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
             upcomingDescription.font = [UIFont systemFontOfSize:16.0f];
             upcomingDescription.textAlignment = NSTextAlignmentCenter;
@@ -112,78 +112,80 @@
 - (void)refresh {
     @autoreleasepool {
         NSString *eventAPIURL = [NSString stringWithFormat:@"https://api.new.livestream.com/accounts/5145446/events/%ld", self.eventID];
-        NSData *eventAPI = [NSData dataWithContentsOfURL:[NSURL URLWithString:eventAPIURL]];
-        NSError *eventError;
-        NSDictionary *eventContent = [NSJSONSerialization JSONObjectWithData:eventAPI options:kNilOptions error:&eventError];
-        if (eventError) {
-            @autoreleasepool {
-                UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:eventError.localizedFailureReason message:eventError.localizedDescription delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-                [errorAlert show];
-            }
-        } else {
-            NSDictionary *stream_info = [eventContent objectForKey:@"stream_info"];
-            NSDictionary *feed = [eventContent objectForKey:@"feed"];
-            
-            if ([stream_info isKindOfClass:[NSNull class]]) {
-                customPlayer.movieSourceType = MPMovieSourceTypeFile;
-                
-                NSArray *data = [feed objectForKey:@"data"];
-                NSDictionary *firstPost = [data firstObject];
-                NSDictionary *postData = [firstPost objectForKey:@"data"];
-                
-                NSString *secureHD = [postData objectForKey:@"secure_progressive_url_hd"];
-                NSString *normalHD = [postData objectForKey:@"progressive_url_hd"];
-                NSString *secureSD = [postData objectForKey:@"secure_progressive_url"];
-                NSString *normalSD = [postData objectForKey:@"progressive_url"];
-                
-                if (secureHD) {
-                    [customPlayer setContentURL:[NSURL URLWithString:secureHD]];
-                } else if (normalHD) {
-                    [customPlayer setContentURL:[NSURL URLWithString:normalHD]];
-                } else if (secureSD) {
-                    [customPlayer setContentURL:[NSURL URLWithString:secureSD]];
-                } else if (normalSD) {
-                    [customPlayer setContentURL:[NSURL URLWithString:normalSD]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:eventAPIURL]];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *eventAPI, NSError *connectionError) {
+            NSError *eventError;
+            NSDictionary *eventContent = [NSJSONSerialization JSONObjectWithData:eventAPI options:kNilOptions error:&eventError];
+            if (eventError) {
+                @autoreleasepool {
+                    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:eventError.localizedFailureReason message:eventError.localizedDescription delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                    [errorAlert show];
                 }
             } else {
-                customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
+                NSDictionary *stream_info = [eventContent objectForKey:@"stream_info"];
+                NSDictionary *feed = [eventContent objectForKey:@"feed"];
                 
-                NSString *secureM3U8 = [stream_info objectForKey:@"secure_m3u8_url"];
-                NSString *normalM3U8 = [stream_info objectForKey:@"m3u8_url"];
-                
-                if (secureM3U8) {
-                    [customPlayer setContentURL:[NSURL URLWithString:secureM3U8]];
-                } else if (normalM3U8) {
-                    [customPlayer setContentURL:[NSURL URLWithString:normalM3U8]];
-                }
-            }
-            [customPlayer prepareToPlay];
-            
-            @autoreleasepool {
-                NSURL *url;
-                
-                if ([[UIScreen mainScreen] scale] == 2.00) {
-                    url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"]];
-                } else {
-                    url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"100x150"]];
-                }
-                
-                NSURLRequest *request = [NSURLRequest requestWithURL:url];
-                [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                    if (!error) {
-                        poster.image = [UIImage imageWithData:data];
-                    } else {
-                        // Load image error
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                            poster.image = [UIImage imageNamed:@"errorLoading"];
-                        } else {
-                            poster.image = [UIImage imageNamed:@"errorLoading_iPhone"];
-                        }
+                if ([stream_info isKindOfClass:[NSNull class]]) {
+                    customPlayer.movieSourceType = MPMovieSourceTypeFile;
+                    
+                    NSArray *data = [feed objectForKey:@"data"];
+                    NSDictionary *firstPost = [data firstObject];
+                    NSDictionary *postData = [firstPost objectForKey:@"data"];
+                    
+                    NSString *secureHD = [postData objectForKey:@"secure_progressive_url_hd"];
+                    NSString *normalHD = [postData objectForKey:@"progressive_url_hd"];
+                    NSString *secureSD = [postData objectForKey:@"secure_progressive_url"];
+                    NSString *normalSD = [postData objectForKey:@"progressive_url"];
+                    
+                    if (secureHD) {
+                        [customPlayer setContentURL:[NSURL URLWithString:secureHD]];
+                    } else if (normalHD) {
+                        [customPlayer setContentURL:[NSURL URLWithString:normalHD]];
+                    } else if (secureSD) {
+                        [customPlayer setContentURL:[NSURL URLWithString:secureSD]];
+                    } else if (normalSD) {
+                        [customPlayer setContentURL:[NSURL URLWithString:normalSD]];
                     }
-                    [self.view insertSubview:poster belowSubview:posterMask];
-                }];
+                } else {
+                    customPlayer.movieSourceType = MPMovieSourceTypeStreaming;
+                    
+                    NSString *secureM3U8 = [stream_info objectForKey:@"secure_m3u8_url"];
+                    NSString *normalM3U8 = [stream_info objectForKey:@"m3u8_url"];
+                    
+                    if (secureM3U8) {
+                        [customPlayer setContentURL:[NSURL URLWithString:secureM3U8]];
+                    } else if (normalM3U8) {
+                        [customPlayer setContentURL:[NSURL URLWithString:normalM3U8]];
+                    }
+                }
+                [customPlayer prepareToPlay];
+                
+                @autoreleasepool {
+                    NSURL *url;
+                    
+                    if ([[UIScreen mainScreen] scale] == 2.00) {
+                        url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"]];
+                    } else {
+                        url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"100x150"]];
+                    }
+                    
+                    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+                    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                        if (!error) {
+                            poster.image = [UIImage imageWithData:data];
+                        } else {
+                            // Load image error
+                            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                                poster.image = [UIImage imageNamed:@"errorLoading"];
+                            } else {
+                                poster.image = [UIImage imageNamed:@"errorLoading_iPhone"];
+                            }
+                        }
+                        [self.view insertSubview:poster belowSubview:posterMask];
+                    }];
+                }
             }
-        }
+        }];
     }
 }
 
@@ -318,11 +320,11 @@
             NSNumber *errorNumber = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
             NSError *error = [[notification userInfo] objectForKey:@"error"];
             
-            UILabel *errorDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, 42)];
+            UILabel *errorDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, playerHeight/2, self.navigationController.view.frame.size.width, playerHeight/2)];
             errorDescription.textColor = [UIColor colorWithRed:0.5f green:0.0f blue:0.0f alpha:1.0f];
             errorDescription.font = [UIFont systemFontOfSize:16.0f];
             errorDescription.textAlignment = NSTextAlignmentCenter;
-            errorDescription.numberOfLines = 2;
+            errorDescription.numberOfLines = 0;
             errorDescription.text = [NSString stringWithFormat:@"Error %d (%@)\nPlease try again later", [errorNumber intValue], error.localizedDescription];
             [self.view addSubview:errorDescription];
         }

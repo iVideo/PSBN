@@ -195,13 +195,12 @@
     
     if ([self.eventDate timeIntervalSinceNow] > 0) {
         @autoreleasepool {
-            NSTimeInterval secondsUntilEvent = [self.eventDate timeIntervalSinceNow];
-            NSLog(@"seconds %f", secondsUntilEvent);
+            NSTimeInterval secondsUntilEvent = floor([self.eventDate timeIntervalSinceNow]);
             
-            NSTimeInterval days = secondsUntilEvent/86400;
-            NSTimeInterval hours = (secondsUntilEvent - days*86400)/3600;
-            NSTimeInterval minutes = (secondsUntilEvent - days*86400 - hours*3600) / 60;
-            NSTimeInterval seconds = secondsUntilEvent - days*86400 - hours*3600 - minutes*60;
+            NSTimeInterval days = floor(secondsUntilEvent / 86400);
+            NSTimeInterval hours = floor((secondsUntilEvent - days*86400) / 3600);
+            NSTimeInterval minutes = floor((secondsUntilEvent - days*86400 - hours*3600) / 60);
+            NSTimeInterval seconds = floor(secondsUntilEvent - days*86400 - hours*3600 - minutes*60);
             
             upcomingDescription.text = [NSString stringWithFormat:@"%.fd %.fh %.fm %.fs", days, hours, minutes, seconds];
         }

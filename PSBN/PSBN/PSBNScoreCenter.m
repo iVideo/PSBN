@@ -43,6 +43,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor blackColor];
+    self.view.layer.masksToBounds = YES;
     self.dataSource = self;
     self.delegate = self;
     

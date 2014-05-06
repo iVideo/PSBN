@@ -53,8 +53,6 @@
 		1765120818C05FC700657C04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1765120718C05FC700657C04 /* SystemConfiguration.framework */; };
 		1765120B18C0608C00657C04 /* UITabBarPodcasts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */; };
 		1765120C18C0608C00657C04 /* UITabBarPodcasts.png in Resources */ = {isa = PBXBuildFile; fileRef = 1765120A18C0608C00657C04 /* UITabBarPodcasts.png */; };
-		17968152191038AC00CE0B61 /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1796814D191038AC00CE0B61 /* FBShimmeringLayer.m */; };
-		17968153191038AC00CE0B61 /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1796814F191038AC00CE0B61 /* FBShimmeringView.m */; };
 		17A024E8190870AB000EFB25 /* PSBNTheaterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A024E7190870AB000EFB25 /* PSBNTheaterList.m */; };
 		17B68EA518BEBA26006A67D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA418BEBA26006A67D3 /* Foundation.framework */; };
 		17B68EA718BEBA26006A67D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B68EA618BEBA26006A67D3 /* CoreGraphics.framework */; };
@@ -203,11 +201,6 @@
 		1765120718C05FC700657C04 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1765120918C0608C00657C04 /* UITabBarPodcasts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UITabBarPodcasts@2x.png"; sourceTree = "<group>"; };
 		1765120A18C0608C00657C04 /* UITabBarPodcasts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarPodcasts.png; sourceTree = "<group>"; };
-		1796814D191038AC00CE0B61 /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
-		1796814E191038AC00CE0B61 /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
-		1796814F191038AC00CE0B61 /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
-		17968150191038AC00CE0B61 /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
-		17968151191038AC00CE0B61 /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
 		17A024E6190870AB000EFB25 /* PSBNTheaterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNTheaterList.h; sourceTree = "<group>"; };
 		17A024E7190870AB000EFB25 /* PSBNTheaterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNTheaterList.m; sourceTree = "<group>"; };
 		17B68EA118BEBA26006A67D3 /* PSBN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSBN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,18 +378,6 @@
 			name = "School Logos";
 			sourceTree = "<group>";
 		};
-		1796814C1910389300CE0B61 /* FBShimmering */ = {
-			isa = PBXGroup;
-			children = (
-				1796814D191038AC00CE0B61 /* FBShimmeringLayer.m */,
-				1796814E191038AC00CE0B61 /* FBShimmeringView.h */,
-				1796814F191038AC00CE0B61 /* FBShimmeringView.m */,
-				17968150191038AC00CE0B61 /* FBShimmering.h */,
-				17968151191038AC00CE0B61 /* FBShimmeringLayer.h */,
-			);
-			name = FBShimmering;
-			sourceTree = "<group>";
-		};
 		17B68E9818BEBA26006A67D3 = {
 			isa = PBXGroup;
 			children = (
@@ -459,7 +440,6 @@
 		17B68EAB18BEBA26006A67D3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1796814C1910389300CE0B61 /* FBShimmering */,
 				1745CE0818E7AAD800C33DD3 /* UIScrollSlidingPages */,
 				17B68F8B18BEC07C006A67D3 /* Scoreboards */,
 				17B68F4F18BEBEB1006A67D3 /* Fonts */,
@@ -815,7 +795,6 @@
 			files = (
 				1745CE1F18E7AAF200C33DD3 /* TTSlidingPageTitle.m in Sources */,
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
-				17968152191038AC00CE0B61 /* FBShimmeringLayer.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */,
 				17A024E8190870AB000EFB25 /* PSBNTheaterList.m in Sources */,
@@ -823,7 +802,6 @@
 				1745CE0718E7A29F00C33DD3 /* PSBNBasketball.m in Sources */,
 				1745CE2018E7AAF200C33DD3 /* TTScrollViewWrapper.m in Sources */,
 				175F998218E4BEDE00C0D880 /* PSBNScoreboard.m in Sources */,
-				17968153191038AC00CE0B61 /* FBShimmeringView.m in Sources */,
 				1745CDFB18E76DDB00C33DD3 /* PSBNFootball.m in Sources */,
 				17B68EB118BEBA26006A67D3 /* main.m in Sources */,
 				17B68F0918BEBC6D006A67D3 /* PSBNTheaterPlayer.m in Sources */,

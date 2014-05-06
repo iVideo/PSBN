@@ -80,12 +80,25 @@
     [self.refreshControl beginRefreshing];
     
     // Clear array
-    events = [[NSMutableArray alloc] init];
+    if (events) {
+        for (NSMutableArray *section in events) {
+            NSMutableArray *indexesToDelete = [[NSMutableArray alloc] init];
+            for (NSDictionary *dict in section) {
+                @autoreleasepool {
+                    NSInteger index = [section indexOfObject:dict];
+                    [indexesToDelete addObject:[NSIndexPath indexPathForRow:index inSection:[events indexOfObject:section]]];
+                }
+            }
+            [section removeAllObjects];
+            [self.tableView deleteRowsAtIndexPaths:indexesToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    } else {
+        events = [[NSMutableArray alloc] initWithObjects:[[NSMutableArray alloc] init], [[NSMutableArray alloc] init], nil];
+    }
     
-    @autoreleasepool {
-        NSString *channelAPIURL = @"https://api.new.livestream.com/accounts/5145446";
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:channelAPIURL]];
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *channelAPI, NSError *connectionError) {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://api.new.livestream.com/accounts/5145446"]];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *channelAPI, NSError *connectionError) {
+        if (channelAPI) {
             NSError *channelError;
             NSDictionary *channelContent = [NSJSONSerialization JSONObjectWithData:channelAPI options:kNilOptions error:&channelError];
             if (channelError) {
@@ -94,26 +107,28 @@
                     [errorAlert show];
                 }
             } else {
-                @autoreleasepool {
-                    NSDictionary *allEvents = [channelContent objectForKey:@"upcoming_events"];
-                    
-                    [events addObject:[allEvents objectForKey:@"data"]];
+                NSDictionary *upcomingEvents = [channelContent objectForKey:@"upcoming_events"];
+                for (NSDictionary *dict in [upcomingEvents objectForKey:@"data"]) {
+                    @autoreleasepool {
+                        NSMutableArray *section1 = [events firstObject];
+                        [section1 addObject:dict];
+                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[section1 indexOfObject:dict] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }
                 }
                 
-                @autoreleasepool {
-                    NSDictionary *allEvents = [channelContent objectForKey:@"past_events"];
-                    
-                    [events addObject:[allEvents objectForKey:@"data"]];
+                NSDictionary *pastEvents = [channelContent objectForKey:@"past_events"];
+                for (NSDictionary *dict in [pastEvents objectForKey:@"data"]) {
+                    @autoreleasepool {
+                        NSMutableArray *section2 = [events lastObject];
+                        [section2 addObject:dict];
+                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[section2 indexOfObject:dict] inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }
                 }
-                
-                // Update table
-                [self.tableView reloadData];
             }
-        }];
-    }
-    
-    // Animate end
-    [self.refreshControl endRefreshing];
+            // Animate end
+            [self.refreshControl endRefreshing];
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -128,7 +143,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        return 300;
+        return 120;
     } else {
         return 100;
     }
@@ -154,11 +169,18 @@
     @autoreleasepool {
         float cellHeight;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            cellHeight = 300.0f;
+            cellHeight = 120.0f;
         } else {
             cellHeight = 100.0f;
         }
-        UIView *selectedView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cellHeight)];
+        // Landscape fix
+        float biggerWidth;
+        if (self.navigationController.view.frame.size.width > self.navigationController.view.frame.size.height) {
+            biggerWidth = self.navigationController.view.frame.size.width;
+        } else {
+            biggerWidth = self.navigationController.view.frame.size.height;
+        }
+        UIView *selectedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, biggerWidth, [tableView rectForRowAtIndexPath:indexPath].size.height)];
         @autoreleasepool {
             CAGradientLayer *gradient = [CAGradientLayer layer];
             gradient.frame = selectedView.frame;
@@ -173,9 +195,9 @@
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             if ([[UIScreen mainScreen] scale] == 2.00) {
-                url = [NSURL URLWithString:[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
+                url = [NSURL URLWithString:[[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"160x240"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
             } else {
-                url = [NSURL URLWithString:[[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
+                url = [NSURL URLWithString:[[[[[[events objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"80x120"] stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"]];
             }
         } else {
             if ([[UIScreen mainScreen] scale] == 2.00) {

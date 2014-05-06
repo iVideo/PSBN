@@ -60,7 +60,9 @@
     }
     
     // Register for push notifications
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+    if (!self.devMode) {
+        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+    }
     
     // Reset app icon badge
     if (application.applicationIconBadgeNumber > 0) {

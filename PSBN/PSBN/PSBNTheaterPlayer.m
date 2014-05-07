@@ -65,15 +65,15 @@
         }
     } else {
         // Past Event
-        loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
-        [self.view addSubview:loadingWheel];
-        [loadingWheel startAnimating];
-        
         customPlayer = [[PSBNMoviePlayerController alloc] init];
         [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
         customPlayer.view.backgroundColor = self.view.backgroundColor;
         customPlayer.controlStyle = MPMovieControlStyleEmbedded;
+        
+        loadingView = [[FBShimmeringView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        loadingViewContent = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        loadingViewContent.contentMode = UIViewContentModeScaleAspectFill;
+        loadingView.contentView = loadingViewContent;
     }
     
     poster = [[UIImageView alloc] initWithFrame:CGRectMake(viewPadding, playerHeight+viewPadding, 100, 150)];
@@ -87,13 +87,13 @@
     posterMask.image = [UIImage imageNamed:@"posterMask"];
     [self.view insertSubview:posterMask aboveSubview:poster];
     
-    eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 63)];
+    eventName = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding - viewPadding, 63)];
     eventName.text = self.title;
     eventName.textAlignment = NSTextAlignmentCenter;
     eventName.numberOfLines = 3;
     [self.view addSubview:eventName];
     
-    eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding+eventName.frame.size.height+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
+    eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, playerHeight+viewPadding+eventName.frame.size.height+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding-viewPadding, 21)];
     @autoreleasepool {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -161,27 +161,16 @@
                 [customPlayer prepareToPlay];
                 
                 @autoreleasepool {
-                    NSURL *url;
-                    
-                    if ([[UIScreen mainScreen] scale] == 2.00) {
-                        url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"200x300"]];
-                    } else {
-                        url = [NSURL URLWithString:[[[eventContent objectForKey:@"logo"] objectForKey:@"small_url"] stringByReplacingOccurrencesOfString:@"170x255" withString:@"100x150"]];
-                    }
-                    
-                    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[eventContent objectForKey:@"logo"] objectForKey:@"url"]]];
                     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
                         if (!error) {
+                            loadingViewContent.image = [[UIImage imageWithData:data] applyBlurWithRadius:10 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+                            [self.view addSubview:loadingView];
+                            loadingView.shimmering = YES;
+                            
                             poster.image = [UIImage imageWithData:data];
-                        } else {
-                            // Load image error
-                            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                                poster.image = [UIImage imageNamed:@"errorLoading"];
-                            } else {
-                                poster.image = [UIImage imageNamed:@"errorLoading_iPhone"];
-                            }
+                            [self.view insertSubview:poster belowSubview:posterMask];
                         }
-                        [self.view insertSubview:poster belowSubview:posterMask];
                     }];
                 }
             }
@@ -212,15 +201,15 @@
         [upcomingDescription removeFromSuperview];
         
         // Past Event
-        loadingWheel = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [loadingWheel setFrame:CGRectMake(self.navigationController.view.frame.size.width/2-loadingWheel.frame.size.width/2, playerHeight/2-loadingWheel.frame.size.height/2, loadingWheel.frame.size.width, loadingWheel.frame.size.height)];
-        [self.view addSubview:loadingWheel];
-        [loadingWheel startAnimating];
-        
         customPlayer = [[PSBNMoviePlayerController alloc] init];
         [customPlayer.view setFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
         customPlayer.view.backgroundColor = self.view.backgroundColor;
         customPlayer.controlStyle = MPMovieControlStyleEmbedded;
+        
+        loadingView = [[FBShimmeringView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        loadingViewContent = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.navigationController.view.frame.size.width, playerHeight)];
+        loadingViewContent.contentMode = UIViewContentModeScaleAspectFill;
+        loadingView.contentView = loadingViewContent;
         
         [self refresh];
     }
@@ -288,15 +277,15 @@
     
     [posterMask setFrame:poster.frame];
     
-    [eventName setFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, viewPadding+playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 63)];
+    [eventName setFrame:CGRectMake(viewPadding+poster.frame.size.width+viewPadding, viewPadding+playerHeight+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding-viewPadding, 63)];
     
-    [eventDateLabel setFrame:CGRectMake(poster.frame.size.width+viewPadding, playerHeight+viewPadding+eventName.frame.size.height+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding, 21)];
+    [eventDateLabel setFrame:CGRectMake(poster.frame.size.width+viewPadding, playerHeight+viewPadding+eventName.frame.size.height+viewPadding, self.navigationController.view.frame.size.width-viewPadding-poster.frame.size.width-viewPadding-viewPadding, 21)];
 }
 
 - (void)readyToPlay:(NSNotification *)notification {
     if (customPlayer.loadState == MPMovieLoadStatePlayable) {
-        [loadingWheel stopAnimating];
-        [loadingWheel removeFromSuperview];
+        loadingView.shimmering = NO;
+        [loadingView removeFromSuperview];
         [self.view addSubview:customPlayer.view];
         [customPlayer play];
     }

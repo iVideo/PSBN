@@ -6,13 +6,17 @@
 //  Copyright (c) 2013 Tech Genius. All rights reserved.
 //
 
+#import "FBShimmeringView.h"
+#import "UIImage+ImageEffects.h"
+
 #import "PSBNMoviePlayerController.h"
 
 @interface PSBNTheaterPlayer : UIViewController {
     int playerHeight;
     float viewPadding;
     
-    UIActivityIndicatorView *loadingWheel;
+    FBShimmeringView *loadingView;
+    UIImageView *loadingViewContent;
     
     UILabel *upcomingTitle;
     UILabel *upcomingDescription;

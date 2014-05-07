@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1711C53E1919B2830035B37D /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1711C53D1919B2830035B37D /* UIImage+ImageEffects.m */; };
+		1711C5451919B3330035B37D /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1711C5401919B3330035B37D /* FBShimmeringLayer.m */; };
+		1711C5461919B3330035B37D /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1711C5421919B3330035B37D /* FBShimmeringView.m */; };
 		1745CDFB18E76DDB00C33DD3 /* PSBNFootball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */; };
 		1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CDFD18E7773900C33DD3 /* PSBNScoreHeader.m */; };
 		1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */ = {isa = PBXBuildFile; fileRef = 1745CE0318E7A26D00C33DD3 /* PSBNVolleyball.m */; };
@@ -139,6 +142,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1711C53C1919B2830035B37D /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		1711C53D1919B2830035B37D /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		1711C53F1919B3330035B37D /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
+		1711C5401919B3330035B37D /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
+		1711C5411919B3330035B37D /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
+		1711C5421919B3330035B37D /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
+		1711C5431919B3330035B37D /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
 		1745CDF918E76DDB00C33DD3 /* PSBNFootball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNFootball.h; sourceTree = "<group>"; };
 		1745CDFA18E76DDB00C33DD3 /* PSBNFootball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBNFootball.m; sourceTree = "<group>"; };
 		1745CDFC18E7773900C33DD3 /* PSBNScoreHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBNScoreHeader.h; sourceTree = "<group>"; };
@@ -314,6 +324,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1711C53A1919B23F0035B37D /* UIImage+ImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				1711C53C1919B2830035B37D /* UIImage+ImageEffects.h */,
+				1711C53D1919B2830035B37D /* UIImage+ImageEffects.m */,
+			);
+			name = "UIImage+ImageEffects";
+			sourceTree = "<group>";
+		};
+		1711C53B1919B2440035B37D /* FBShimmer */ = {
+			isa = PBXGroup;
+			children = (
+				1711C53F1919B3330035B37D /* FBShimmering.h */,
+				1711C5401919B3330035B37D /* FBShimmeringLayer.m */,
+				1711C5411919B3330035B37D /* FBShimmeringView.h */,
+				1711C5421919B3330035B37D /* FBShimmeringView.m */,
+				1711C5431919B3330035B37D /* FBShimmeringLayer.h */,
+			);
+			name = FBShimmer;
+			sourceTree = "<group>";
+		};
 		1745CE0818E7AAD800C33DD3 /* UIScrollSlidingPages */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +471,8 @@
 		17B68EAB18BEBA26006A67D3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1711C53B1919B2440035B37D /* FBShimmer */,
+				1711C53A1919B23F0035B37D /* UIImage+ImageEffects */,
 				1745CE0818E7AAD800C33DD3 /* UIScrollSlidingPages */,
 				17B68F8B18BEC07C006A67D3 /* Scoreboards */,
 				17B68F4F18BEBEB1006A67D3 /* Fonts */,
@@ -794,6 +827,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1745CE1F18E7AAF200C33DD3 /* TTSlidingPageTitle.m in Sources */,
+				1711C5461919B3330035B37D /* FBShimmeringView.m in Sources */,
 				17D9F07C18C05D5900616FFE /* PSBNRadio.m in Sources */,
 				17B68F0018BEBC6D006A67D3 /* PSBNMoviePlayerController.m in Sources */,
 				1745CDFE18E7773900C33DD3 /* PSBNScoreHeader.m in Sources */,
@@ -809,7 +843,9 @@
 				17B68F0418BEBC6D006A67D3 /* PSBNCamera.m in Sources */,
 				1745CE2918E7AFED00C33DD3 /* PSBNScoreCenter.m in Sources */,
 				1745CE2118E7AAF200C33DD3 /* TTScrollSlidingPagesController.m in Sources */,
+				1711C53E1919B2830035B37D /* UIImage+ImageEffects.m in Sources */,
 				1745CE0418E7A26D00C33DD3 /* PSBNVolleyball.m in Sources */,
+				1711C5451919B3330035B37D /* FBShimmeringLayer.m in Sources */,
 				17B68EB518BEBA27006A67D3 /* PSBNAppDelegate.m in Sources */,
 				1745CE2218E7AAF200C33DD3 /* TTBlackTriangle.m in Sources */,
 			);
